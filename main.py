@@ -1,4 +1,4 @@
-#test 2 marc
+# test 2 marc
 
 import pygame
 import sys
@@ -46,12 +46,15 @@ stench_tiles = set()
 game_over = False
 win = False
 
+
 # Helper functions
 def in_bounds(x, y):
     return 0 <= x < GRID_SIZE and 0 <= y < GRID_SIZE
 
+
 def get_neighbors(x, y):
     return [(nx, ny) for nx, ny in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)] if in_bounds(nx, ny)]
+
 
 def place_random_items():
     global pits, wumpus, gold, breeze_tiles, stench_tiles
@@ -74,11 +77,13 @@ def place_random_items():
         for n in get_neighbors(wx, wy):
             stench_tiles.add(n)
 
+
 def draw_grid():
     for x in range(0, WINDOW_SIZE, TILE_SIZE):
         pygame.draw.line(screen, GRAY, (x, 0), (x, WINDOW_SIZE))
     for y in range(0, WINDOW_SIZE, TILE_SIZE):
         pygame.draw.line(screen, GRAY, (0, y), (WINDOW_SIZE, y))
+
 
 def draw_world():
     for y in range(GRID_SIZE):
@@ -107,10 +112,12 @@ def draw_world():
             # Grid border
             pygame.draw.rect(screen, GRAY, rect, 1)
 
+
 def draw_agent():
     x, y = agent_pos
     label = font.render("A", True, BLACK)
     screen.blit(label, (x * TILE_SIZE + TILE_SIZE // 4, y * TILE_SIZE + TILE_SIZE // 4))
+
 
 def draw_legend():
     legend_items = [
@@ -141,12 +148,15 @@ def draw_legend():
         label = font.render(label_text, True, BLACK)
         screen.blit(label, (start_x + 40, y + 5))
 
+
 def show_message(text, color):
     label = font.render(text, True, color)
     screen.blit(label, (10, 10))
 
+
 # Place game items
 place_random_items()
+
 
 # Main game loop
 def game_loop():
@@ -201,6 +211,7 @@ def game_loop():
     pygame.quit()
     sys.exit()
 
+
 def reset_game():
     global agent_pos, visited, pits, wumpus, gold, breeze_tiles, stench_tiles, game_over, win
     agent_pos = [0, 0]
@@ -213,6 +224,7 @@ def reset_game():
     game_over = False
     win = False
     place_random_items()
+
 
 if __name__ == "__main__":
     game_loop()
