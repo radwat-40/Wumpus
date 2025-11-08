@@ -35,9 +35,19 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont(None, 24)
 
+
+# Agent klasse (ersetzt agent_pos liste)
+class Agent:
+    def __init__(self, x, y, role, ):
+        self.x = x
+        self.y = y
+        self.role = role
+        self.direction = 'N', 'E', 'S', 'W'
+        self.visited = set()
+
+
 # Grid setup
-agent_pos = [0, 0]
-visited = set()
+
 pits = set()
 wumpus = set()
 gold = set()
