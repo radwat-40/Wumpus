@@ -47,6 +47,7 @@ class Agent:
 
 
 # Grid setup
+agents = []
 pits = set()
 wumpus = set()
 gold = set()
