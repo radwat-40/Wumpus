@@ -16,7 +16,10 @@ def in_bounds(x, y):
     return 0 <= x < GRID_SIZE and 0 <= y < GRID_SIZE
 
 def get_neighbors(x, y):
-    return [(nx, ny) for nx, ny in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)] if in_bounds(nx, ny)]
+    return [
+        (nx, ny)
+        for nx, ny in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)]
+        if in_bounds(nx, ny)]
 
 def place_random_items():
     global pits, wumpus, gold, breeze_tiles, stench_tiles
