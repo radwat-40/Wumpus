@@ -28,25 +28,30 @@ STENCH_COLOR = (255, 182, 193)
 
 # Initialize pygame
 pygame.init()
-LEGEND_WIDTH = 250  # space for legend
+LEGEND_WIDTH = 250
 screen = pygame.display.set_mode((WINDOW_SIZE + LEGEND_WIDTH, WINDOW_SIZE))
 pygame.display.set_caption("Wumpus World 20x20")
 clock = pygame.time.Clock()
-
 font = pygame.font.SysFont(None, 24)
 
-
-# Agent klasse (ersetzt agent_pos liste)
+# Agent class
 class Agent:
-    def __init__(self, x, y, role, ):
+    def __init__(self, x, y, role):
         self.x = x
         self.y = y
         self.role = role
-        self.direction = 'N', 'E', 'S', 'W'
+        self.direction = ['N','E','S','W']
         self.visited = set()
+        self.memory = {}
 
+    def pos(self):
+        return (self.x, self.y)
 
-# Grid setup
+# Create the agent
+agent = Agent(0, 0, "player")
+
+# World data
+visited = set()
 pits = set()
 wumpus = set()
 gold = set()
@@ -56,7 +61,6 @@ game_over = False
 win = False
 
 
-# Helper functions
 def in_bounds(x, y):
     return 0 <= x < GRID_SIZE and 0 <= y < GRID_SIZE
 
@@ -68,16 +72,21 @@ def get_neighbors(x, y):
 def place_random_items():
     global pits, wumpus, gold, breeze_tiles, stench_tiles
 
+    pits.clear()
+    wumpus.clear()
+    gold.clear()
+    breeze_tiles.clear()
+    stench_tiles.clear()
+
     forbidden = {(0, 0)}
     all_cells = [(x, y) for x in range(GRID_SIZE) for y in range(GRID_SIZE) if (x, y) not in forbidden]
 
-    pits = set(random.sample(all_cells, NUM_PITS))
-    available = [cell for cell in all_cells if cell not in pits]
-    wumpus = set(random.sample(available, NUM_WUMPUS))
-    available = [cell for cell in available if cell not in wumpus]
-    gold = set(random.sample(available, NUM_GOLD))
+    pits.update(random.sample(all_cells, NUM_PITS))
+    available = [c for c in all_cells if c not in pits]
+    wumpus.update(random.sample(available, NUM_WUMPUS))
+    available = [c for c in available if c not in wumpus]
+    gold.update(random.sample(available, NUM_GOLD))
 
-    # Calculate percepts
     for px, py in pits:
         for n in get_neighbors(px, py):
             breeze_tiles.add(n)
@@ -97,11 +106,10 @@ def draw_grid():
 def draw_world():
     for y in range(GRID_SIZE):
         for x in range(GRID_SIZE):
-            rect = pygame.Rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+            rect = pygame.Rect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE)
             cell = (x, y)
 
             if cell in visited:
-                # Show percepts if visited
                 if cell in breeze_tiles:
                     pygame.draw.rect(screen, BREEZE_COLOR, rect)
                 elif cell in stench_tiles:
@@ -115,22 +123,23 @@ def draw_world():
                     pygame.draw.rect(screen, WUMPUS_COLOR, rect)
                 if cell in gold:
                     pygame.draw.rect(screen, GOLD_COLOR, rect)
+
             else:
                 pygame.draw.rect(screen, UNVISITED_COLOR, rect)
 
-            # Grid border
             pygame.draw.rect(screen, GRAY, rect, 1)
 
 
 def draw_agent():
-    x, y = agent_pos
+    x, y = agent.pos()
+    pygame.draw.rect(screen, AGENT_COLOR, (x*TILE_SIZE+4, y*TILE_SIZE+4, TILE_SIZE-8, TILE_SIZE-8))
     label = font.render("A", True, BLACK)
-    screen.blit(label, (x * TILE_SIZE + TILE_SIZE // 4, y * TILE_SIZE + TILE_SIZE // 4))
+    screen.blit(label, (x*TILE_SIZE + TILE_SIZE//4, y*TILE_SIZE + TILE_SIZE//4))
 
 
 def draw_legend():
-    legend_items = [
-        ("Agent", WHITE, "A"),
+    items = [
+        ("Agent", AGENT_COLOR, "A"),
         ("Gold", GOLD_COLOR, ""),
         ("Pit", PIT_COLOR, ""),
         ("Wumpus", WUMPUS_COLOR, ""),
@@ -139,37 +148,27 @@ def draw_legend():
         ("Visited", WHITE, ""),
         ("Unvisited", UNVISITED_COLOR, ""),
     ]
+    x = WINDOW_SIZE + 20
+    y = 20
 
-    start_x = WINDOW_SIZE + 20
-    start_y = 20
-    spacing = 40
-
-    for i, (label_text, color, symbol) in enumerate(legend_items):
-        y = start_y + i * spacing
-
-        pygame.draw.rect(screen, color, (start_x, y, 30, 30))
-        pygame.draw.rect(screen, GRAY, (start_x, y, 30, 30), 1)  # border
-
+    for text, color, symbol in items:
+        pygame.draw.rect(screen, color, (x, y, 30, 30))
+        pygame.draw.rect(screen, GRAY, (x, y, 30, 30), 1)
         if symbol:
-            label = font.render(symbol, True, BLACK)
-            screen.blit(label, (start_x + 8, y + 4))
-
-        label = font.render(label_text, True, BLACK)
-        screen.blit(label, (start_x + 40, y + 5))
+            screen.blit(font.render(symbol, True, BLACK), (x+8, y+4))
+        screen.blit(font.render(text, True, BLACK), (x+40, y+5))
+        y += 40
 
 
 def show_message(text, color):
-    label = font.render(text, True, color)
-    screen.blit(label, (10, 10))
+    screen.blit(font.render(text, True, color), (10, 10))
 
 
-# Place game items
-place_random_items()
-
-
-# Main game loop
 def game_loop():
-    global agent_pos, game_over, win
+    global game_over, win
+
+    # Mark start cell as visited
+    visited.add(agent.pos())
 
     running = True
     while running:
@@ -180,9 +179,9 @@ def game_loop():
         draw_legend()
 
         if game_over:
-            show_message("Game Over! Press R to Restart.", (255, 0, 0))
+            show_message("Game Over! Press R to Restart", (255, 0, 0))
         elif win:
-            show_message("You found the gold! Press R to Restart.", (0, 180, 0))
+            show_message("You found the gold! Press R to Restart", (0, 180, 0))
 
         pygame.display.flip()
 
@@ -193,26 +192,22 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     reset_game()
+
                 if game_over or win:
                     continue
 
-                x, y = agent_pos
-                if event.key == pygame.K_UP and y > 0:
-                    y -= 1
-                elif event.key == pygame.K_DOWN and y < GRID_SIZE - 1:
-                    y += 1
-                elif event.key == pygame.K_LEFT and x > 0:
-                    x -= 1
-                elif event.key == pygame.K_RIGHT and x < GRID_SIZE - 1:
-                    x += 1
+                x, y = agent.pos()
+                if event.key == pygame.K_UP and y > 0: y -= 1
+                elif event.key == pygame.K_DOWN and y < GRID_SIZE-1: y += 1
+                elif event.key == pygame.K_LEFT and x > 0: x -= 1
+                elif event.key == pygame.K_RIGHT and x < GRID_SIZE-1: x += 1
 
-                agent_pos = [x, y]
-                visited.add((x, y))
+                agent.x, agent.y = x, y
+                visited.add(agent.pos())
 
-                # Check outcomes
-                if (x, y) in pits or (x, y) in wumpus:
+                if agent.pos() in pits or agent.pos() in wumpus:
                     game_over = True
-                elif (x, y) in gold:
+                elif agent.pos() in gold:
                     win = True
 
         clock.tick(10)
@@ -222,18 +217,20 @@ def game_loop():
 
 
 def reset_game():
-    global agent_pos, visited, pits, wumpus, gold, breeze_tiles, stench_tiles, game_over, win
-    agent_pos = [0, 0]
-    visited = set()
-    pits = set()
-    wumpus = set()
-    gold = set()
-    breeze_tiles = set()
-    stench_tiles = set()
+    global agent, visited, pits, wumpus, gold, breeze_tiles, stench_tiles, game_over, win
+    agent = Agent(0, 0, "player")
+    visited.clear()
+    pits.clear()
+    wumpus.clear()
+    gold.clear()
+    breeze_tiles.clear()
+    stench_tiles.clear()
     game_over = False
     win = False
     place_random_items()
+    visited.add(agent.pos())
 
 
 if __name__ == "__main__":
+    place_random_items()
     game_loop()
