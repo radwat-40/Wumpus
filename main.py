@@ -3,6 +3,7 @@ import sys
 from agents.base_agent import Agent
 from environment import world as wd
 from environment import drawing
+from agents.agent1 import SimpleAgent as Sim
 
 # Game config
 GRID_SIZE = wd.GRID_SIZE
@@ -16,14 +17,14 @@ pygame.display.set_caption("Wumpus World 20x20")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 24)
 
-agent = Agent(0, 0, "player")
+agent = Sim(0, 0, "player")
 visited = set()
 game_over = False
 win = False
 
 def reset_game():
     global agent, visited, game_over, win
-    agent = Agent(0, 0, "player")
+    agent = Sim(0, 0, "player")
     visited.clear()
     wd.place_random_items()
     game_over = False
@@ -56,14 +57,21 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     reset_game()
-                if game_over or win:
-                    continue
+            if not(game_over or win):
+                    
+                percepts = {
+                    "stench": agent.pos() in wd.wumpus,
+                    "breeze": agent.pos() in wd.pits,
+                    "glitter": agent.pos() in wd.gold
+                }
+
+                move = agent.decide_move(percepts, GRID_SIZE)
 
                 x, y = agent.pos()
-                if event.key == pygame.K_UP and y > 0: y -= 1
-                elif event.key == pygame.K_DOWN and y < GRID_SIZE-1: y += 1
-                elif event.key == pygame.K_LEFT and x > 0: x -= 1
-                elif event.key == pygame.K_RIGHT and x < GRID_SIZE-1: x += 1
+                if move == "up" and y > 0: y -= 1
+                elif move == "down" and y < GRID_SIZE-1: y += 1
+                elif move == "left" and x > 0: x -= 1
+                elif move == "right" and x < GRID_SIZE-1: x += 1
 
                 agent.x, agent.y = x, y
                 visited.add(agent.pos())
