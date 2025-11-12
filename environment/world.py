@@ -1,4 +1,5 @@
 import random
+from environment.actions import Action
 
 class World:
     def __init__(self, grid_size=20, num_pits=20, num_wumpus = 3, num_gold =1):
@@ -46,3 +47,20 @@ class World:
         for wx, wy in self.wumpus:
             for n in self.get_neighbors(wx, wy):
                 self.stench_tiles.add(n)
+
+    def execute(self, agent, action):
+        x, y = agent.pos()
+        if action == Action.MOVE_UP and y > 0:
+                agent.y -= 1
+        elif action == Action.MOVE_DOWN and y < self.grid_size - 1:
+                agent.y += 1
+        elif action == Action.MOVE_LEFT and x > 0:
+                agent.x -= 1
+        elif action == Action.MOVE_RIGHT and x < self.grid_size - 1:
+                agent.x += 1
+
+        if agent.pos() in self.pits or agent.pos() in self.wumpus:
+                    return "GAME_OVER"
+        elif agent.pos() in self.gold:
+                    return "WIN"
+        return "CONTINUE"

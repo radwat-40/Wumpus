@@ -67,26 +67,20 @@ def game_loop():
                     "glitter": agent.pos() in world.gold
                 }
 
-                move = agent.decide_move(percepts, world.grid_size)
-
-                x, y = agent.pos()
-                if move == "up" and y > 0: y -= 1
-                elif move == "down" and y < world.grid_size-1: y += 1
-                elif move == "left" and x > 0: x -= 1
-                elif move == "right" and x < world.grid_size-1: x += 1
-
-                agent.x, agent.y = x, y
+                action = agent.decide_move(percepts, world.grid_size)
+                result = world.execute(agent, action)
                 visited.add(agent.pos())
 
-                if agent.pos() in world.pits or agent.pos() in world.wumpus:
+                if result == "GAME_OVER":
                     game_over = True
-                elif agent.pos() in world.gold:
+                elif result == "WIN":
                     win = True
 
         clock.tick(10)
 
     pygame.quit()
     sys.exit()
+
 
 if __name__ == "__main__":
     game_loop()

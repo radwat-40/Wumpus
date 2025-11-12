@@ -7,4 +7,4 @@ class Action(Enum):
     MOVE_RIGHT = 4
     GRAB = 5
     SHOOT = 6
-    
+
