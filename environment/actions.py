@@ -1,3 +1,5 @@
+"""Definition der möglichen Aktionen, die ein Agent in der Welt ausführen kann."""
+
 from enum import Enum
 
 class Action(Enum):

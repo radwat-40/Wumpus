@@ -33,8 +33,9 @@ game_over = False
 win = False
 
 def reset_game():
-    global agents, visited, game_over, win
+    global agents, scheduler, visited, game_over, win
     agents = [Sim(0, 0, "A1"), Sim(1, 0, "A2"), Sim(2, 0, "A3")]
+    scheduler = Scheduler(agents, world)
     visited.clear()
     world.place_random_items()
     game_over = False
@@ -55,7 +56,6 @@ def game_loop():
         screen.fill((255, 255, 255))
         drawing.draw_world(screen, visited, world.grid_size, TILE_SIZE, font)
         drawing.draw_grid(screen, WINDOW_SIZE, TILE_SIZE)
-        drawing.draw_agent(screen, agent, TILE_SIZE, font)
         drawing.draw_legend(screen, font, WINDOW_SIZE, LEGEND_WIDTH)
 
         for agent in agents:

@@ -1,3 +1,6 @@
+"""Scheduler Klasse für die Verwaltung der Agenten. Bestimmt werlcher Agent an der Reihee ist,
+ was er wahrnimmt und welche Atkion er ausführt."""
+
 class Scheduler:
     def __init__(self, agents, world):
         self.agents = agents
@@ -8,11 +11,7 @@ class Scheduler:
             #Ein schritt im Scheduler
         agent = self.agents[self.turn]
 
-        percepts = {
-            "breeze": agent.pos() in self.world.breeze_tiles,
-            "stench": agent.pos() in self.world.stench_tiles,
-            "glitter": agent.pos() in self.world.gold
-            }
+        percepts = self.world.get_percepts(agent)   # z.B. {"breeze": True, "stench": False, "glitter": True}
 
             #Agent entscheidet sich für eine Aktion
         action = agent.decide_move(percepts, self.world.grid_size)

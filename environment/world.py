@@ -1,6 +1,7 @@
 import random
 from environment.actions import Action
 
+"""World Klasse für die Verwaltung der Welt, Platzierung von Gegenständen und Ausführung von Aktionen."""
 class World:
     def __init__(self, grid_size=20, num_pits=20, num_wumpus = 3, num_gold =1):
         self.grid_size = grid_size
@@ -64,3 +65,11 @@ class World:
         elif agent.pos() in self.gold:
                     return "WIN"
         return "CONTINUE"
+    
+    def get_percepts(self, agent):
+            x, y = agent.pos()
+            return {
+                "breeze": (x, y) in self.breeze_tiles,
+                "stench": (x, y) in self.stench_tiles,
+                "glitter": (x, y) in self.gold
+            }
