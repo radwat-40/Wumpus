@@ -1,5 +1,9 @@
 import pygame
-from environment import world as wd
+from environment.world import World
+
+
+world = World()
+
 
 # Farben
 WHITE = (255, 255, 255)
@@ -25,18 +29,18 @@ def draw_world(screen, visited, grid_size, tile_size, font):
             rect = pygame.Rect(x*tile_size, y*tile_size, tile_size, tile_size)
             cell = (x, y)
             if cell in visited:
-                if cell in wd.breeze_tiles:
+                if cell in world.breeze_tiles:
                     pygame.draw.rect(screen, BREEZE_COLOR, rect)
-                elif cell in wd.stench_tiles:
+                elif cell in world.stench_tiles:
                     pygame.draw.rect(screen, STENCH_COLOR, rect)
                 else:
                     pygame.draw.rect(screen, WHITE, rect)
 
-                if cell in wd.pits:
+                if cell in world.pits:
                     pygame.draw.rect(screen, PIT_COLOR, rect)
-                if cell in wd.wumpus:
+                if cell in world.wumpus:
                     pygame.draw.rect(screen, WUMPUS_COLOR, rect)
-                if cell in wd.gold:
+                if cell in world.gold:
                     pygame.draw.rect(screen, GOLD_COLOR, rect)
             else:
                 pygame.draw.rect(screen, UNVISITED_COLOR, rect)

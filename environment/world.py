@@ -1,47 +1,48 @@
 import random
 
-# Welt-Funktionen und Daten
-GRID_SIZE = 20
-NUM_PITS = 20
-NUM_WUMPUS = 3
-NUM_GOLD = 1
+class World:
+    def __init__(self, grid_size=20, num_pits=20, num_wumpus = 3, num_gold =1):
+        self.grid_size = grid_size
+        self.num_pits = num_pits
+        self.num_wumpus = num_wumpus
+        self.num_gold = num_gold
+        self.pits = set()
+        self.wumpus = set()
+        self.gold = set()
+        self.breeze_tiles = set()
+        self.stench_tiles = set()
 
-pits = set()
-wumpus = set()
-gold = set()
-breeze_tiles = set()
-stench_tiles = set()
+        self.place_random_items()
 
-def in_bounds(x, y):
-    return 0 <= x < GRID_SIZE and 0 <= y < GRID_SIZE
 
-def get_neighbors(x, y):
-    return [
-        (nx, ny)
-        for nx, ny in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)]
-        if in_bounds(nx, ny)]
 
-def place_random_items():
-    global pits, wumpus, gold, breeze_tiles, stench_tiles
-    pits.clear()
-    wumpus.clear()
-    gold.clear()
-    breeze_tiles.clear()
-    stench_tiles.clear()
+    def in_bounds(self, x, y):
+        return 0 <= x < self.grid_size and 0 <= y < self.grid_size
 
-    forbidden = {(0, 0)}
-    all_cells = [(x, y) for x in range(GRID_SIZE) for y in range(GRID_SIZE) if (x, y) not in forbidden]
+    def get_neighbors(self, x, y):
+        return [
+            (nx, ny)
+            for nx, ny in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)]
+            if self.in_bounds(nx, ny)]
+    def place_random_items(self):
+        self.pits.clear()
+        self.wumpus.clear()
+        self.gold.clear()
+        self.breeze_tiles.clear()
+        self.stench_tiles.clear()
 
-    pits.update(random.sample(all_cells, NUM_PITS))
-    available = [c for c in all_cells if c not in pits]
-    wumpus.update(random.sample(available, NUM_WUMPUS))
-    available = [c for c in available if c not in wumpus]
-    gold.update(random.sample(available, NUM_GOLD))
+        forbidden = {(0, 0)}
+        all_cells = [(x, y) for x in range(self.grid_size) for y in range(self.grid_size) if (x, y) not in forbidden]
 
-    for px, py in pits:
-        for n in get_neighbors(px, py):
-            breeze_tiles.add(n)
+        self.pits.update(random.sample(all_cells, self.num_pits))
+        available = [c for c in all_cells if c not in self.pits]
+        self.wumpus.update(random.sample(available, self.num_wumpus))
+        available = [c for c in available if c not in self.wumpus]
+        self.gold.update(random.sample(available, self.num_gold))
+        for px, py in self.pits:
+            for n in self.get_neighbors(px, py):
+                self.breeze_tiles.add(n)
 
-    for wx, wy in wumpus:
-        for n in get_neighbors(wx, wy):
-            stench_tiles.add(n)
+        for wx, wy in self.wumpus:
+            for n in self.get_neighbors(wx, wy):
+                self.stench_tiles.add(n)

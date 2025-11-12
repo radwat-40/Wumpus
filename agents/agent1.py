@@ -1,4 +1,5 @@
 from agents.base_agent import Agent
+from environment.actions import Action
 import random
 
 class SimpleAgent(Agent):
@@ -26,5 +27,13 @@ class SimpleAgent(Agent):
         if unvisited_moves:
             return random.choice(unvisited_moves)
 
-        # Dacă toate sunt vizitate → mișcare aleatoare validă
-        return random.choice(list(moves.keys()))
+        # gibt jetzt action objekte zurück (enum) abnstatt strings ~ Marc
+        move = random.choice(list(moves.keys()))
+        if move == "up":
+            return Action.MOVE_UP
+        elif move == "down":
+            return Action.MOVE_DOWN
+        elif move == "left":
+            return Action.MOVE_LEFT
+        elif move == "right":
+            return Action.MOVE_RIGHT
