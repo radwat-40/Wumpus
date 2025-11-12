@@ -4,6 +4,7 @@ from agents.base_agent import Agent
 from environment.world import World
 from environment import drawing
 from agents.agent1 import SimpleAgent as Sim
+from environment.scheduler import Scheduler
 
 world = World()
 
@@ -19,23 +20,34 @@ pygame.display.set_caption("Wumpus World 20x20")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 24)
 
-agent = Sim(0, 0, "player")
+agent1 = Sim(0, 0, "A1")
+agent2 = Sim(1, 0, "A2")
+agent3 = Sim(2, 0, "A3")
+
+agents = [agent1, agent2, agent3]
+
+scheduler = Scheduler(agents, world)
+
 visited = set()
 game_over = False
 win = False
 
 def reset_game():
-    global agent, visited, game_over, win
-    agent = Sim(0, 0, "player")
+    global agents, visited, game_over, win
+    agents = [Sim(0, 0, "A1"), Sim(1, 0, "A2"), Sim(2, 0, "A3")]
     visited.clear()
     world.place_random_items()
     game_over = False
     win = False
-    visited.add(agent.pos())
+    for agent in agents:
+        visited.add(agent.pos())
+
 
 def game_loop():
     global game_over, win
-    visited.add(agent.pos())
+    for agent in agents:
+        visited.add(agent.pos())
+
     world.place_random_items()
     running = True
 
@@ -44,6 +56,11 @@ def game_loop():
         drawing.draw_world(screen, visited, world.grid_size, TILE_SIZE, font)
         drawing.draw_grid(screen, WINDOW_SIZE, TILE_SIZE)
         drawing.draw_agent(screen, agent, TILE_SIZE, font)
+        drawing.draw_legend(screen, font, WINDOW_SIZE, LEGEND_WIDTH)
+
+        for agent in agents:
+            drawing.draw_agent(screen, agent, TILE_SIZE, font)
+            
         drawing.draw_legend(screen, font, WINDOW_SIZE, LEGEND_WIDTH)
 
         if game_over:
@@ -59,17 +76,14 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     reset_game()
-            if not(game_over or win):
                     
-                percepts = {
-                    "stench": agent.pos() in world.wumpus,
-                    "breeze": agent.pos() in world.pits,
-                    "glitter": agent.pos() in world.gold
-                }
+            if not(game_over or win):
+                result = scheduler.step()
 
-                action = agent.decide_move(percepts, world.grid_size)
-                result = world.execute(agent, action)
-                visited.add(agent.pos())
+
+
+                current_agent = agents[scheduler.turn - 1]
+                visited.add(current_agent.pos())
 
                 if result == "GAME_OVER":
                     game_over = True
