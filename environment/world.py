@@ -1,7 +1,7 @@
 import random
 from environment.actions import Action
 
-"""World Klasse für die Verwaltung der Welt, Platzierung von Gegenständen und Ausführung von Aktionen."""
+#World Klasse für die Verwaltung der Welt, Platzierung von Gegenständen und Ausführung von Aktionen.
 class World:
     def __init__(self, grid_size=20, num_pits=20, num_wumpus = 3, num_gold =1):
         self.grid_size = grid_size
