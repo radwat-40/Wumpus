@@ -77,6 +77,12 @@ class World:
                 self.wumpus.remove(target_pos)
                 self.update_stench_tiles()
             return "CONTINUE"
+        
+        if action == Action.GRAB:
+            if agent.pos() in self.gold:
+                self.gold.remove(agent.pos())
+                return "WIN"
+            return "CONTINUE"
 
         if action == Action.MOVE_UP and y > 0:
                 agent.y -= 1
