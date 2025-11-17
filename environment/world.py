@@ -17,15 +17,18 @@ class World:
         self.place_random_items()
 
 
-
+    #ist in Welt?
     def in_bounds(self, x, y):
         return 0 <= x < self.grid_size and 0 <= y < self.grid_size
 
+    #gibt nachbarblöcke zurück
     def get_neighbors(self, x, y):
         return [
             (nx, ny)
             for nx, ny in [(x+1,y), (x-1,y), (x,y+1), (x,y-1)]
             if self.in_bounds(nx, ny)]
+    
+    #platziert zufällige gegenstände und felder
     def place_random_items(self):
         self.pits.clear()
         self.wumpus.clear()
@@ -58,6 +61,7 @@ class World:
         self.stench_tiles.clear()
         self.place_random_items()
 
+    #behandelt Schussaktionen
     def handle_shoot(self, agent, action):
         x, y = agent.pos()
          
@@ -79,6 +83,7 @@ class World:
         
         return False
 
+    #führt die Aktion des Agenten aus und gibt das Ergebnis zurück
     def execute(self, agent, action):
         x, y = agent.pos()
 
@@ -129,6 +134,7 @@ class World:
                     return "WIN"
         return "CONTINUE"
     
+    #gibt die Wahrnehmungen des Agenten basierend auf seiner Position zurück
     def get_percepts(self, agent):
             x, y = agent.pos()
             return {
