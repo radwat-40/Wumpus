@@ -49,6 +49,15 @@ class World:
             for n in self.get_neighbors(wx, wy):
                 self.stench_tiles.add(n)
 
+    #Setzt die Welt vollständig zurück und generiert alle Elemente neu
+    def reset(self):
+        self.pits.clear()
+        self.wumpus.clear()
+        self.gold.clear()
+        self.breeze_tiles.clear()
+        self.stench_tiles.clear()
+        self.place_random_items()
+
     def execute(self, agent, action):
         x, y = agent.pos()
 

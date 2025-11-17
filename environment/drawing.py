@@ -1,8 +1,5 @@
 import pygame
-from environment.world import World
 
-
-world = World()
 
 
 # Farben
@@ -23,7 +20,7 @@ def draw_grid(screen, window_size, tile_size):
     for y in range(0, window_size, tile_size):
         pygame.draw.line(screen, GRAY, (0, y), (window_size, y))
 
-def draw_world(screen, visited, grid_size, tile_size, font):
+def draw_world(screen, world, visited, grid_size, tile_size, font):
     for y in range(grid_size):
         for x in range(grid_size):
             rect = pygame.Rect(x*tile_size, y*tile_size, tile_size, tile_size)
