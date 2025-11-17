@@ -8,5 +8,8 @@ class Action(Enum):
     MOVE_LEFT = 3
     MOVE_RIGHT = 4
     GRAB = 5
-    SHOOT = 6
+    SHOOT_UP = 6
+    SHOOT_DOWN = 7
+    SHOOT_LEFT = 8
+    SHOOT_RIGHT = 9
 

@@ -51,6 +51,33 @@ class World:
 
     def execute(self, agent, action):
         x, y = agent.pos()
+
+        if action == Action.SHOOT_UP:
+            target_pos = (x, y - 1)
+            if target_pos in self.wumpus:
+                self.wumpus.remove(target_pos)
+                self.update_stench_tiles()
+            return "CONTINUE"
+        
+        if action == Action.SHOOT_DOWN:
+            target_pos = (x, y + 1)
+            if target_pos in self.wumpus:
+                self.wumpus.remove(target_pos)
+                self.update_stench_tiles()
+            return "CONTINUE"
+        if action == Action.SHOOT_LEFT:
+            target_pos = (x - 1, y)
+            if target_pos in self.wumpus:
+                self.wumpus.remove(target_pos)
+                self.update_stench_tiles()
+            return "CONTINUE"
+        if action == Action.SHOOT_RIGHT:
+            target_pos = (x + 1, y)
+            if target_pos in self.wumpus:
+                self.wumpus.remove(target_pos)
+                self.update_stench_tiles()
+            return "CONTINUE"
+
         if action == Action.MOVE_UP and y > 0:
                 agent.y -= 1
         elif action == Action.MOVE_DOWN and y < self.grid_size - 1:
@@ -73,3 +100,9 @@ class World:
                 "stench": (x, y) in self.stench_tiles,
                 "glitter": (x, y) in self.gold
             }
+    
+    def update_stench_tiles(self):
+        self.stench_tiles.clear()
+        for wx, wy in self.wumpus:
+            for n in self.get_neighbors(wx, wy):
+                self.stench_tiles.add(n)
