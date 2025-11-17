@@ -58,6 +58,27 @@ class World:
         self.stench_tiles.clear()
         self.place_random_items()
 
+    def handle_shoot(self, agent, action):
+        x, y = agent.pos()
+         
+        if action == Action.SHOOT_UP:
+            target_pos = (x, y - 1)
+        elif action == Action.SHOOT_DOWN:
+                target_pos = (x, y + 1)
+        elif action == Action.SHOOT_LEFT:
+                target_pos = (x - 1, y)
+        elif action == Action.SHOOT_RIGHT:
+                target_pos = (x + 1, y)
+        else:
+             return False
+        
+        if target_pos in self.wumpus:
+            self.wumpus.remove(target_pos)
+            self.update_stench_tiles()
+            return True
+        
+        return False
+
     def execute(self, agent, action):
         x, y = agent.pos()
 
