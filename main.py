@@ -54,7 +54,7 @@ def game_loop():
 
     while running:
         screen.fill((255, 255, 255))
-        drawing.draw_world(screen, visited, world.grid_size, TILE_SIZE, font)
+        drawing.draw_world(screen, world, visited, world.grid_size, TILE_SIZE, font)
         drawing.draw_grid(screen, WINDOW_SIZE, TILE_SIZE)
         drawing.draw_legend(screen, font, WINDOW_SIZE, LEGEND_WIDTH)
 
