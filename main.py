@@ -3,7 +3,9 @@ import sys
 from agents.base_agent import Agent
 from environment.world import World
 from environment import drawing
-from agents.agent1 import SimpleAgent as Sim
+from agents.agent1 import MarcAgent 
+from agents.agent2 import YahiaAgent 
+from agents.agent3 import HenrikAgent
 from environment.scheduler import Scheduler
 
 world = World()
@@ -20,9 +22,9 @@ pygame.display.set_caption("Wumpus World 20x20")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 24)
 
-agent1 = Sim(0, 0, "A1")
-agent2 = Sim(1, 0, "A2")
-agent3 = Sim(2, 0, "A3")
+agent1 = MarcAgent(0, 0, "A1")
+agent2 = YahiaAgent(1, 0, "A2")
+agent3 = HenrikAgent(2, 0, "A3")
 
 agents = [agent1, agent2, agent3]
 
@@ -34,7 +36,7 @@ win = False
 
 def reset_game():
     global agents, scheduler, visited, game_over, win
-    agents = [Sim(0, 0, "A1"), Sim(1, 0, "A2"), Sim(2, 0, "A3")]
+    agents = [MarcAgent(0, 0, "A1"), YahiaAgent(1, 0, "A2"), HenrikAgent(2, 0, "A3")]
     scheduler = Scheduler(agents, world)
     visited.clear()
     world.place_random_items()
@@ -85,7 +87,7 @@ def game_loop():
                 current_agent = agents[scheduler.turn - 1]
                 visited.add(current_agent.pos())
 
-                if result == "GAME_OVER":
+                if result == "ALL_DEAD":
                     game_over = True
                 elif result == "WIN":
                     win = True

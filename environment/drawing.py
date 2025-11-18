@@ -45,13 +45,38 @@ def draw_world(screen, world, visited, grid_size, tile_size, font):
 
 def draw_agent(screen, agent, tile_size, font):
     x, y = agent.pos()
-    pygame.draw.rect(screen, AGENT_COLOR, (x*tile_size+4, y*tile_size+4, tile_size-8, tile_size-8))
-    label = font.render("A", True, BLACK)
+
+    # Farbe abhängig von Rolle (A1, A2, A3, etc.)
+    color = AGENT_COLOR
+    role = getattr(agent, 'role', None)
+    if isinstance(role, str):
+        if role.endswith('2'):
+            color = (0, 180, 0)
+        elif role.endswith('3'):
+            color = (200, 100, 0)
+        elif role.endswith('1'):
+                color = AGENT_COLOR
+
+    alive = getattr(agent, 'agent_alive', True)
+    draw_color = color if alive else (150, 150, 150)
+
+    pygame.draw.rect(screen, draw_color, (x*tile_size+4, y*tile_size+4, tile_size-8, tile_size-8))
+
+    # Label mit der Rollenbezeichnung (A1, A2, A3)
+    label_text = role if role is not None else 'A'
+    label = font.render(label_text, True, BLACK)
     screen.blit(label, (x*tile_size + tile_size//4, y*tile_size + tile_size//4))
+
+    # Wenn tot, zeichne ein X über dem Agentenfeld
+    if not alive:
+        rect_x = x*tile_size+4
+        rect_y = y*tile_size+4
+        rect_size = tile_size-8
+        pygame.draw.line(screen, BLACK, (rect_x, rect_y), (rect_x+rect_size, rect_y+rect_size), 2)
+        pygame.draw.line(screen, BLACK, (rect_x+rect_size, rect_y), (rect_x, rect_y+rect_size), 2)
 
 def draw_legend(screen, font, window_size, legend_width):
     items = [
-        ("Agent", AGENT_COLOR, "A"),
         ("Gold", GOLD_COLOR, ""),
         ("Pit", PIT_COLOR, ""),
         ("Wumpus", WUMPUS_COLOR, ""),
@@ -62,6 +87,10 @@ def draw_legend(screen, font, window_size, legend_width):
     ]
     x = window_size + 20
     y = 20
+    # Zeichne spezielle Agenten-Zeile ohne farbigen Hintergrund
+    screen.blit(font.render("  A     Agent", True, BLACK), (x, y+5))
+    y += 40
+
     for text, color, symbol in items:
         pygame.draw.rect(screen, color, (x, y, 30, 30))
         pygame.draw.rect(screen, GRAY, (x, y, 30, 30), 1)

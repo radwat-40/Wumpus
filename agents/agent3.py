@@ -2,7 +2,7 @@ from agents.base_agent import Agent
 from environment.actions import Action
 import random
 
-class MarcAgent(Agent):
+class HenrikAgent(Agent):
     def __init__(self, x, y, role):
         super().__init__(x, y, role)
         self.visited = set()

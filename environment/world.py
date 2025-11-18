@@ -36,7 +36,8 @@ class World:
         self.breeze_tiles.clear()
         self.stench_tiles.clear()
 
-        forbidden = {(0, 0)}
+        forbidden = {(0, 0),(1, 0), (2, 0)} 
+    
         all_cells = [(x, y) for x in range(self.grid_size) for y in range(self.grid_size) if (x, y) not in forbidden]
 
         self.pits.update(random.sample(all_cells, self.num_pits))
@@ -120,18 +121,25 @@ class World:
             return "CONTINUE"
 
         if action == Action.MOVE_UP and y > 0:
-                agent.y -= 1
+            agent.y -= 1
         elif action == Action.MOVE_DOWN and y < self.grid_size - 1:
-                agent.y += 1
+            agent.y += 1
         elif action == Action.MOVE_LEFT and x > 0:
-                agent.x -= 1
+            agent.x -= 1
         elif action == Action.MOVE_RIGHT and x < self.grid_size - 1:
-                agent.x += 1
+            agent.x += 1
 
         if agent.pos() in self.pits or agent.pos() in self.wumpus:
-                    return "GAME_OVER"
+            # markiere Agent als tot, aber beende nicht das gesamte Spiel
+            try:
+                agent.agent_alive = False
+            except Exception:
+                # falls Agent kein flag hat, setze ein Attribut
+                setattr(agent, 'agent_alive', False)
+            return "DIED"
+
         elif agent.pos() in self.gold:
-                    return "WIN"
+            return "WIN"
         return "CONTINUE"
     
     #gibt die Wahrnehmungen des Agenten basierend auf seiner Position zurück
