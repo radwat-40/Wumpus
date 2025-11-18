@@ -11,7 +11,7 @@ class SimpleAgent(Agent):
         x, y = self.pos()
         self.visited.add((x, y))
 
-        # Vecinii posibili
+        # Mögliche Bewegungen
         moves = {
             "up":    (x, y - 1),
             "down":  (x, y + 1),
@@ -19,16 +19,17 @@ class SimpleAgent(Agent):
             "right": (x + 1, y)
         }
 
-        # Filtrăm mișcările valide
-        moves = {m: p for m, p in moves.items() if 0 <= p[0] < grid_size and 0 <= p[1] < grid_size}
+        # Filtriere gültige Bewegungen
+        valid_moves = {m: p for m, p in moves.items() if 0 <= p[0] < grid_size and 0 <= p[1] < grid_size}
 
-        # Prioritate: mergi într-o celulă nevizitată
-        unvisited_moves = [m for m, p in moves.items() if p not in self.visited]
+        # Priorität: unbesuchte Zellen bevorzugen
+        unvisited_moves = [m for m, p in valid_moves.items() if p not in self.visited]
         if unvisited_moves:
-            return random.choice(unvisited_moves)
+            move = random.choice(unvisited_moves)
+        else:
+            move = random.choice(list(valid_moves.keys()))
 
-        # gibt jetzt action objekte zurück (enum) abnstatt strings ~ Marc
-        move = random.choice(list(moves.keys()))
+        # Konvertiere zu Action Enum
         if move == "up":
             return Action.MOVE_UP
         elif move == "down":
