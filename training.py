@@ -19,10 +19,10 @@ def train(num_episodes=10000):
     
     world = World()
     agent1 = MarcAgent(0, 0, "A1")
-    agent2 = YahiaAgent(1, 0, "A2")
-    agent3 = HenrikAgent(2, 0, "A3")
+    #agent2 = YahiaAgent(1, 0, "A2")
+    #agent3 = HenrikAgent(2, 0, "A3")
 
-    agents = [agent1, agent2, agent3]
+    agents = [agent1,]
     scheduler = Scheduler(agents, world)
     
     wins = 0
@@ -47,7 +47,7 @@ def train(num_episodes=10000):
         
         episode_done = False
         steps = 0
-        max_steps = 1000  # Verhindere infinite loops
+        max_steps = 400  # Verhindere infinite loops
         
         while not episode_done and steps < max_steps:
             result = scheduler.step()
@@ -63,7 +63,7 @@ def train(num_episodes=10000):
         # Speichere Q-Table nur für Agents, die diese Methode implementieren
         for i, agent in enumerate(agents, start=1):
             if hasattr(agent, 'save_q_table'):
-                filename = f"q_table_agent{i}.npy"
+                filename = f"dqn_agent{i}.pth"
                 agent.save_q_table(filename)
         
         # Progress output alle 500 Episoden
@@ -76,7 +76,7 @@ def train(num_episodes=10000):
     print(f"Gesamt Episoden: {num_episodes}")
     print(f"Wins: {wins} ({(wins/num_episodes)*100:.2f}%)")
     print(f"Deaths: {deaths} ({(deaths/num_episodes)*100:.2f}%)")
-    print(f"Q-Tables gespeichert: q_table_agent*.npy")
+    print(f"Model checkpoints gespeichert: dqn_agent*.pth")
     print("="*60)
 
 if __name__ == "__main__":

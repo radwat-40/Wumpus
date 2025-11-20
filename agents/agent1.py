@@ -1,10 +1,44 @@
 from agents.base_agent import Agent
 from environment.actions import Action
-import numpy as np
-import random
 import os
+import random
+
+# DQN / PyTorch imports
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from collections import deque, namedtuple
+
+
+Transition = namedtuple('Transition', ('state', 'action', 'reward', 'next_state', 'done'))
+
+
+class SimpleCNN(nn.Module):
+    def __init__(self, in_channels, num_actions):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Conv2d(in_channels, 32, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Flatten(),
+            nn.Linear(64 * 5 * 5, 256),
+            nn.ReLU(),
+            nn.Linear(256, num_actions)
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
 
 class MarcAgent(Agent):
+    """DQN-basierter Agent mit kleinem CNN-Encoder.
+
+    Observation format expected: numpy array shape (C, H, W) float32
+    Actions: we map network outputs to Action enums in ACTIONS
+    """
+
     ACTIONS = [
         Action.MOVE_UP,
         Action.MOVE_DOWN,
@@ -14,197 +48,162 @@ class MarcAgent(Agent):
         Action.SHOOT_UP,
         Action.SHOOT_DOWN,
         Action.SHOOT_LEFT,
-        Action.SHOOT_RIGHT
+        Action.SHOOT_RIGHT,
     ]
 
-    def __init__(self, x, y, role, grid_size=20):
+    def __init__(self, x, y, role, device=None):
         super().__init__(x, y, role)
+        self.device = device or (torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
-        # RL-Parameter
-        self.alpha = 0.3
-        self.gamma = 0.95
+        # DQN hyperparams (tunable)
+        self.gamma = 0.99
+        self.lr = 1e-3  # Higher learning rate for faster convergence
+        self.batch_size = 32  # Smaller batch size for more frequent updates
+        self.replay_size = 10000
+        self.min_replay_size = 256  # Start learning earlier
+        self.target_update_freq = 2000  # Update target net more frequently
         self.epsilon = 1.0
-        self.epsilon_decay = 0.9999
-        self.min_epsilon = 0.1
+        self.eps_final = 0.05
+        self.eps_decay = 10000  # Faster epsilon decay
 
-        self.grid_size = grid_size
+        self.n_actions = len(self.ACTIONS)
+        self.in_channels = 4  # breeze, stench, glitter, agent_pos
 
-        # Q als Dictionary: key = (state, action), value = Q-Wert
-        self.q = {}
+        # Networks
+        self.policy_net = SimpleCNN(self.in_channels, self.n_actions).to(self.device)
+        self.target_net = SimpleCNN(self.in_channels, self.n_actions).to(self.device)
+        self.target_net.load_state_dict(self.policy_net.state_dict())
+        self.target_net.eval()
 
-        # Speicher für letzte (s, a)
-        self.last_state = None
-        self.last_action = None
+        self.optimizer = optim.Adam(self.policy_net.parameters(), lr=self.lr)
 
-        # Knowledge
-        self.safe = set()
-        self.unsafe = set()
-        self.visited = set()
-        self.frontier = set()
+        # Replay buffer
+        self.memory = deque(maxlen=self.replay_size)
 
-    #  Q-Funktionen 
-    def get_q(self, state, action):
-        return self.q.get((state, action), 0.0)
-    
-    def set_q(self, state, action, value):
-        self.q[(state, action)] = value
+        # Counters
+        self.steps_done = 0
+        self.learn_steps = 0
 
-    #  Entscheidungslogik 
-    def decide_move(self, percepts, grid_size):
-        # Percepts in Knowledge übernehmen
-        self.update_knowledge(percepts)
+    def action_id_to_enum(self, idx):
+        return self.ACTIONS[int(idx)]
 
-        # State aus Knowledge bauen
-        state = self.get_state_id(percepts)
+    def decide_move(self, observation, grid_size):
+        # observation: numpy (C,H,W)
+        state = torch.from_numpy(np.array(observation, dtype=np.float32)).unsqueeze(0).to(self.device)
 
-        # Wenn Gold sichtbar, sofort greifen
-        if percepts.get('glitter', False):
-            return Action.GRAB
-
-        # Exploration vs. Exploitation
-        if random.random() < self.epsilon:
-            # erkundet mit Knowledge
-            action = self.pick_action_with_knowledge()
+        sample = random.random()
+        eps_threshold = self.eps_final + (self.epsilon - self.eps_final) * max(0, (1 - self.steps_done / self.eps_decay))
+        
+        if sample < eps_threshold:
+            # random action
+            a = random.randrange(self.n_actions)
         else:
-            # beste Aktion laut Q
-            qs = [self.get_q(state, a) for a in self.ACTIONS]
-            max_q = max(qs)
-            # falls mehrere gleich gut sind → zufällig einen nehmen
-            best_indices = [i for i, v in enumerate(qs) if v == max_q]
-            action = self.ACTIONS[random.choice(best_indices)]
+            with torch.no_grad():
+                qvals = self.policy_net(state)
+                a = qvals.argmax(dim=1).item()
 
-        # für Learning merken
-        self.last_state = state
-        self.last_action = action
+        # Increment steps and decay epsilon
+        self.steps_done += 1
+        self.epsilon = self.eps_final + (1.0 - self.eps_final) * max(0, (1 - self.steps_done / self.eps_decay))
 
-        return action
+        return self.action_id_to_enum(a)
 
-    #  Lernen 
-    def learn(self, reward, next_percepts=None):
-        next_state = self.get_state_id(next_percepts)
+    def store_transition(self, state, action, reward, next_state, done):
+        # Convert action enum to index
+        try:
+            a_idx = self.ACTIONS.index(action)
+        except ValueError:
+            a_idx = 0
+        self.memory.append(
+            Transition(
+                np.copy(state),
+                a_idx,
+                reward,
+                np.copy(next_state),
+                done
+            )
+        )
 
-        if self.last_state is None or self.last_action is None:
-            return  # Schutz vor zu frühem learn-Aufruf
 
-        old_q = self.get_q(self.last_state, self.last_action)
-        next_max = max(self.get_q(next_state, a) for a in self.ACTIONS)
+    def sample_batch(self):
+        batch = random.sample(self.memory, self.batch_size)
+        states = np.stack([t.state for t in batch])
+        actions = np.array([t.action for t in batch], dtype=np.int64)
+        rewards = np.array([t.reward for t in batch], dtype=np.float32)
+        next_states = np.stack([t.next_state for t in batch])
+        dones = np.array([t.done for t in batch], dtype=np.uint8)
 
-        new_q = (1 - self.alpha) * old_q + self.alpha * (reward + self.gamma * next_max)
-        self.set_q(self.last_state, self.last_action, new_q)
+        states_t = torch.from_numpy(states).to(self.device)
+        actions_t = torch.from_numpy(actions).unsqueeze(1).to(self.device)
+        rewards_t = torch.from_numpy(rewards).to(self.device)
+        next_states_t = torch.from_numpy(next_states).to(self.device)
+        dones_t = torch.from_numpy(dones.astype(np.uint8)).to(self.device)
 
-        # Epsilon-Decay
-        self.epsilon = max(self.min_epsilon, self.epsilon * self.epsilon_decay)
+        return states_t, actions_t, rewards_t, next_states_t, dones_t
 
-    #  Reward 
-    def reward_from_result(self, result, percepts):
-        if result == "WIN":
-            return 100
-        if result == "DIED":
-            return -100
-        # Bonus, wenn Agent eine Glitter-Wahrnehmung hatte (nähert sich Gold)
-        if percepts.get('glitter', False):
-            return 10
+    def learn_step(self):
+        # Only learn when buffer has enough
+        if len(self.memory) < max(self.batch_size, self.min_replay_size):
+            return
 
-        # hier später shaping mit Percepts einbauen
-        return -1
+        states_t, actions_t, rewards_t, next_states_t, dones_t = self.sample_batch()
 
-    #  State-Encoding aus Knowledge 
-    def get_state_id(self, percepts):
-        b = 1 if percepts["breeze"] else 0
-        s = 1 if percepts["stench"] else 0
-        g = 1 if percepts["glitter"] else 0
-        return (b << 2) | (s << 1) | g
+        # Compute Q(s,a)
+        q_values = self.policy_net(states_t).gather(1, actions_t).squeeze(1)
 
-    #  Q speichern / laden (Dictionary) 
-    def save_q_table(self, filename="q_table_marcagent.npy"):
-        """Speichere Q-Dict in Datei"""
-        np.save(filename, self.q, allow_pickle=True)
-    
-    def load_q_table(self, filename="q_table_marcagent.npy"):
-        """Lade Q-Dict aus Datei, falls vorhanden"""
+        with torch.no_grad():
+            next_q = self.target_net(next_states_t).max(1)[0]
+            target = rewards_t + self.gamma * next_q * (1 - dones_t)
+
+        loss = nn.functional.mse_loss(q_values, target)
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        self.learn_steps += 1
+        if self.learn_steps % self.target_update_freq == 0:
+            self.target_net.load_state_dict(self.policy_net.state_dict())
+
+    # Save / Load for compatibility with training.py expectations
+    def save_q_table(self, filename="dqn_marc.pth"):
+        torch.save({
+            'policy_state': self.policy_net.state_dict(),
+            'target_state': self.target_net.state_dict(),
+            'optimizer': self.optimizer.state_dict(),
+            'steps_done': self.steps_done,
+        }, filename)
+
+    def load_q_table(self, filename="dqn_marc.pth"):
         if os.path.exists(filename):
-            self.q = np.load(filename, allow_pickle=True).item()
+            data = torch.load(filename, map_location=self.device)
+            self.policy_net.load_state_dict(data['policy_state'])
+            self.target_net.load_state_dict(data.get('target_state', data['policy_state']))
+            if 'optimizer' in data:
+                try:
+                    self.optimizer.load_state_dict(data['optimizer'])
+                except Exception:
+                    pass
+            self.steps_done = data.get('steps_done', self.steps_done)
             return True
         return False
 
-    
-    def action_to_id(self, action):
-        return self.ACTIONS.index(action)
-    
-    def id_to_action(self, idx):
-        return self.ACTIONS[idx]
-
-    #  Episode Reset (Knowledge löschen)
     def reset_episode(self):
-        """Lösche Knowledge und Lernstate für neue Episode"""
-        self.safe.clear()
-        self.unsafe.clear()
-        self.visited.clear()
-        self.frontier.clear()
-        self.last_state = None
-        self.last_action = None
+        # nothing per-episode to clear for this DQN agent
+        pass
 
-    #  Knowledge-Update 
-    def update_knowledge(self, percepts):
-        x, y = self.pos()
-        pos = (x, y)
+    def reward_from_result(self, result, percepts):
+        if result == "WIN":
+            return 100.0
+        if result == "DIED":
+            return -100.0
+        
+        # shaping (optional aber nützlich)
+        reward = 0.0
+        if percepts.get("breeze"):
+            reward -= 1.0
+        if percepts.get("stench"):
+            reward -= 1.0
+            
+        return reward
 
-        self.visited.add(pos)
-        self.safe.add(pos)
-
-        neighbors = [
-            (x - 1, y),
-            (x + 1, y),
-            (x, y - 1),
-            (x, y + 1)
-        ]
-        neighbors = [
-            (nx, ny)
-            for nx, ny in neighbors
-            if 0 <= nx < self.grid_size and 0 <= ny < self.grid_size
-        ]
-
-        # Keine Gefahr wahrgenommen → Nachbarn sind safe
-        if not percepts.get('stench', False) and not percepts.get('breeze', False):
-            for n in neighbors:
-                if n not in self.visited:
-                    self.safe.add(n)
-                    self.frontier.add(n)
-            return
-
-        # Gefahr wahrgenommen → Nachbarn potenziell unsicher
-        for n in neighbors:
-            if n not in self.safe:
-                self.unsafe.add(n)
-                self.frontier.add(n)
-
-    #  Bewegungswahl basierend auf Knowledge 
-    def pick_action_with_knowledge(self):
-        x, y = self.pos()
-        moves = {
-            Action.MOVE_UP:    (x, y - 1),
-            Action.MOVE_DOWN:  (x, y + 1),
-            Action.MOVE_LEFT:  (x - 1, y),
-            Action.MOVE_RIGHT: (x + 1, y)
-        }
-
-        valid = {
-            a: p for a, p in moves.items()
-            if 0 <= p[0] < self.grid_size and 0 <= p[1] < self.grid_size
-        }
-
-        # 1. Bevorzuge sichere, noch nicht besuchte Felder
-        safe_moves = [a for a, p in valid.items() if p in self.safe and p not in self.visited]
-        if safe_moves:
-            return random.choice(safe_moves)
-
-        # 2. Dann unbekannte Felder (weder sicher noch unsicher)
-        unknown_moves = [
-            a for a, p in valid.items()
-            if p not in self.safe and p not in self.unsafe
-        ]
-        if unknown_moves:
-            return random.choice(unknown_moves)
-
-        # 3. Wenn nur noch unsichere übrig sind: irgendeinen valid Move
-        return random.choice(list(valid.keys()))

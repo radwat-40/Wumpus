@@ -28,13 +28,13 @@ agent3 = HenrikAgent(2, 0, "A3")
 
 # Lade trainierte Q-Tables falls vorhanden
 if isinstance(agent1, MarcAgent):
-    agent1.load_q_table("q_table_agent1.npy")
+    agent1.load_q_table("dqn_agent1.pth")
     agent1.epsilon = 0.05  # Nutze gelernte Strategie (wenig Exploration)
 if isinstance(agent2, MarcAgent):
-    agent2.load_q_table("q_table_agent2.npy")
+    agent2.load_q_table("dqn_agent2.pth")
     agent2.epsilon = 0.05
 if isinstance(agent3, MarcAgent):
-    agent3.load_q_table("q_table_agent3.npy")
+    agent3.load_q_table("dqn_agent3.pth")
     agent3.epsilon = 0.05
 
 agents = [agent1, agent2, agent3]
@@ -51,18 +51,18 @@ def reset_game():
     
     # Lade Q-Tables für neue Agenten
     if isinstance(agents[0], MarcAgent):
-        agents[0].load_q_table("q_table_agent1.npy")
+        agents[0].load_q_table("dqn_agent1.pth")
         agents[0].epsilon = 0.05
     if isinstance(agents[1], MarcAgent):
-        agents[1].load_q_table("q_table_agent2.npy")
+        agents[1].load_q_table("dqn_agent2.pth")
         agents[1].epsilon = 0.05
     if isinstance(agents[2], MarcAgent):
-        agents[2].load_q_table("q_table_agent3.npy")
+        agents[2].load_q_table("dqn_agent3.pth")
         agents[2].epsilon = 0.05
     
     scheduler = Scheduler(agents, world)
     visited.clear()
-    world.place_random_items()
+    world.reset()
     game_over = False
     win = False
     for agent in agents:
@@ -74,18 +74,16 @@ def game_loop():
     for agent in agents:
         visited.add(agent.pos())
 
-    world.place_random_items()
+    world.reset()
     running = True
 
     while running:
         screen.fill((255, 255, 255))
         drawing.draw_world(screen, world, visited, world.grid_size, TILE_SIZE, font)
         drawing.draw_grid(screen, WINDOW_SIZE, TILE_SIZE)
-        drawing.draw_legend(screen, font, WINDOW_SIZE, LEGEND_WIDTH)
 
         for agent in agents:
             drawing.draw_agent(screen, agent, TILE_SIZE, font)
-            
         drawing.draw_legend(screen, font, WINDOW_SIZE, LEGEND_WIDTH)
 
         if game_over:

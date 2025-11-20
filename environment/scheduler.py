@@ -21,29 +21,72 @@ class Scheduler:
 
         agent = self.agents[self.turn]
 
-        #   1. Percepts vor Aktion  
+        if not agent.agent_alive:
+            self.turn = (self.turn + 1) % len(self.agents)
+            return "CONTINUE"
+
+
+        #   1. Erzeuge lokale Beobachtung (Patch um Agent)
         percepts = self.world.get_percepts(agent)
+        observation = self._build_observation(agent, patch_size=5)
 
         #   2. Agent entscheidet Aktion  
-        action = agent.decide_move(percepts, self.world.grid_size)
+
+        try:
+            action = agent.decide_move(observation, self.world.grid_size)
+        except TypeError:
+            # Fallback für ältere Agents: akzeptieren nur percepts
+            action = agent.decide_move(percepts, self.world.grid_size)
 
         #   3. Welt führt aus  
         result = self.world.execute(agent, action)
 
-        #   4. Neue Percepts nach der Aktion  
-        next_percepts = self.world.get_percepts(agent)
+        #   4. Neue Percepts / Observation nach der Aktion  
+        next_observation = self._build_observation(agent, patch_size=5)
 
         #   5. RL-Update  
-        if hasattr(agent, 'learn') and hasattr(agent, 'reward_from_result'):
+        if hasattr(agent, 'store_transition') and agent.role == "A1":
+            done = result in ("WIN", "DIED")
             reward = agent.reward_from_result(result, percepts)
 
-            # Knowledge updaten (Agent hat Zustand gewechselt)
-            agent.update_knowledge(next_percepts)
-
-            # Lernen (next percepts mitgeben, damit Agent next_state berechnen kann)
-            agent.learn(reward, next_percepts)
+            agent.store_transition(observation, action, reward, next_observation, done)
+            agent.learn_step()
 
         #   6. Nächster Agent  
         self.turn = (self.turn + 1) % len(self.agents)
 
         return result
+
+    def _build_observation(self, agent, patch_size=5):
+        # Returns a tensor-like numpy array with channels [breeze, stench, glitter]
+        half = patch_size // 2
+        gx = agent.x
+        gy = agent.y
+        grid = self.world
+
+        obs = []
+        for channel in ('breeze_tiles', 'stench_tiles', 'gold'):
+            layer = [[0 for _ in range(patch_size)] for __ in range(patch_size)]
+            for dx in range(-half, half + 1):
+                for dy in range(-half, half + 1):
+                    x = gx + dx
+                    y = gy + dy
+                    ix = dx + half
+                    iy = dy + half
+                    if 0 <= x < grid.grid_size and 0 <= y < grid.grid_size:
+                        if channel == 'breeze_tiles' and (x, y) in grid.breeze_tiles:
+                            layer[iy][ix] = 1
+                        if channel == 'stench_tiles' and (x, y) in grid.stench_tiles:
+                            layer[iy][ix] = 1
+                        if channel == 'gold' and (x, y) in grid.gold:
+                            layer[iy][ix] = 1
+            obs.append(layer)
+
+        # agent position channel
+        pos_layer = [[0 for _ in range(patch_size)] for __ in range(patch_size)]
+        pos_layer[half][half] = 1
+        obs.append(pos_layer)
+
+        # Convert to numpy array: shape (channels, H, W)
+        import numpy as _np
+        return _np.array(obs, dtype=_np.float32)
