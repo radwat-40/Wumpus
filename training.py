@@ -6,6 +6,11 @@ Die Q-Table wird nach jedem Spiel gespeichert und kann in main.py geladen werden
 
 import sys
 from agents.agent1 import MarcAgent
+from agents.agent2 import YahiaAgent
+from agents.agent3 import HenrikAgent
+from agents.base_agent import Agent
+from environment.actions import Action
+import random
 from environment.world import World
 from environment.scheduler import Scheduler
 
@@ -14,9 +19,9 @@ def train(num_episodes=10000):
     
     world = World()
     agent1 = MarcAgent(0, 0, "A1")
-    agent2 = MarcAgent(1, 0, "A2")
-    agent3 = MarcAgent(2, 0, "A3")
-    
+    agent2 = YahiaAgent(1, 0, "A2")
+    agent3 = HenrikAgent(2, 0, "A3")
+
     agents = [agent1, agent2, agent3]
     scheduler = Scheduler(agents, world)
     
@@ -28,7 +33,16 @@ def train(num_episodes=10000):
         world.reset()
         for agent in agents:
             agent.agent_alive = True
-            agent.x, agent.y = 0, 0  # Reset Position
+            # Set starting positions by role to match initial placement
+            if getattr(agent, 'role', '') == 'A1':
+                agent.x, agent.y = 0, 0
+            elif getattr(agent, 'role', '') == 'A2':
+                agent.x, agent.y = 1, 0
+            elif getattr(agent, 'role', '') == 'A3':
+                agent.x, agent.y = 2, 0
+            # Lösche Knowledge und Lernstate (KRITISCH für Q-Learning)
+            if hasattr(agent, 'reset_episode'):
+                agent.reset_episode()
         scheduler.turn = 0
         
         episode_done = False
@@ -46,10 +60,11 @@ def train(num_episodes=10000):
                 deaths += 1
                 episode_done = True
         
-        # Speichere Q-Table nach jedem Spiel
-        agent1.save_q_table("q_table_agent1.npy")
-        agent2.save_q_table("q_table_agent2.npy")
-        agent3.save_q_table("q_table_agent3.npy")
+        # Speichere Q-Table nur für Agents, die diese Methode implementieren
+        for i, agent in enumerate(agents, start=1):
+            if hasattr(agent, 'save_q_table'):
+                filename = f"q_table_agent{i}.npy"
+                agent.save_q_table(filename)
         
         # Progress output alle 500 Episoden
         if (episode + 1) % 500 == 0:

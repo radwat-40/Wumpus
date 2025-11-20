@@ -80,6 +80,10 @@ class World:
         if target_pos in self.wumpus:
             self.wumpus.remove(target_pos)
             self.update_stench_tiles()
+
+            if hasattr(agent, "unsafe") and target_pos in agent.unsafe:
+                agent.unsafe.remove(target_pos)
+                agent.safe.add(target_pos)
             return True
         
         return False
@@ -88,31 +92,15 @@ class World:
     def execute(self, agent, action):
         x, y = agent.pos()
 
-        if action == Action.SHOOT_UP:
-            target_pos = (x, y - 1)
-            if target_pos in self.wumpus:
-                self.wumpus.remove(target_pos)
-                self.update_stench_tiles()
-            return "CONTINUE"
-        
-        if action == Action.SHOOT_DOWN:
-            target_pos = (x, y + 1)
-            if target_pos in self.wumpus:
-                self.wumpus.remove(target_pos)
-                self.update_stench_tiles()
-            return "CONTINUE"
-        if action == Action.SHOOT_LEFT:
-            target_pos = (x - 1, y)
-            if target_pos in self.wumpus:
-                self.wumpus.remove(target_pos)
-                self.update_stench_tiles()
-            return "CONTINUE"
-        if action == Action.SHOOT_RIGHT:
-            target_pos = (x + 1, y)
-            if target_pos in self.wumpus:
-                self.wumpus.remove(target_pos)
-                self.update_stench_tiles()
-            return "CONTINUE"
+        if action in {
+            Action.SHOOT_UP,
+            Action.SHOOT_DOWN,
+            Action.SHOOT_LEFT,
+            Action.SHOOT_RIGHT
+        }:
+            killed = self.handle_shoot(agent, action)
+            return "SCREAM" if killed else "CONTINUE"
+
         
         if action == Action.GRAB:
             if agent.pos() in self.gold:
