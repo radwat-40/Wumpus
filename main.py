@@ -26,6 +26,17 @@ agent1 = MarcAgent(0, 0, "A1")
 agent2 = YahiaAgent(1, 0, "A2")
 agent3 = HenrikAgent(2, 0, "A3")
 
+# Lade trainierte Q-Tables falls vorhanden
+if isinstance(agent1, MarcAgent):
+    agent1.load_q_table("q_table_agent1.npy")
+    agent1.epsilon = 0.05  # Nutze gelernte Strategie (wenig Exploration)
+if isinstance(agent2, MarcAgent):
+    agent2.load_q_table("q_table_agent2.npy")
+    agent2.epsilon = 0.05
+if isinstance(agent3, MarcAgent):
+    agent3.load_q_table("q_table_agent3.npy")
+    agent3.epsilon = 0.05
+
 agents = [agent1, agent2, agent3]
 
 scheduler = Scheduler(agents, world)
@@ -37,6 +48,18 @@ win = False
 def reset_game():
     global agents, scheduler, visited, game_over, win
     agents = [MarcAgent(0, 0, "A1"), YahiaAgent(1, 0, "A2"), HenrikAgent(2, 0, "A3")]
+    
+    # Lade Q-Tables für neue Agenten
+    if isinstance(agents[0], MarcAgent):
+        agents[0].load_q_table("q_table_agent1.npy")
+        agents[0].epsilon = 0.05
+    if isinstance(agents[1], MarcAgent):
+        agents[1].load_q_table("q_table_agent2.npy")
+        agents[1].epsilon = 0.05
+    if isinstance(agents[2], MarcAgent):
+        agents[2].load_q_table("q_table_agent3.npy")
+        agents[2].epsilon = 0.05
+    
     scheduler = Scheduler(agents, world)
     visited.clear()
     world.place_random_items()
