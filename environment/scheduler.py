@@ -28,6 +28,7 @@ class Scheduler:
 
         #   1. Erzeuge lokale Beobachtung (Patch um Agent)
         percepts = self.world.get_percepts(agent)
+        old_pos = agent.pos()
         observation = self._build_observation(agent, patch_size=5)
 
         #   2. Agent entscheidet Aktion  
@@ -41,13 +42,22 @@ class Scheduler:
         #   3. Welt führt aus  
         result = self.world.execute(agent, action)
 
+
         #   4. Neue Percepts / Observation nach der Aktion  
         next_observation = self._build_observation(agent, patch_size=5)
+        next_percepts = self.world.get_percepts(agent)
+        new_pos = agent.pos()
 
         #   5. RL-Update  
         if hasattr(agent, 'store_transition') and agent.role == "A1":
             done = result in ("WIN", "DIED")
-            reward = agent.reward_from_result(result, percepts)
+            reward = agent.reward_from_result(
+                result = result,
+                percepts = percepts,
+                next_percepts = next_percepts,
+                old_pos = old_pos,
+                new_pos = new_pos
+            )
 
             agent.store_transition(observation, action, reward, next_observation, done)
             agent.learn_step()

@@ -14,18 +14,15 @@ from collections import deque, namedtuple
 Transition = namedtuple('Transition', ('state', 'action', 'reward', 'next_state', 'done'))
 
 
-class SimpleCNN(nn.Module):
-    def __init__(self, in_channels, num_actions):
+class SimpleMLP(nn.Module):
+    def __init__(self, input_dim, num_actions):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Conv2d(in_channels, 32, kernel_size=3, stride=1, padding=1),
+            nn.Linear(input_dim, 128),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
+            nn.Linear(128, 128),
             nn.ReLU(),
-            nn.Flatten(),
-            nn.Linear(64 * 5 * 5, 256),
-            nn.ReLU(),
-            nn.Linear(256, num_actions)
+            nn.Linear(128, num_actions),
         )
 
     def forward(self, x):
@@ -58,20 +55,23 @@ class MarcAgent(Agent):
         # DQN hyperparams (tunable)
         self.gamma = 0.99
         self.lr = 1e-3  # Higher learning rate for faster convergence
-        self.batch_size = 32  # Smaller batch size for more frequent updates
+        self.batch_size = 16  # Smaller batch size for more frequent updates
         self.replay_size = 10000
-        self.min_replay_size = 256  # Start learning earlier
+        self.min_replay_size = 64  # Start learning earlier
         self.target_update_freq = 2000  # Update target net more frequently
         self.epsilon = 1.0
         self.eps_final = 0.05
         self.eps_decay = 10000  # Faster epsilon decay
 
         self.n_actions = len(self.ACTIONS)
-        self.in_channels = 4  # breeze, stench, glitter, agent_pos
+        self.n_actions = len(self.ACTIONS)
+
+# Feature-Dimension muss zu env_single_agent._build_observation passen
+        self.obs_dim = 7  # [x_norm, y_norm, breeze, stench, glitter, visited, step_frac]
 
         # Networks
-        self.policy_net = SimpleCNN(self.in_channels, self.n_actions).to(self.device)
-        self.target_net = SimpleCNN(self.in_channels, self.n_actions).to(self.device)
+        self.policy_net = SimpleMLP(self.obs_dim, self.n_actions).to(self.device)
+        self.target_net = SimpleMLP(self.obs_dim, self.n_actions).to(self.device)
         self.target_net.load_state_dict(self.policy_net.state_dict())
         self.target_net.eval()
 
@@ -83,6 +83,10 @@ class MarcAgent(Agent):
         # Counters
         self.steps_done = 0
         self.learn_steps = 0
+
+        self.visited = set()
+
+        self.learn_every = 4
 
     def action_id_to_enum(self, idx):
         return self.ACTIONS[int(idx)]
@@ -142,8 +146,12 @@ class MarcAgent(Agent):
         return states_t, actions_t, rewards_t, next_states_t, dones_t
 
     def learn_step(self):
-        # Only learn when buffer has enough
-        if len(self.memory) < max(self.batch_size, self.min_replay_size):
+        # Replay Buffer muss groß genug sein
+        if len(self.memory) < self.min_replay_size:
+            return
+
+        # Falls batch_size größer ist als aktueller Speicher
+        if len(self.memory) < self.batch_size:
             return
 
         states_t, actions_t, rewards_t, next_states_t, dones_t = self.sample_batch()
@@ -192,18 +200,46 @@ class MarcAgent(Agent):
         # nothing per-episode to clear for this DQN agent
         pass
 
-    def reward_from_result(self, result, percepts):
+    def reward_from_result(self, result, percepts, next_percepts, old_pos, new_pos):
+        reward = 0.0
+
         if result == "WIN":
             return 100.0
         if result == "DIED":
             return -100.0
         
-        # shaping (optional aber nützlich)
-        reward = 0.0
-        if percepts.get("breeze"):
+        risky_before = percepts.get('stench', False) or percepts.get('breeze', False)
+        risky_after = next_percepts.get('stench', False) or next_percepts.get('breeze', False)
+
+        was_known = old_pos in self.visited
+        is_known = new_pos in self.visited
+        is_new = not is_known
+
+        # aus riskant -> nicht riskant
+        if risky_before and not risky_after:
+            reward += 20.0
+        
+        safe_before = not risky_before
+        safe_after = not risky_after
+        
+        # sicher -> neues Feld
+        if safe_before and safe_after and is_new:
+            reward += 10.0
+
+        # erstes Mal betretbares Feld
+        if not was_known and is_known:
+            reward += 5.0
+
+        # in Risiko bleiben
+        if risky_after:
             reward -= 1.0
-        if percepts.get("stench"):
-            reward -= 1.0
-            
+
+        # visited aktualisieren
+        self.visited.add(new_pos)
         return reward
+
+    
+        
+
+
 
