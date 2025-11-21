@@ -1,16 +1,20 @@
 import pygame
 import sys
-from agents.base_agent import Agent
+
 from environment.world import World
 from environment import drawing
-from agents.agent1 import MarcAgent 
-from agents.agent2 import YahiaAgent 
-from agents.agent3 import HenrikAgent
 from environment.scheduler import Scheduler
 
-world = World()
+# Agents
+from agents.agent1 import MarcAgent          # PPO-Agent
+from agents.agent2 import YahiaAgent         
+from agents.agent3 import HenrikAgent        
 
-# Game config
+
+ 
+# Welt erstellen
+ 
+world = World()
 
 TILE_SIZE = 32
 WINDOW_SIZE = world.grid_size * TILE_SIZE
@@ -22,55 +26,55 @@ pygame.display.set_caption("Wumpus World 20x20")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 24)
 
-agent1 = MarcAgent(0, 0, "A1")
+
+ 
+# Agenten erstellen
+ 
+agent1 = MarcAgent(0, 0, "A1", grid_size=world.grid_size, model_path="ppo_model.pth")
 agent2 = YahiaAgent(1, 0, "A2")
 agent3 = HenrikAgent(2, 0, "A3")
-
-# Lade trainierte Q-Tables falls vorhanden
-if isinstance(agent1, MarcAgent):
-    agent1.load_q_table("dqn_agent1.pth")
-    agent1.epsilon = 0.05  # Nutze gelernte Strategie (wenig Exploration)
-if isinstance(agent2, MarcAgent):
-    agent2.load_q_table("dqn_agent2.pth")
-    agent2.epsilon = 0.05
-if isinstance(agent3, MarcAgent):
-    agent3.load_q_table("dqn_agent3.pth")
-    agent3.epsilon = 0.05
 
 agents = [agent1, agent2, agent3]
 
 scheduler = Scheduler(agents, world)
+scheduler.reset_memory(world.grid_size)
 
 visited = set()
 game_over = False
 win = False
 
+
+ 
+# Reset Funktion
+ 
 def reset_game():
     global agents, scheduler, visited, game_over, win
-    agents = [MarcAgent(0, 0, "A1"), YahiaAgent(1, 0, "A2"), HenrikAgent(2, 0, "A3")]
-    
-    # Lade Q-Tables für neue Agenten
-    if isinstance(agents[0], MarcAgent):
-        agents[0].load_q_table("dqn_agent1.pth")
-        agents[0].epsilon = 0.05
-    if isinstance(agents[1], MarcAgent):
-        agents[1].load_q_table("dqn_agent2.pth")
-        agents[1].epsilon = 0.05
-    if isinstance(agents[2], MarcAgent):
-        agents[2].load_q_table("dqn_agent3.pth")
-        agents[2].epsilon = 0.05
-    
+
+    agent1 = MarcAgent(0, 0, "A1", grid_size=world.grid_size, model_path="ppo_model.pth")
+    agent2 = YahiaAgent(1, 0, "A2")
+    agent3 = HenrikAgent(2, 0, "A3")
+
+    agents = [agent1, agent2, agent3]
+
     scheduler = Scheduler(agents, world)
+    scheduler.reset_memory(world.grid_size)
+
     visited.clear()
     world.reset()
+
     game_over = False
     win = False
+
     for agent in agents:
         visited.add(agent.pos())
 
 
+ 
+# Haupt-Game-Loop
+ 
 def game_loop():
     global game_over, win
+
     for agent in agents:
         visited.add(agent.pos())
 
@@ -79,11 +83,13 @@ def game_loop():
 
     while running:
         screen.fill((255, 255, 255))
+
         drawing.draw_world(screen, world, visited, world.grid_size, TILE_SIZE, font)
         drawing.draw_grid(screen, WINDOW_SIZE, TILE_SIZE)
 
         for agent in agents:
             drawing.draw_agent(screen, agent, TILE_SIZE, font)
+
         drawing.draw_legend(screen, font, WINDOW_SIZE, LEGEND_WIDTH)
 
         if game_over:
@@ -93,25 +99,25 @@ def game_loop():
 
         pygame.display.flip()
 
+        # Event Handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     reset_game()
-                    
-            if not(game_over or win):
-                result = scheduler.step()
 
+        if not (game_over or win):
+            result = scheduler.step()
 
+            current_agent = agents[scheduler.turn - 1]
+            visited.add(current_agent.pos())
 
-                current_agent = agents[scheduler.turn - 1]
-                visited.add(current_agent.pos())
-
-                if result == "ALL_DEAD":
-                    game_over = True
-                elif result == "WIN":
-                    win = True
+            if result == "ALL_DEAD":
+                game_over = True
+            elif result == "WIN":
+                win = True
 
         clock.tick(10)
 

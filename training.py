@@ -2,9 +2,15 @@
 Schnelles Single-Agent-Training für MarcAgent (DQN) ohne GUI und ohne Scheduler.
 """
 
-import sys
+from agents.ppo_agent import PPOAgent
 from agents.agent1 import MarcAgent
-from environment.env_single_agent import WumpusSingleAgentEnv
+from environment.env_memory import WumpusMemoryEnv
+from environment.actions import Action
+import torch
+import numpy as np
+
+
+
 
 
 def train(num_episodes=10000):
@@ -49,8 +55,7 @@ def train(num_episodes=10000):
 
             obs = next_obs
 
-        t1 = time.time()
-        print("step time:", t1 - t0)
+        
         # Statistik
         if last_result == "WIN":
             wins += 1
