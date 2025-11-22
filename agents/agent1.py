@@ -1,15 +1,42 @@
+import os
+import numpy as np
 import torch
 import torch.nn as nn
-from agents.ppo_policy import PPONetwork
+
+from agents.base_agent import Agent
 from environment.actions import Action
-import numpy as np
-import os
 
 
-class MarcAgent:
+class AgentQNetwork(nn.Module):
     """
-    PPO-Inference-Agent für das Wumpus-Spiel.
-    Erwartet als Observation ein MemoryGrid: (4, H, W)
+    Per-Agent Q-Netzwerk: Q_i(a | o_i)
+    o_i hat obs_dim Features (hier: 5)
+    """
+
+    def __init__(self, obs_dim: int, n_actions: int):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(obs_dim, 64),
+            nn.ReLU(),
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Linear(64, n_actions),
+        )
+
+    def forward(self, obs: torch.Tensor) -> torch.Tensor:
+        # obs: (B, obs_dim)
+        return self.net(obs)
+
+
+class MarcAgent(Agent):
+    """
+    QMIX-Inference-Agent für A1.
+
+    Erwartet als Observation einen Vektor:
+      [x_norm, y_norm, breeze, stench, glitter]  (Shape: (5,))
+
+    Aktionen: nur Bewegung (UP/DOWN/LEFT/RIGHT).
+    Das entspricht dem Setup aus qmix_training.py.
     """
 
     ACTIONS = [
@@ -17,58 +44,72 @@ class MarcAgent:
         Action.MOVE_DOWN,
         Action.MOVE_LEFT,
         Action.MOVE_RIGHT,
-        Action.GRAB,
-        Action.SHOOT_UP,
-        Action.SHOOT_DOWN,
-        Action.SHOOT_LEFT,
-        Action.SHOOT_RIGHT,
     ]
 
-    def __init__(self, x, y, role, grid_size=20, model_path="ppo_model.pth"):
-        self.x = x
-        self.y = y
-        self.role = role
-        self.agent_alive = True
-        self.agent_won = False
+    def __init__(
+        self,
+        x: int,
+        y: int,
+        role: str,
+        grid_size: int = 20,
+        model_path: str = "qmix_agent_q_net.pth",
+        obs_dim: int = 5,
+    ):
+        super().__init__(x, y, role)
 
         self.grid_size = grid_size
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        # PPO-Policy laden
-        self.policy = PPONetwork(grid_size, len(self.ACTIONS)).to(self.device)
+        self.n_actions = len(self.ACTIONS)
+        self.obs_dim = obs_dim
 
+        # Q-Netzwerk (gleiche Architektur wie im Training)
+        self.q_net = AgentQNetwork(self.obs_dim, self.n_actions).to(self.device)
+
+        self.agent_alive = True
+        self.agent_won = False
+
+        # Modell laden
         if os.path.exists(model_path):
             try:
-                self.policy.load_state_dict(torch.load(model_path, map_location=self.device))
-                print(f"[PPO] Modell geladen: {model_path}")
+                state_dict = torch.load(model_path, map_location=self.device)
+                self.q_net.load_state_dict(state_dict)
+                print(f"[QMIX MarcAgent] Modell geladen: {model_path}")
             except Exception as e:
-                print("[PPO] FEHLER beim Laden:", e)
+                print(f"[QMIX MarcAgent] FEHLER beim Laden von {model_path}: {e}")
+                print("[QMIX MarcAgent] Fallback: zufällige Aktionen.")
         else:
-            print(f"[PPO] WARNUNG: {model_path} existiert nicht – Agent spielt zufällig.")
+            print(f"[QMIX MarcAgent] WARNUNG: {model_path} nicht gefunden – Fallback: zufällige Aktionen.")
 
-        self.policy.eval()
+        self.q_net.eval()
 
     def pos(self):
         return (self.x, self.y)
 
-    # PPO-Action Auswahl
-    def decide_move(self, obs, grid_size):
+    def decide_move(self, observation, grid_size: int):
         """
-        obs: numpy array (4, H, W)
-        gibt Action Enum zurück
+        Wird vom Scheduler aufgerufen.
+        observation: np.array shape (5,) = [x_norm, y_norm, breeze, stench, glitter]
+        grid_size: aktuell ungenutzt, nur für Kompatibilität.
         """
 
-        # Safety: convert to tensor
-        obs_t = torch.tensor(obs, dtype=torch.float32, device=self.device).unsqueeze(0)
+        # Safety: Observation in numpy float32 bringen
+        obs = np.asarray(observation, dtype=np.float32).reshape(-1)
+
+        if obs.shape[0] != self.obs_dim:
+            # Fallback falls irgendwas schief läuft
+            print(f"[QMIX MarcAgent] Ungültige Obs-Shape {obs.shape}, erwarte ({self.obs_dim},). → random move")
+            return np.random.choice(self.ACTIONS)
+
+        obs_t = torch.from_numpy(obs).unsqueeze(0).to(self.device)  # (1, obs_dim)
 
         with torch.no_grad():
-            probs = self.policy(obs_t)  # (1, n_actions)
+            q_vals = self.q_net(obs_t)  # (1, n_actions)
 
-        # Fallback wenn das Modell Müll liefert
-        if torch.isnan(probs).any():
-            print("[PPO] WARNUNG: NaN-Policy → random action")
-            action_idx = np.random.randint(len(self.ACTIONS))
+        if torch.isnan(q_vals).any():
+            print("[QMIX MarcAgent] NaN in Q-Werten → random move")
+            a_idx = np.random.randint(self.n_actions)
         else:
-            action_idx = torch.multinomial(probs[0], 1).item()
+            a_idx = int(torch.argmax(q_vals, dim=-1).item())
 
-        return self.ACTIONS[action_idx]
+        return self.ACTIONS[a_idx]
