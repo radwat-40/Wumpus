@@ -1,7 +1,3 @@
-"""Scheduler Klasse für die Verwaltung der Agenten.
-Bestimmt, welcher Agent an der Reihe ist, was er wahrnimmt und welche Aktion er ausführt.
-"""
-
 import numpy as np
 
 
@@ -11,21 +7,24 @@ class Scheduler:
         self.world = world
         self.turn = 0
 
+        # MemoryGrid für A1 (QMIX)
+        self.known = set()
+        self.safe = set()
+        self.risky = set()
+
     def reset_memory(self, grid_size: int):
-        """
-        Platzhalter, damit main.py nicht crasht.
-        Früher für PPO-Memory genutzt, jetzt für QMIX-Inference nicht mehr notwendig.
-        """
-        pass
+        # Für Restart
+        self.known = set()
+        self.safe = set()
+        self.risky = set()
 
     def step(self):
-        # Falls alle Agenten tot sind
-        if not any(getattr(a, 'agent_alive', True) for a in self.agents):
+        # Falls alle tot
+        if not any(getattr(a, "agent_alive", True) for a in self.agents):
             return "ALL_DEAD"
 
-        # Nächsten lebenden Agenten finden
         start = self.turn
-        while not getattr(self.agents[self.turn], 'agent_alive', True):
+        while not getattr(self.agents[self.turn], "agent_alive", True):
             self.turn = (self.turn + 1) % len(self.agents)
             if self.turn == start:
                 return "ALL_DEAD"
@@ -36,69 +35,116 @@ class Scheduler:
             self.turn = (self.turn + 1) % len(self.agents)
             return "CONTINUE"
 
-        # Percepts (für QMIX-Obs und ggf. alte Agents)
         percepts = self.world.get_percepts(agent)
 
-        # Observation bauen
-        if getattr(agent, "role", None) == "A1":
-            # QMIX-Inference-Agent: 5-d Vektor
+        # ----- OBSERVATION -----
+
+        if agent.role == "A1":
             observation = self._build_qmix_observation(agent, percepts)
         else:
-            # Alte Agents: Patch-Observation
-            observation = self._build_observation(agent, patch_size=5)
+            observation = self._build_patch_observation(agent)
 
-        # Agent entscheidet Aktion
+        # ----- ACTION -----
+
         try:
             action = agent.decide_move(observation, self.world.grid_size)
         except TypeError:
-            # Fallback für ältere Agents, die (percepts, grid_size) erwarten
             action = agent.decide_move(percepts, self.world.grid_size)
 
-        # Welt führt Aktion aus
+        # ----- MEMORYGRID UPDATE BEFORE MOVE -----
+
+        old_pos = agent.pos()
+        self._update_memory_before_move(agent, percepts)
+
+        # ----- APPLY MOVE -----
+
         result = self.world.execute(agent, action)
+        new_pos = agent.pos()
+        new_percepts = self.world.get_percepts(agent)
 
-        # Nächster Agent
+        # ----- MEMORYGRID UPDATE AFTER MOVE -----
+
+        self._update_memory_after_move(agent, new_percepts)
+
+        # ----- REWARD SHAPING -----
+
+        self._apply_reward_shaping(agent, old_pos, new_pos, percepts, new_percepts)
+
+        # ----- NEXT AGENT -----
+
         self.turn = (self.turn + 1) % len(self.agents)
-
         return result
 
-    # ------------------------------
-    # QMIX-Observation für A1
-    # ------------------------------
+     
+    #                         QMIX OBSERVATION (A1)
+     
     def _build_qmix_observation(self, agent, percepts):
-        """
-        Baut eine 5-d Observation wie im QMIX-Training:
-
-          [x_norm, y_norm, breeze, stench, glitter]
-        """
-
         x, y = agent.pos()
-        grid_size = self.world.grid_size
+        N = self.world.grid_size - 1
 
-        x_norm = x / (grid_size - 1) if grid_size > 1 else 0.0
-        y_norm = y / (grid_size - 1) if grid_size > 1 else 0.0
+        x_norm = x / N if N > 0 else 0.0
+        y_norm = y / N if N > 0 else 0.0
 
-        breeze = 1.0 if percepts.get("breeze", False) else 0.0
-        stench = 1.0 if percepts.get("stench", False) else 0.0
-        glitter = 1.0 if percepts.get("glitter", False) else 0.0
+        breeze = 1.0 if percepts["breeze"] else 0.0
+        stench = 1.0 if percepts["stench"] else 0.0
+        glitter = 1.0 if percepts["glitter"] else 0.0
 
         return np.array([x_norm, y_norm, breeze, stench, glitter], dtype=np.float32)
 
-    # ------------------------------
-    # Alte Patch-Observation für Random-Agents
-    # ------------------------------
-    def _build_observation(self, agent, patch_size=5):
-        """
-        Returns a tensor-like numpy array with channels [breeze, stench, glitter]
-        plus Agent-Position im Patch, wie vorher.
-        """
+     
+    #                         MEMORY GRID UPDATE
+     
+    def _update_memory_before_move(self, agent, percepts):
+        pos = agent.pos()
+        self.known.add(pos)
+
+        if percepts["breeze"] or percepts["stench"]:
+            self.risky.add(pos)
+        else:
+            self.safe.add(pos)
+
+    def _update_memory_after_move(self, agent, percepts):
+        pos = agent.pos()
+        self.known.add(pos)
+
+        if percepts["breeze"] or percepts["stench"]:
+            self.risky.add(pos)
+        else:
+            self.safe.add(pos)
+
+     
+    #                       REWARD SHAPING (REAL GAME)
+     
+    def _apply_reward_shaping(self, agent, old_pos, new_pos, old_p, new_p):
+        if agent.role != "A1":
+            return
+
+        # Neues Feld?
+        if new_pos not in self.known:
+            agent.reward = getattr(agent, "reward", 0) + 5
+
+        # Safe Feld?
+        safe_before = not (old_p["breeze"] or old_p["stench"])
+        safe_after = not (new_p["breeze"] or new_p["stench"])
+        if safe_before and safe_after:
+            agent.reward = getattr(agent, "reward", 0) + 5
+
+        # Risiko Strafe
+        if new_pos in self.risky:
+            agent.reward = getattr(agent, "reward", 0) - 1
+
+        # Schritt Strafe
+        agent.reward = getattr(agent, "reward", 0) - 0.02
+
+     
+    #                 PATCH OBSERVATION (A2 / A3)
+    def _build_patch_observation(self, agent, patch_size=5):
         half = patch_size // 2
-        gx = agent.x
-        gy = agent.y
+        gx, gy = agent.pos()
         grid = self.world
 
         obs = []
-        for channel in ('breeze_tiles', 'stench_tiles', 'gold'):
+        for channel in ("breeze_tiles", "stench_tiles", "gold"):
             layer = [[0 for _ in range(patch_size)] for __ in range(patch_size)]
             for dx in range(-half, half + 1):
                 for dy in range(-half, half + 1):
@@ -107,15 +153,14 @@ class Scheduler:
                     ix = dx + half
                     iy = dy + half
                     if 0 <= x < grid.grid_size and 0 <= y < grid.grid_size:
-                        if channel == 'breeze_tiles' and (x, y) in grid.breeze_tiles:
+                        if channel == "breeze_tiles" and (x, y) in grid.breeze_tiles:
                             layer[iy][ix] = 1
-                        if channel == 'stench_tiles' and (x, y) in grid.stench_tiles:
+                        if channel == "stench_tiles" and (x, y) in grid.stench_tiles:
                             layer[iy][ix] = 1
-                        if channel == 'gold' and (x, y) in grid.gold:
+                        if channel == "gold" and (x, y) in grid.gold:
                             layer[iy][ix] = 1
             obs.append(layer)
 
-        # Agent-Position im Patch
         pos_layer = [[0 for _ in range(patch_size)] for __ in range(patch_size)]
         pos_layer[half][half] = 1
         obs.append(pos_layer)

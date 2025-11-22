@@ -10,7 +10,7 @@ from environment.actions import Action
 class AgentQNetwork(nn.Module):
     """
     Per-Agent Q-Netzwerk: Q_i(a | o_i)
-    o_i hat obs_dim Features (hier: 5)
+    Beobachtung o_i: 5 Features
     """
 
     def __init__(self, obs_dim: int, n_actions: int):
@@ -24,19 +24,14 @@ class AgentQNetwork(nn.Module):
         )
 
     def forward(self, obs: torch.Tensor) -> torch.Tensor:
-        # obs: (B, obs_dim)
         return self.net(obs)
 
 
 class MarcAgent(Agent):
     """
-    QMIX-Inference-Agent für A1.
-
-    Erwartet als Observation einen Vektor:
-      [x_norm, y_norm, breeze, stench, glitter]  (Shape: (5,))
-
-    Aktionen: nur Bewegung (UP/DOWN/LEFT/RIGHT).
-    Das entspricht dem Setup aus qmix_training.py.
+    QMIX-Inference-Agent (A1).
+    Erwartet Observation:
+      [x_norm, y_norm, breeze, stench, glitter]
     """
 
     ACTIONS = [
@@ -60,54 +55,42 @@ class MarcAgent(Agent):
         self.grid_size = grid_size
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        self.n_actions = len(self.ACTIONS)
         self.obs_dim = obs_dim
+        self.n_actions = len(self.ACTIONS)
 
-        # Q-Netzwerk (gleiche Architektur wie im Training)
+        # Q-Netzwerk laden
         self.q_net = AgentQNetwork(self.obs_dim, self.n_actions).to(self.device)
 
-        self.agent_alive = True
-        self.agent_won = False
-
-        # Modell laden
         if os.path.exists(model_path):
             try:
-                state_dict = torch.load(model_path, map_location=self.device)
-                self.q_net.load_state_dict(state_dict)
+                self.q_net.load_state_dict(torch.load(model_path, map_location=self.device))
                 print(f"[QMIX MarcAgent] Modell geladen: {model_path}")
             except Exception as e:
-                print(f"[QMIX MarcAgent] FEHLER beim Laden von {model_path}: {e}")
-                print("[QMIX MarcAgent] Fallback: zufällige Aktionen.")
+                print(f"[QMIX MarcAgent] Fehler beim Laden: {e}")
+                print("[QMIX MarcAgent] Fallback auf Zufallsaktionen.")
         else:
-            print(f"[QMIX MarcAgent] WARNUNG: {model_path} nicht gefunden – Fallback: zufällige Aktionen.")
+            print(f"[QMIX MarcAgent] WARNUNG: {model_path} nicht gefunden – Fallback auf Zufallsaktionen.")
 
         self.q_net.eval()
 
-    def pos(self):
-        return (self.x, self.y)
-
     def decide_move(self, observation, grid_size: int):
         """
-        Wird vom Scheduler aufgerufen.
         observation: np.array shape (5,) = [x_norm, y_norm, breeze, stench, glitter]
-        grid_size: aktuell ungenutzt, nur für Kompatibilität.
         """
 
-        # Safety: Observation in numpy float32 bringen
         obs = np.asarray(observation, dtype=np.float32).reshape(-1)
 
         if obs.shape[0] != self.obs_dim:
-            # Fallback falls irgendwas schief läuft
-            print(f"[QMIX MarcAgent] Ungültige Obs-Shape {obs.shape}, erwarte ({self.obs_dim},). → random move")
+            print(f"[QMIX MarcAgent] Falsches Observation-Format {obs.shape} → Zufall")
             return np.random.choice(self.ACTIONS)
 
-        obs_t = torch.from_numpy(obs).unsqueeze(0).to(self.device)  # (1, obs_dim)
+        obs_t = torch.from_numpy(obs).unsqueeze(0).to(self.device)
 
         with torch.no_grad():
-            q_vals = self.q_net(obs_t)  # (1, n_actions)
+            q_vals = self.q_net(obs_t)
 
         if torch.isnan(q_vals).any():
-            print("[QMIX MarcAgent] NaN in Q-Werten → random move")
+            print("[QMIX MarcAgent] NaN in Q-Werten → Zufall")
             a_idx = np.random.randint(self.n_actions)
         else:
             a_idx = int(torch.argmax(q_vals, dim=-1).item())

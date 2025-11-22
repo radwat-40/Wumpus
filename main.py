@@ -5,17 +5,15 @@ from environment.world import World
 from environment import drawing
 from environment.scheduler import Scheduler
 
-# Agents
-from agents.agent1 import MarcAgent          # PPO-Agent
-from agents.agent2 import YahiaAgent         
-from agents.agent3 import HenrikAgent        
+
+from agents.agent1 import MarcAgent
+from agents.agent2 import YahiaAgent
+from agents.agent3 import HenrikAgent
 
 
- 
-# Welt erstellen
- 
 world = World()
 
+# Game config
 TILE_SIZE = 32
 WINDOW_SIZE = world.grid_size * TILE_SIZE
 LEGEND_WIDTH = 250
@@ -27,41 +25,34 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 24)
 
 
- 
-# Agenten erstellen
- 
-agent1 = MarcAgent(0, 0, "A1", grid_size=world.grid_size, model_path="ppo_model.pth")
-agent2 = YahiaAgent(1, 0, "A2")
-agent3 = HenrikAgent(2, 0, "A3")
+def create_agents():
+    """
+    Stellt sicher, dass A1 der QMIX-MarcAgent ist.
+    A2/A3 bleiben Random-Agents (unverändert).
+    """
+    agent1 = MarcAgent(0, 0, "A1", grid_size=world.grid_size)
+    agent2 = YahiaAgent(1, 0, "A2")
+    agent3 = HenrikAgent(2, 0, "A3")
 
-agents = [agent1, agent2, agent3]
+    return [agent1, agent2, agent3]
 
+
+agents = create_agents()
 scheduler = Scheduler(agents, world)
-scheduler.reset_memory(world.grid_size)
 
 visited = set()
 game_over = False
 win = False
 
 
- 
-# Reset Funktion
- 
 def reset_game():
     global agents, scheduler, visited, game_over, win
 
-    agent1 = MarcAgent(0, 0, "A1", grid_size=world.grid_size, model_path="ppo_model.pth")
-    agent2 = YahiaAgent(1, 0, "A2")
-    agent3 = HenrikAgent(2, 0, "A3")
-
-    agents = [agent1, agent2, agent3]
-
+    agents = create_agents()   
     scheduler = Scheduler(agents, world)
-    scheduler.reset_memory(world.grid_size)
 
     visited.clear()
     world.reset()
-
     game_over = False
     win = False
 
@@ -69,9 +60,6 @@ def reset_game():
         visited.add(agent.pos())
 
 
- 
-# Haupt-Game-Loop
- 
 def game_loop():
     global game_over, win
 
@@ -83,7 +71,6 @@ def game_loop():
 
     while running:
         screen.fill((255, 255, 255))
-
         drawing.draw_world(screen, world, visited, world.grid_size, TILE_SIZE, font)
         drawing.draw_grid(screen, WINDOW_SIZE, TILE_SIZE)
 
@@ -99,7 +86,6 @@ def game_loop():
 
         pygame.display.flip()
 
-        # Event Handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -111,7 +97,7 @@ def game_loop():
         if not (game_over or win):
             result = scheduler.step()
 
-            current_agent = agents[scheduler.turn - 1]
+            current_agent = agents[(scheduler.turn - 1) % len(agents)]
             visited.add(current_agent.pos())
 
             if result == "ALL_DEAD":

@@ -18,6 +18,7 @@ from agents.base_agent import Agent
 class MultiAgentWumpusEnv:
     """
     Vereinfachte Multi-Agent-Trainingsumgebung für QMIX.
+
     - 3 Agenten (Team)
     - Gemeinsamer Team-Reward mit Shaping
     - Beobachtung pro Agent: [x_norm, y_norm, breeze, stench, glitter]
@@ -294,12 +295,17 @@ class ReplayBuffer:
 
 def get_curriculum_stage(ep: int):
     """
-    Einfaches Curriculum:
-      0- 999: 4x4, keine Gefahren
-    1000-1999: 4x4, leichte Gefahren
+    Curriculum bis 20x20:
+
+      0- 999: 4x4,  keine Gefahren
+    1000-1999: 4x4,  leichte Gefahren
     2000-2999: 5x5
     3000-3999: 6x6
-    4000+   : 8x8
+    4000-4999: 8x8
+    5000-5999: 10x10
+    6000-6999: 12x12
+    7000-7999: 15x15
+    8000+   : 20x20
     """
     if ep < 1000:
         return dict(grid=4, pits=0, wumpus=0, gold=1, steps=20)
@@ -309,8 +315,16 @@ def get_curriculum_stage(ep: int):
         return dict(grid=5, pits=2, wumpus=1, gold=1, steps=35)
     elif ep < 4000:
         return dict(grid=6, pits=3, wumpus=1, gold=1, steps=45)
+    elif ep < 5000:
+        return dict(grid=8, pits=5, wumpus=2, gold=1, steps=60)
+    elif ep < 6000:
+        return dict(grid=10, pits=10, wumpus=2, gold=1, steps=80)
+    elif ep < 7000:
+        return dict(grid=12, pits=15, wumpus=2, gold=1, steps=100)
+    elif ep < 8000:
+        return dict(grid=15, pits=15, wumpus=3, gold=1, steps=140)
     else:
-        return dict(grid=8, pits=5, wumpus=2, gold=1, steps=70)
+        return dict(grid=20, pits=35, wumpus=3, gold=1, steps=300)
 
 
 # ===========================
@@ -318,7 +332,7 @@ def get_curriculum_stage(ep: int):
 # ===========================
 
 def train_qmix(
-    num_episodes=5000,
+    num_episodes=9000,
     n_agents=3,
     n_actions=4,
     gamma=0.97,
@@ -498,7 +512,7 @@ def train_qmix(
 
 if __name__ == "__main__":
     train_qmix(
-        num_episodes=5000,
+        num_episodes=9000,
         n_agents=3,
         n_actions=4,
     )
