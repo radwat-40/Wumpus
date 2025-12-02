@@ -62,22 +62,21 @@ class Scheduler:
         new_pos = agent.pos()
         new_percepts = self.world.get_percepts(agent)
 
+        # ----- REWARD SHAPING (nutzt Wissensstand VOR dem Update nach dem Zug) -----
+
+        self._apply_reward_shaping(agent, old_pos, new_pos, percepts, new_percepts)
+
         # ----- MEMORYGRID UPDATE AFTER MOVE -----
 
         self._update_memory_after_move(agent, new_percepts)
-
-        # ----- REWARD SHAPING -----
-
-        self._apply_reward_shaping(agent, old_pos, new_pos, percepts, new_percepts)
 
         # ----- NEXT AGENT -----
 
         self.turn = (self.turn + 1) % len(self.agents)
         return result
 
-     
     #                         QMIX OBSERVATION (A1)
-     
+
     def _build_qmix_observation(self, agent, percepts):
         x, y = agent.pos()
         N = self.world.grid_size - 1
@@ -91,9 +90,8 @@ class Scheduler:
 
         return np.array([x_norm, y_norm, breeze, stench, glitter], dtype=np.float32)
 
-     
     #                         MEMORY GRID UPDATE
-     
+
     def _update_memory_before_move(self, agent, percepts):
         pos = agent.pos()
         self.known.add(pos)
@@ -112,9 +110,6 @@ class Scheduler:
         else:
             self.safe.add(pos)
 
-     
-    #                       REWARD SHAPING (REAL GAME)
-     
     def _apply_reward_shaping(self, agent, old_pos, new_pos, old_p, new_p):
         if agent.role != "A1":
             return
@@ -136,8 +131,8 @@ class Scheduler:
         # Schritt Strafe
         agent.reward = getattr(agent, "reward", 0) - 0.02
 
-     
     #                 PATCH OBSERVATION (A2 / A3)
+
     def _build_patch_observation(self, agent, patch_size=5):
         half = patch_size // 2
         gx, gy = agent.pos()
@@ -150,15 +145,21 @@ class Scheduler:
                 for dy in range(-half, half + 1):
                     x = gx + dx
                     y = gy + dy
-                    ix = dx + half
-                    iy = dy + half
-                    if 0 <= x < grid.grid_size and 0 <= y < grid.grid_size:
-                        if channel == "breeze_tiles" and (x, y) in grid.breeze_tiles:
-                            layer[iy][ix] = 1
-                        if channel == "stench_tiles" and (x, y) in grid.stench_tiles:
-                            layer[iy][ix] = 1
-                        if channel == "gold" and (x, y) in grid.gold:
-                            layer[iy][ix] = 1
+                    if not grid.in_bounds(x, y):
+                        continue
+
+                    if channel == "breeze_tiles" and (x, y) in grid.breeze_tiles:
+                        ix = dx + half
+                        iy = dy + half
+                        layer[iy][ix] = 1
+                    elif channel == "stench_tiles" and (x, y) in grid.stench_tiles:
+                        ix = dx + half
+                        iy = dy + half
+                        layer[iy][ix] = 1
+                    elif channel == "gold" and (x, y) in grid.gold:
+                        ix = dx + half
+                        iy = dy + half
+                        layer[iy][ix] = 1
             obs.append(layer)
 
         pos_layer = [[0 for _ in range(patch_size)] for __ in range(patch_size)]
