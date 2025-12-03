@@ -1,0 +1,1401 @@
+2025-12-03 16:40:25,288 [INFO] A1: Modell geladen: dqn_agent_best.pth
+2025-12-03 16:40:25,295 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(0, 0), alive=True
+2025-12-03 16:40:25,295 [DEBUG] A1: set_memory: grid_size=20, known=0, safe=0, risky=0
+2025-12-03 16:40:25,295 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(0, 0), obs=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+2025-12-03 16:40:25,295 [DEBUG] A1: decide_move: pos=(0, 0), obs=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0], grid_size=20
+2025-12-03 16:40:25,296 [DEBUG] A1: _rule_based_action: pos=(0, 0), breeze=0.0, stench=0.0, glitter=0.0, known=0, safe=0, risky=0
+2025-12-03 16:40:25,296 [DEBUG] A1: _rule_based_action: neighbor=(0, 1), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:25,296 [DEBUG] A1: _rule_based_action: neighbor=(1, 0), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:25,297 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:25,297 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:25,297 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:25,297 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(0, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,297 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(0, 0), new_pos=(1, 0), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,298 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(1, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,378 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(1, 0), alive=True
+2025-12-03 16:40:25,378 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:25,379 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(1, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,379 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(1, 0), new_pos=(2, 0), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,380 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(2, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,476 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(2, 0), alive=True
+2025-12-03 16:40:25,476 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:25,476 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(2, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,477 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(2, 0), new_pos=(2, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,477 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(2, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,577 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(1, 0), alive=True
+2025-12-03 16:40:25,577 [DEBUG] A1: set_memory: grid_size=20, known=4, safe=4, risky=0
+2025-12-03 16:40:25,577 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(1, 0), obs=[0.05263157894736842, 0.0, 0.0, 0.0, 0.0, 0.01]
+2025-12-03 16:40:25,577 [DEBUG] A1: decide_move: pos=(1, 0), obs=[0.05263157894736842, 0.0, 0.0, 0.0, 0.0, 0.01], grid_size=20
+2025-12-03 16:40:25,578 [DEBUG] A1: _rule_based_action: pos=(1, 0), breeze=0.0, stench=0.0, glitter=0.0, known=4, safe=4, risky=0
+2025-12-03 16:40:25,578 [DEBUG] A1: _rule_based_action: neighbor=(1, 1), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:25,578 [DEBUG] A1: _rule_based_action: neighbor=(0, 0), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:25,579 [DEBUG] A1: _rule_based_action: neighbor=(2, 0), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:25,579 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_DOWN with score=25.0
+2025-12-03 16:40:25,579 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:25,579 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:25,580 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(1, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,580 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(1, 0), new_pos=(1, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,580 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(1, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,678 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(2, 0), alive=True
+2025-12-03 16:40:25,678 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:25,678 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(2, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,678 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(2, 0), new_pos=(2, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,679 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(2, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,778 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(2, 1), alive=True
+2025-12-03 16:40:25,779 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:25,779 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(2, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,779 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(2, 1), new_pos=(1, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,780 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(1, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,879 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(1, 1), alive=True
+2025-12-03 16:40:25,879 [DEBUG] A1: set_memory: grid_size=20, known=5, safe=5, risky=0
+2025-12-03 16:40:25,879 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(1, 1), obs=[0.05263157894736842, 0.05263157894736842, 0.0, 0.0, 0.0, 0.0125]
+2025-12-03 16:40:25,880 [DEBUG] A1: decide_move: pos=(1, 1), obs=[0.05263157894736842, 0.05263157894736842, 0.0, 0.0, 0.0, 0.0125], grid_size=20
+2025-12-03 16:40:25,880 [DEBUG] A1: _rule_based_action: pos=(1, 1), breeze=0.0, stench=0.0, glitter=0.0, known=5, safe=5, risky=0
+2025-12-03 16:40:25,880 [DEBUG] A1: _rule_based_action: neighbor=(1, 0), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:25,880 [DEBUG] A1: _rule_based_action: neighbor=(1, 2), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:25,881 [DEBUG] A1: _rule_based_action: neighbor=(0, 1), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:25,881 [DEBUG] A1: _rule_based_action: neighbor=(2, 1), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:25,881 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:25,882 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:25,882 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:25,882 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(1, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,882 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(1, 1), new_pos=(1, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,882 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(1, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,979 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(2, 1), alive=True
+2025-12-03 16:40:25,980 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:25,980 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(2, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:25,980 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(2, 1), new_pos=(3, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:25,981 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(3, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,081 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(1, 1), alive=True
+2025-12-03 16:40:26,081 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:26,081 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(1, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,082 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(1, 1), new_pos=(1, 0), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,082 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(1, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,181 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(1, 2), alive=True
+2025-12-03 16:40:26,181 [DEBUG] A1: set_memory: grid_size=20, known=7, safe=7, risky=0
+2025-12-03 16:40:26,181 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(1, 2), obs=[0.05263157894736842, 0.10526315789473684, 0.0, 0.0, 0.0, 0.0175]
+2025-12-03 16:40:26,181 [DEBUG] A1: decide_move: pos=(1, 2), obs=[0.05263157894736842, 0.10526315789473684, 0.0, 0.0, 0.0, 0.0175], grid_size=20
+2025-12-03 16:40:26,181 [DEBUG] A1: _rule_based_action: pos=(1, 2), breeze=0.0, stench=0.0, glitter=0.0, known=7, safe=7, risky=0
+2025-12-03 16:40:26,182 [DEBUG] A1: _rule_based_action: neighbor=(1, 1), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:26,182 [DEBUG] A1: _rule_based_action: neighbor=(1, 3), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:26,182 [DEBUG] A1: _rule_based_action: neighbor=(0, 2), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:26,183 [DEBUG] A1: _rule_based_action: neighbor=(2, 2), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:26,183 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:26,183 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:26,183 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:26,183 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(1, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,184 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(1, 2), new_pos=(0, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,184 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(0, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,281 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(3, 1), alive=True
+2025-12-03 16:40:26,282 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:26,282 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(3, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,282 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(3, 1), new_pos=(3, 2), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,282 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(3, 2), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:26,383 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(1, 0), alive=True
+2025-12-03 16:40:26,384 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:26,384 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(1, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,384 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(1, 0), new_pos=(0, 0), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,385 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,483 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(0, 2), alive=True
+2025-12-03 16:40:26,483 [DEBUG] A1: set_memory: grid_size=20, known=9, safe=8, risky=1
+2025-12-03 16:40:26,484 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(0, 2), obs=[0.0, 0.10526315789473684, 0.0, 0.0, 0.0, 0.0225]
+2025-12-03 16:40:26,484 [DEBUG] A1: decide_move: pos=(0, 2), obs=[0.0, 0.10526315789473684, 0.0, 0.0, 0.0, 0.0225], grid_size=20
+2025-12-03 16:40:26,484 [DEBUG] A1: _rule_based_action: pos=(0, 2), breeze=0.0, stench=0.0, glitter=0.0, known=9, safe=8, risky=1
+2025-12-03 16:40:26,484 [DEBUG] A1: _rule_based_action: neighbor=(0, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:26,485 [DEBUG] A1: _rule_based_action: neighbor=(0, 3), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:26,485 [DEBUG] A1: _rule_based_action: neighbor=(1, 2), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:26,485 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:26,485 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:26,485 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:26,486 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(0, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,486 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(0, 2), new_pos=(0, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,486 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(0, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,583 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(3, 2), alive=True
+2025-12-03 16:40:26,583 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:26,583 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(3, 2), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:26,584 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(3, 2), new_pos=(2, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,584 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(2, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,683 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 0), alive=True
+2025-12-03 16:40:26,684 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:26,684 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 0), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,684 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 0), new_pos=(0, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,684 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,783 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(0, 3), alive=True
+2025-12-03 16:40:26,784 [DEBUG] A1: set_memory: grid_size=20, known=12, safe=11, risky=1
+2025-12-03 16:40:26,784 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(0, 3), obs=[0.0, 0.15789473684210525, 0.0, 0.0, 0.0, 0.03]
+2025-12-03 16:40:26,784 [DEBUG] A1: decide_move: pos=(0, 3), obs=[0.0, 0.15789473684210525, 0.0, 0.0, 0.0, 0.03], grid_size=20
+2025-12-03 16:40:26,784 [DEBUG] A1: _rule_based_action: pos=(0, 3), breeze=0.0, stench=0.0, glitter=0.0, known=12, safe=11, risky=1
+2025-12-03 16:40:26,785 [DEBUG] A1: _rule_based_action: neighbor=(0, 2), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:26,785 [DEBUG] A1: _rule_based_action: neighbor=(0, 4), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:26,785 [DEBUG] A1: _rule_based_action: neighbor=(1, 3), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:26,786 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:26,786 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:26,787 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:26,787 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(0, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,787 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(0, 3), new_pos=(0, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,788 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(0, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,886 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(2, 2), alive=True
+2025-12-03 16:40:26,887 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:26,887 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(2, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,888 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(2, 2), new_pos=(2, 3), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,888 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(2, 3), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:26,984 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 1), alive=True
+2025-12-03 16:40:26,984 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:26,984 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:26,984 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 1), new_pos=(0, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:26,985 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,086 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(0, 4), alive=True
+2025-12-03 16:40:27,087 [DEBUG] A1: set_memory: grid_size=20, known=14, safe=12, risky=2
+2025-12-03 16:40:27,087 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(0, 4), obs=[0.0, 0.21052631578947367, 0.0, 0.0, 0.0, 0.035]
+2025-12-03 16:40:27,088 [DEBUG] A1: decide_move: pos=(0, 4), obs=[0.0, 0.21052631578947367, 0.0, 0.0, 0.0, 0.035], grid_size=20
+2025-12-03 16:40:27,088 [DEBUG] A1: _rule_based_action: pos=(0, 4), breeze=0.0, stench=0.0, glitter=0.0, known=14, safe=12, risky=2
+2025-12-03 16:40:27,088 [DEBUG] A1: _rule_based_action: neighbor=(0, 3), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:27,089 [DEBUG] A1: _rule_based_action: neighbor=(0, 5), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,089 [DEBUG] A1: _rule_based_action: neighbor=(1, 4), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,089 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:27,090 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:27,090 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:27,090 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(0, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,090 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(0, 4), new_pos=(1, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,091 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(1, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,186 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(2, 3), alive=True
+2025-12-03 16:40:27,186 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:27,186 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(2, 3), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:27,187 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(2, 3), new_pos=(1, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,187 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(1, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,287 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 2), alive=True
+2025-12-03 16:40:27,288 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:27,288 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,288 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 2), new_pos=(0, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,288 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,387 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(1, 4), alive=True
+2025-12-03 16:40:27,387 [DEBUG] A1: set_memory: grid_size=20, known=16, safe=14, risky=2
+2025-12-03 16:40:27,388 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(1, 4), obs=[0.05263157894736842, 0.21052631578947367, 0.0, 0.0, 0.0, 0.04]
+2025-12-03 16:40:27,388 [DEBUG] A1: decide_move: pos=(1, 4), obs=[0.05263157894736842, 0.21052631578947367, 0.0, 0.0, 0.0, 0.04], grid_size=20
+2025-12-03 16:40:27,388 [DEBUG] A1: _rule_based_action: pos=(1, 4), breeze=0.0, stench=0.0, glitter=0.0, known=16, safe=14, risky=2
+2025-12-03 16:40:27,388 [DEBUG] A1: _rule_based_action: neighbor=(1, 3), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:27,388 [DEBUG] A1: _rule_based_action: neighbor=(1, 5), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,389 [DEBUG] A1: _rule_based_action: neighbor=(0, 4), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:27,389 [DEBUG] A1: _rule_based_action: neighbor=(2, 4), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,389 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:27,389 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:27,389 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:27,390 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(1, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,390 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(1, 4), new_pos=(1, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,390 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(1, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,488 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(1, 3), alive=True
+2025-12-03 16:40:27,489 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:27,489 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(1, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,490 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(1, 3), new_pos=(0, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,490 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(0, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,587 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 3), alive=True
+2025-12-03 16:40:27,587 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:27,588 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,588 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 3), new_pos=(0, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,588 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,687 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(1, 5), alive=True
+2025-12-03 16:40:27,687 [DEBUG] A1: set_memory: grid_size=20, known=17, safe=15, risky=2
+2025-12-03 16:40:27,687 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(1, 5), obs=[0.05263157894736842, 0.2631578947368421, 0.0, 0.0, 0.0, 0.0425]
+2025-12-03 16:40:27,688 [DEBUG] A1: decide_move: pos=(1, 5), obs=[0.05263157894736842, 0.2631578947368421, 0.0, 0.0, 0.0, 0.0425], grid_size=20
+2025-12-03 16:40:27,688 [DEBUG] A1: _rule_based_action: pos=(1, 5), breeze=0.0, stench=0.0, glitter=0.0, known=17, safe=15, risky=2
+2025-12-03 16:40:27,688 [DEBUG] A1: _rule_based_action: neighbor=(1, 4), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:27,688 [DEBUG] A1: _rule_based_action: neighbor=(1, 6), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,689 [DEBUG] A1: _rule_based_action: neighbor=(0, 5), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,689 [DEBUG] A1: _rule_based_action: neighbor=(2, 5), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,689 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:27,689 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:27,690 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:27,690 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(1, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,690 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(1, 5), new_pos=(1, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,690 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(1, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,787 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(0, 3), alive=True
+2025-12-03 16:40:27,787 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:27,788 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(0, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,788 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(0, 3), new_pos=(0, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,788 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(0, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,887 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 4), alive=True
+2025-12-03 16:40:27,888 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:27,888 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,888 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 4), new_pos=(0, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,888 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,988 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(1, 6), alive=True
+2025-12-03 16:40:27,988 [DEBUG] A1: set_memory: grid_size=20, known=19, safe=17, risky=2
+2025-12-03 16:40:27,988 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(1, 6), obs=[0.05263157894736842, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0475]
+2025-12-03 16:40:27,989 [DEBUG] A1: decide_move: pos=(1, 6), obs=[0.05263157894736842, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0475], grid_size=20
+2025-12-03 16:40:27,989 [DEBUG] A1: _rule_based_action: pos=(1, 6), breeze=0.0, stench=0.0, glitter=0.0, known=19, safe=17, risky=2
+2025-12-03 16:40:27,989 [DEBUG] A1: _rule_based_action: neighbor=(1, 5), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:27,989 [DEBUG] A1: _rule_based_action: neighbor=(1, 7), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,990 [DEBUG] A1: _rule_based_action: neighbor=(0, 6), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,990 [DEBUG] A1: _rule_based_action: neighbor=(2, 6), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:27,990 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:27,990 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:27,991 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:27,991 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(1, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:27,991 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(1, 6), new_pos=(2, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:27,991 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(2, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,088 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(0, 4), alive=True
+2025-12-03 16:40:28,088 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:28,089 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(0, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,089 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(0, 4), new_pos=(1, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,089 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(1, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,189 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 5), alive=True
+2025-12-03 16:40:28,189 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:28,190 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,190 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 5), new_pos=(0, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,190 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,292 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(2, 6), alive=True
+2025-12-03 16:40:28,292 [DEBUG] A1: set_memory: grid_size=20, known=21, safe=19, risky=2
+2025-12-03 16:40:28,292 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(2, 6), obs=[0.10526315789473684, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0525]
+2025-12-03 16:40:28,292 [DEBUG] A1: decide_move: pos=(2, 6), obs=[0.10526315789473684, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0525], grid_size=20
+2025-12-03 16:40:28,293 [DEBUG] A1: _rule_based_action: pos=(2, 6), breeze=0.0, stench=0.0, glitter=0.0, known=21, safe=19, risky=2
+2025-12-03 16:40:28,293 [DEBUG] A1: _rule_based_action: neighbor=(2, 5), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:28,293 [DEBUG] A1: _rule_based_action: neighbor=(2, 7), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:28,294 [DEBUG] A1: _rule_based_action: neighbor=(1, 6), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:28,294 [DEBUG] A1: _rule_based_action: neighbor=(3, 6), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:28,294 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:28,294 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:28,295 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:28,295 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(2, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,295 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(2, 6), new_pos=(2, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,295 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(2, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,389 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(1, 4), alive=True
+2025-12-03 16:40:28,389 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:28,389 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(1, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,390 [DEBUG] Scheduler: step: agent=A2, result=CONTINUE, old_pos=(1, 4), new_pos=(2, 4), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,390 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(2, 4), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:28,490 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 6), alive=True
+2025-12-03 16:40:28,490 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:28,490 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,491 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 6), new_pos=(0, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,491 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(0, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,590 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(2, 5), alive=True
+2025-12-03 16:40:28,591 [DEBUG] A1: set_memory: grid_size=20, known=24, safe=21, risky=3
+2025-12-03 16:40:28,591 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(2, 5), obs=[0.10526315789473684, 0.2631578947368421, 0.0, 0.0, 0.0, 0.06]
+2025-12-03 16:40:28,591 [DEBUG] A1: decide_move: pos=(2, 5), obs=[0.10526315789473684, 0.2631578947368421, 0.0, 0.0, 0.0, 0.06], grid_size=20
+2025-12-03 16:40:28,592 [DEBUG] A1: _rule_based_action: pos=(2, 5), breeze=0.0, stench=0.0, glitter=0.0, known=24, safe=21, risky=3
+2025-12-03 16:40:28,592 [DEBUG] A1: _rule_based_action: neighbor=(2, 4), act=Action.MOVE_UP, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:28,592 [DEBUG] A1: _rule_based_action: neighbor=(2, 6), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:28,593 [DEBUG] A1: _rule_based_action: neighbor=(1, 5), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:28,593 [DEBUG] A1: _rule_based_action: neighbor=(3, 5), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:28,593 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:28,593 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:28,593 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:28,593 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(2, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,594 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(2, 5), new_pos=(3, 5), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,594 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(3, 5), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:28,689 [DEBUG] Scheduler: step: TURN=1, agent=A2, pos=(2, 4), alive=True
+2025-12-03 16:40:28,689 [DEBUG] Scheduler: step: agent=A2, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:28,690 [DEBUG] Scheduler: _update_memory_before_move: agent=A2, pos=(2, 4), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:28,690 [DEBUG] Scheduler: step: agent=A2, result=DIED, old_pos=(2, 4), new_pos=(3, 4), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,690 [DEBUG] Scheduler: _update_memory_after_move: agent=A2, pos=(3, 4), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:28,789 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(0, 7), alive=True
+2025-12-03 16:40:28,789 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:28,790 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(0, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,790 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(0, 7), new_pos=(1, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,790 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(1, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,889 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(3, 5), alive=True
+2025-12-03 16:40:28,890 [DEBUG] A1: set_memory: grid_size=20, known=27, safe=22, risky=5
+2025-12-03 16:40:28,890 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(3, 5), obs=[0.15789473684210525, 0.2631578947368421, 1.0, 0.0, 0.0, 0.0675]
+2025-12-03 16:40:28,891 [DEBUG] A1: decide_move: pos=(3, 5), obs=[0.15789473684210525, 0.2631578947368421, 1.0, 0.0, 0.0, 0.0675], grid_size=20
+2025-12-03 16:40:28,891 [DEBUG] A1: _rule_based_action: pos=(3, 5), breeze=1.0, stench=0.0, glitter=0.0, known=27, safe=22, risky=5
+2025-12-03 16:40:28,891 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_LEFT
+2025-12-03 16:40:28,891 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:28,891 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:28,892 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(3, 5), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:28,892 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(3, 5), new_pos=(2, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,892 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(2, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,989 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(1, 7), alive=True
+2025-12-03 16:40:28,989 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:28,989 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(1, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:28,990 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(1, 7), new_pos=(2, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:28,990 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(2, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,091 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(2, 5), alive=True
+2025-12-03 16:40:29,092 [DEBUG] A1: set_memory: grid_size=20, known=28, safe=23, risky=5
+2025-12-03 16:40:29,092 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(2, 5), obs=[0.10526315789473684, 0.2631578947368421, 0.0, 0.0, 0.0, 0.07]
+2025-12-03 16:40:29,093 [DEBUG] A1: decide_move: pos=(2, 5), obs=[0.10526315789473684, 0.2631578947368421, 0.0, 0.0, 0.0, 0.07], grid_size=20
+2025-12-03 16:40:29,093 [DEBUG] A1: _rule_based_action: pos=(2, 5), breeze=0.0, stench=0.0, glitter=0.0, known=28, safe=23, risky=5
+2025-12-03 16:40:29,094 [DEBUG] A1: _rule_based_action: neighbor=(2, 4), act=Action.MOVE_UP, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:29,094 [DEBUG] A1: _rule_based_action: neighbor=(2, 6), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,094 [DEBUG] A1: _rule_based_action: neighbor=(1, 5), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,095 [DEBUG] A1: _rule_based_action: neighbor=(3, 5), act=Action.MOVE_RIGHT, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:29,095 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:29,095 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:29,096 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:29,096 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(2, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,096 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(2, 5), new_pos=(2, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,097 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(2, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,192 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(2, 7), alive=True
+2025-12-03 16:40:29,192 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:29,193 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(2, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,193 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(2, 7), new_pos=(3, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,193 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(3, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,291 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(2, 6), alive=True
+2025-12-03 16:40:29,291 [DEBUG] A1: set_memory: grid_size=20, known=29, safe=24, risky=5
+2025-12-03 16:40:29,291 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(2, 6), obs=[0.10526315789473684, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0725]
+2025-12-03 16:40:29,291 [DEBUG] A1: decide_move: pos=(2, 6), obs=[0.10526315789473684, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0725], grid_size=20
+2025-12-03 16:40:29,292 [DEBUG] A1: _rule_based_action: pos=(2, 6), breeze=0.0, stench=0.0, glitter=0.0, known=29, safe=24, risky=5
+2025-12-03 16:40:29,292 [DEBUG] A1: _rule_based_action: neighbor=(2, 5), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,292 [DEBUG] A1: _rule_based_action: neighbor=(2, 7), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,292 [DEBUG] A1: _rule_based_action: neighbor=(1, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,292 [DEBUG] A1: _rule_based_action: neighbor=(3, 6), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,293 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:29,293 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:29,293 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:29,293 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(2, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,294 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(2, 6), new_pos=(3, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,294 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(3, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,392 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(3, 7), alive=True
+2025-12-03 16:40:29,392 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:29,393 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(3, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,393 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(3, 7), new_pos=(3, 8), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,393 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(3, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,492 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(3, 6), alive=True
+2025-12-03 16:40:29,492 [DEBUG] A1: set_memory: grid_size=20, known=31, safe=26, risky=5
+2025-12-03 16:40:29,492 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(3, 6), obs=[0.15789473684210525, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0775]
+2025-12-03 16:40:29,493 [DEBUG] A1: decide_move: pos=(3, 6), obs=[0.15789473684210525, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0775], grid_size=20
+2025-12-03 16:40:29,493 [DEBUG] A1: _rule_based_action: pos=(3, 6), breeze=0.0, stench=0.0, glitter=0.0, known=31, safe=26, risky=5
+2025-12-03 16:40:29,493 [DEBUG] A1: _rule_based_action: neighbor=(3, 5), act=Action.MOVE_UP, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:29,493 [DEBUG] A1: _rule_based_action: neighbor=(3, 7), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,493 [DEBUG] A1: _rule_based_action: neighbor=(2, 6), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,494 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,494 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:29,494 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:29,494 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:29,495 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(3, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,495 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(3, 6), new_pos=(4, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,495 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,593 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(3, 8), alive=True
+2025-12-03 16:40:29,594 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:29,594 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(3, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,594 [DEBUG] Scheduler: step: agent=A3, result=CONTINUE, old_pos=(3, 8), new_pos=(2, 8), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,594 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(2, 8), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:29,693 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 6), alive=True
+2025-12-03 16:40:29,693 [DEBUG] A1: set_memory: grid_size=20, known=33, safe=27, risky=6
+2025-12-03 16:40:29,693 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 6), obs=[0.21052631578947367, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0825]
+2025-12-03 16:40:29,694 [DEBUG] A1: decide_move: pos=(4, 6), obs=[0.21052631578947367, 0.3157894736842105, 0.0, 0.0, 0.0, 0.0825], grid_size=20
+2025-12-03 16:40:29,694 [DEBUG] A1: _rule_based_action: pos=(4, 6), breeze=0.0, stench=0.0, glitter=0.0, known=33, safe=27, risky=6
+2025-12-03 16:40:29,694 [DEBUG] A1: _rule_based_action: neighbor=(4, 5), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,694 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,694 [DEBUG] A1: _rule_based_action: neighbor=(3, 6), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,695 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,695 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:29,695 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:29,696 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:29,696 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,696 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 6), new_pos=(4, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,696 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,795 [DEBUG] Scheduler: step: TURN=2, agent=A3, pos=(2, 8), alive=True
+2025-12-03 16:40:29,795 [DEBUG] Scheduler: step: agent=A3, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:29,795 [DEBUG] Scheduler: _update_memory_before_move: agent=A3, pos=(2, 8), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:29,795 [DEBUG] Scheduler: step: agent=A3, result=DIED, old_pos=(2, 8), new_pos=(2, 9), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,796 [DEBUG] Scheduler: _update_memory_after_move: agent=A3, pos=(2, 9), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,895 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 7), alive=True
+2025-12-03 16:40:29,895 [DEBUG] A1: set_memory: grid_size=20, known=35, safe=29, risky=6
+2025-12-03 16:40:29,895 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 7), obs=[0.21052631578947367, 0.3684210526315789, 0.0, 0.0, 0.0, 0.0875]
+2025-12-03 16:40:29,895 [DEBUG] A1: decide_move: pos=(4, 7), obs=[0.21052631578947367, 0.3684210526315789, 0.0, 0.0, 0.0, 0.0875], grid_size=20
+2025-12-03 16:40:29,896 [DEBUG] A1: _rule_based_action: pos=(4, 7), breeze=0.0, stench=0.0, glitter=0.0, known=35, safe=29, risky=6
+2025-12-03 16:40:29,896 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,896 [DEBUG] A1: _rule_based_action: neighbor=(4, 8), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,897 [DEBUG] A1: _rule_based_action: neighbor=(3, 7), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,897 [DEBUG] A1: _rule_based_action: neighbor=(5, 7), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,897 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:29,897 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:29,898 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:29,898 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,898 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 7), new_pos=(4, 8), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,899 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,996 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 8), alive=True
+2025-12-03 16:40:29,997 [DEBUG] A1: set_memory: grid_size=20, known=36, safe=30, risky=6
+2025-12-03 16:40:29,997 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 8), obs=[0.21052631578947367, 0.42105263157894735, 0.0, 0.0, 0.0, 0.09]
+2025-12-03 16:40:29,997 [DEBUG] A1: decide_move: pos=(4, 8), obs=[0.21052631578947367, 0.42105263157894735, 0.0, 0.0, 0.0, 0.09], grid_size=20
+2025-12-03 16:40:29,997 [DEBUG] A1: _rule_based_action: pos=(4, 8), breeze=0.0, stench=0.0, glitter=0.0, known=36, safe=30, risky=6
+2025-12-03 16:40:29,998 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,998 [DEBUG] A1: _rule_based_action: neighbor=(4, 9), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,998 [DEBUG] A1: _rule_based_action: neighbor=(3, 8), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:29,998 [DEBUG] A1: _rule_based_action: neighbor=(5, 8), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:29,998 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:29,999 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:29,999 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:29,999 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:29,999 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 8), new_pos=(4, 9), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:29,999 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 9), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,096 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 9), alive=True
+2025-12-03 16:40:30,096 [DEBUG] A1: set_memory: grid_size=20, known=37, safe=31, risky=6
+2025-12-03 16:40:30,096 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 9), obs=[0.21052631578947367, 0.47368421052631576, 0.0, 0.0, 0.0, 0.0925]
+2025-12-03 16:40:30,097 [DEBUG] A1: decide_move: pos=(4, 9), obs=[0.21052631578947367, 0.47368421052631576, 0.0, 0.0, 0.0, 0.0925], grid_size=20
+2025-12-03 16:40:30,097 [DEBUG] A1: _rule_based_action: pos=(4, 9), breeze=0.0, stench=0.0, glitter=0.0, known=37, safe=31, risky=6
+2025-12-03 16:40:30,097 [DEBUG] A1: _rule_based_action: neighbor=(4, 8), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,097 [DEBUG] A1: _rule_based_action: neighbor=(4, 10), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,097 [DEBUG] A1: _rule_based_action: neighbor=(3, 9), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,098 [DEBUG] A1: _rule_based_action: neighbor=(5, 9), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,098 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:30,098 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:30,098 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:30,099 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 9), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,099 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 9), new_pos=(3, 9), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,099 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(3, 9), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:30,196 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(3, 9), alive=True
+2025-12-03 16:40:30,197 [DEBUG] A1: set_memory: grid_size=20, known=38, safe=31, risky=7
+2025-12-03 16:40:30,197 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(3, 9), obs=[0.15789473684210525, 0.47368421052631576, 1.0, 0.0, 0.0, 0.095]
+2025-12-03 16:40:30,197 [DEBUG] A1: decide_move: pos=(3, 9), obs=[0.15789473684210525, 0.47368421052631576, 1.0, 0.0, 0.0, 0.095], grid_size=20
+2025-12-03 16:40:30,197 [DEBUG] A1: _rule_based_action: pos=(3, 9), breeze=1.0, stench=0.0, glitter=0.0, known=38, safe=31, risky=7
+2025-12-03 16:40:30,198 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_UP
+2025-12-03 16:40:30,198 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:30,198 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:30,198 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(3, 9), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:30,198 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(3, 9), new_pos=(3, 8), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,199 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(3, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,297 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(3, 8), alive=True
+2025-12-03 16:40:30,297 [DEBUG] A1: set_memory: grid_size=20, known=38, safe=31, risky=7
+2025-12-03 16:40:30,298 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(3, 8), obs=[0.15789473684210525, 0.42105263157894735, 0.0, 0.0, 0.0, 0.095]
+2025-12-03 16:40:30,298 [DEBUG] A1: decide_move: pos=(3, 8), obs=[0.15789473684210525, 0.42105263157894735, 0.0, 0.0, 0.0, 0.095], grid_size=20
+2025-12-03 16:40:30,298 [DEBUG] A1: _rule_based_action: pos=(3, 8), breeze=0.0, stench=0.0, glitter=0.0, known=38, safe=31, risky=7
+2025-12-03 16:40:30,298 [DEBUG] A1: _rule_based_action: neighbor=(3, 7), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,298 [DEBUG] A1: _rule_based_action: neighbor=(3, 9), act=Action.MOVE_DOWN, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:30,299 [DEBUG] A1: _rule_based_action: neighbor=(2, 8), act=Action.MOVE_LEFT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:30,299 [DEBUG] A1: _rule_based_action: neighbor=(4, 8), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,299 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:30,299 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,299 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,300 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(3, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,300 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(3, 8), new_pos=(4, 8), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,300 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,397 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 8), alive=True
+2025-12-03 16:40:30,398 [DEBUG] A1: set_memory: grid_size=20, known=38, safe=31, risky=7
+2025-12-03 16:40:30,398 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 8), obs=[0.21052631578947367, 0.42105263157894735, 0.0, 0.0, 0.0, 0.095]
+2025-12-03 16:40:30,398 [DEBUG] A1: decide_move: pos=(4, 8), obs=[0.21052631578947367, 0.42105263157894735, 0.0, 0.0, 0.0, 0.095], grid_size=20
+2025-12-03 16:40:30,399 [DEBUG] A1: _rule_based_action: pos=(4, 8), breeze=0.0, stench=0.0, glitter=0.0, known=38, safe=31, risky=7
+2025-12-03 16:40:30,399 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,399 [DEBUG] A1: _rule_based_action: neighbor=(4, 9), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,399 [DEBUG] A1: _rule_based_action: neighbor=(3, 8), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,399 [DEBUG] A1: _rule_based_action: neighbor=(5, 8), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,400 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:30,400 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,400 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,400 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,400 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 8), new_pos=(5, 8), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,400 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 8), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:30,497 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 8), alive=True
+2025-12-03 16:40:30,498 [DEBUG] A1: set_memory: grid_size=20, known=39, safe=31, risky=8
+2025-12-03 16:40:30,498 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 8), obs=[0.2631578947368421, 0.42105263157894735, 1.0, 0.0, 0.0, 0.0975]
+2025-12-03 16:40:30,498 [DEBUG] A1: decide_move: pos=(5, 8), obs=[0.2631578947368421, 0.42105263157894735, 1.0, 0.0, 0.0, 0.0975], grid_size=20
+2025-12-03 16:40:30,498 [DEBUG] A1: _rule_based_action: pos=(5, 8), breeze=1.0, stench=0.0, glitter=0.0, known=39, safe=31, risky=8
+2025-12-03 16:40:30,499 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_LEFT
+2025-12-03 16:40:30,499 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:30,499 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:30,499 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 8), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:30,499 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 8), new_pos=(4, 8), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,500 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,597 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 8), alive=True
+2025-12-03 16:40:30,598 [DEBUG] A1: set_memory: grid_size=20, known=39, safe=31, risky=8
+2025-12-03 16:40:30,598 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 8), obs=[0.21052631578947367, 0.42105263157894735, 0.0, 0.0, 0.0, 0.0975]
+2025-12-03 16:40:30,598 [DEBUG] A1: decide_move: pos=(4, 8), obs=[0.21052631578947367, 0.42105263157894735, 0.0, 0.0, 0.0, 0.0975], grid_size=20
+2025-12-03 16:40:30,599 [DEBUG] A1: _rule_based_action: pos=(4, 8), breeze=0.0, stench=0.0, glitter=0.0, known=39, safe=31, risky=8
+2025-12-03 16:40:30,599 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,599 [DEBUG] A1: _rule_based_action: neighbor=(4, 9), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,599 [DEBUG] A1: _rule_based_action: neighbor=(3, 8), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,600 [DEBUG] A1: _rule_based_action: neighbor=(5, 8), act=Action.MOVE_RIGHT, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:30,600 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:30,600 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:30,601 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:30,601 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 8), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,601 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 8), new_pos=(4, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,601 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,698 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 7), alive=True
+2025-12-03 16:40:30,698 [DEBUG] A1: set_memory: grid_size=20, known=39, safe=31, risky=8
+2025-12-03 16:40:30,698 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 7), obs=[0.21052631578947367, 0.3684210526315789, 0.0, 0.0, 0.0, 0.0975]
+2025-12-03 16:40:30,698 [DEBUG] A1: decide_move: pos=(4, 7), obs=[0.21052631578947367, 0.3684210526315789, 0.0, 0.0, 0.0, 0.0975], grid_size=20
+2025-12-03 16:40:30,698 [DEBUG] A1: _rule_based_action: pos=(4, 7), breeze=0.0, stench=0.0, glitter=0.0, known=39, safe=31, risky=8
+2025-12-03 16:40:30,699 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,699 [DEBUG] A1: _rule_based_action: neighbor=(4, 8), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,699 [DEBUG] A1: _rule_based_action: neighbor=(3, 7), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,699 [DEBUG] A1: _rule_based_action: neighbor=(5, 7), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,699 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:30,700 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,700 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,700 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,700 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 7), new_pos=(5, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,700 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,798 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 7), alive=True
+2025-12-03 16:40:30,798 [DEBUG] A1: set_memory: grid_size=20, known=40, safe=32, risky=8
+2025-12-03 16:40:30,799 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 7), obs=[0.2631578947368421, 0.3684210526315789, 0.0, 0.0, 0.0, 0.1]
+2025-12-03 16:40:30,799 [DEBUG] A1: decide_move: pos=(5, 7), obs=[0.2631578947368421, 0.3684210526315789, 0.0, 0.0, 0.0, 0.1], grid_size=20
+2025-12-03 16:40:30,799 [DEBUG] A1: _rule_based_action: pos=(5, 7), breeze=0.0, stench=0.0, glitter=0.0, known=40, safe=32, risky=8
+2025-12-03 16:40:30,799 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,800 [DEBUG] A1: _rule_based_action: neighbor=(5, 8), act=Action.MOVE_DOWN, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:30,800 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:30,800 [DEBUG] A1: _rule_based_action: neighbor=(6, 7), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,800 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:30,801 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,801 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:30,801 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,801 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 7), new_pos=(6, 7), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,801 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 7), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:30,898 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 7), alive=True
+2025-12-03 16:40:30,899 [DEBUG] A1: set_memory: grid_size=20, known=41, safe=32, risky=9
+2025-12-03 16:40:30,899 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 7), obs=[0.3157894736842105, 0.3684210526315789, 1.0, 0.0, 0.0, 0.1025]
+2025-12-03 16:40:30,899 [DEBUG] A1: decide_move: pos=(6, 7), obs=[0.3157894736842105, 0.3684210526315789, 1.0, 0.0, 0.0, 0.1025], grid_size=20
+2025-12-03 16:40:30,900 [DEBUG] A1: _rule_based_action: pos=(6, 7), breeze=1.0, stench=0.0, glitter=0.0, known=41, safe=32, risky=9
+2025-12-03 16:40:30,900 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_LEFT
+2025-12-03 16:40:30,900 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:30,900 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:30,901 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 7), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:30,901 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 7), new_pos=(5, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:30,901 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:30,998 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 7), alive=True
+2025-12-03 16:40:30,998 [DEBUG] A1: set_memory: grid_size=20, known=41, safe=32, risky=9
+2025-12-03 16:40:30,999 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 7), obs=[0.2631578947368421, 0.3684210526315789, 0.0, 0.0, 0.0, 0.1025]
+2025-12-03 16:40:30,999 [DEBUG] A1: decide_move: pos=(5, 7), obs=[0.2631578947368421, 0.3684210526315789, 0.0, 0.0, 0.0, 0.1025], grid_size=20
+2025-12-03 16:40:30,999 [DEBUG] A1: _rule_based_action: pos=(5, 7), breeze=0.0, stench=0.0, glitter=0.0, known=41, safe=32, risky=9
+2025-12-03 16:40:30,999 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:30,999 [DEBUG] A1: _rule_based_action: neighbor=(5, 8), act=Action.MOVE_DOWN, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:31,000 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,000 [DEBUG] A1: _rule_based_action: neighbor=(6, 7), act=Action.MOVE_RIGHT, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:31,000 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_UP with score=25.0
+2025-12-03 16:40:31,000 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:31,000 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:31,000 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,001 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 7), new_pos=(5, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,001 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,099 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 6), alive=True
+2025-12-03 16:40:31,100 [DEBUG] A1: set_memory: grid_size=20, known=42, safe=33, risky=9
+2025-12-03 16:40:31,100 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.105]
+2025-12-03 16:40:31,100 [DEBUG] A1: decide_move: pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.105], grid_size=20
+2025-12-03 16:40:31,100 [DEBUG] A1: _rule_based_action: pos=(5, 6), breeze=0.0, stench=0.0, glitter=0.0, known=42, safe=33, risky=9
+2025-12-03 16:40:31,100 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,101 [DEBUG] A1: _rule_based_action: neighbor=(5, 7), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,101 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,101 [DEBUG] A1: _rule_based_action: neighbor=(6, 6), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,101 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:31,101 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:31,102 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:31,102 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,102 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 6), new_pos=(6, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,102 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,200 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 6), alive=True
+2025-12-03 16:40:31,200 [DEBUG] A1: set_memory: grid_size=20, known=43, safe=34, risky=9
+2025-12-03 16:40:31,200 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 6), obs=[0.3157894736842105, 0.3157894736842105, 0.0, 0.0, 0.0, 0.1075]
+2025-12-03 16:40:31,200 [DEBUG] A1: decide_move: pos=(6, 6), obs=[0.3157894736842105, 0.3157894736842105, 0.0, 0.0, 0.0, 0.1075], grid_size=20
+2025-12-03 16:40:31,201 [DEBUG] A1: _rule_based_action: pos=(6, 6), breeze=0.0, stench=0.0, glitter=0.0, known=43, safe=34, risky=9
+2025-12-03 16:40:31,201 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,201 [DEBUG] A1: _rule_based_action: neighbor=(6, 7), act=Action.MOVE_DOWN, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:31,201 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,201 [DEBUG] A1: _rule_based_action: neighbor=(7, 6), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,202 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:31,202 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:31,202 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:31,202 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,203 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 6), new_pos=(6, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,203 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,302 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 5), alive=True
+2025-12-03 16:40:31,302 [DEBUG] A1: set_memory: grid_size=20, known=44, safe=35, risky=9
+2025-12-03 16:40:31,303 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 5), obs=[0.3157894736842105, 0.2631578947368421, 0.0, 0.0, 0.0, 0.11]
+2025-12-03 16:40:31,303 [DEBUG] A1: decide_move: pos=(6, 5), obs=[0.3157894736842105, 0.2631578947368421, 0.0, 0.0, 0.0, 0.11], grid_size=20
+2025-12-03 16:40:31,303 [DEBUG] A1: _rule_based_action: pos=(6, 5), breeze=0.0, stench=0.0, glitter=0.0, known=44, safe=35, risky=9
+2025-12-03 16:40:31,304 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,304 [DEBUG] A1: _rule_based_action: neighbor=(6, 6), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,304 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,305 [DEBUG] A1: _rule_based_action: neighbor=(7, 5), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,305 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:31,306 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:31,306 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:31,306 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,306 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 5), new_pos=(6, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,307 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,400 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 4), alive=True
+2025-12-03 16:40:31,401 [DEBUG] A1: set_memory: grid_size=20, known=45, safe=36, risky=9
+2025-12-03 16:40:31,401 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 4), obs=[0.3157894736842105, 0.21052631578947367, 0.0, 0.0, 0.0, 0.1125]
+2025-12-03 16:40:31,401 [DEBUG] A1: decide_move: pos=(6, 4), obs=[0.3157894736842105, 0.21052631578947367, 0.0, 0.0, 0.0, 0.1125], grid_size=20
+2025-12-03 16:40:31,401 [DEBUG] A1: _rule_based_action: pos=(6, 4), breeze=0.0, stench=0.0, glitter=0.0, known=45, safe=36, risky=9
+2025-12-03 16:40:31,401 [DEBUG] A1: _rule_based_action: neighbor=(6, 3), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,402 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,402 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,402 [DEBUG] A1: _rule_based_action: neighbor=(7, 4), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,402 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:31,402 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:31,403 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:31,403 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,403 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 4), new_pos=(6, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,403 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,500 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 3), alive=True
+2025-12-03 16:40:31,500 [DEBUG] A1: set_memory: grid_size=20, known=46, safe=37, risky=9
+2025-12-03 16:40:31,501 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 3), obs=[0.3157894736842105, 0.15789473684210525, 0.0, 0.0, 0.0, 0.115]
+2025-12-03 16:40:31,501 [DEBUG] A1: decide_move: pos=(6, 3), obs=[0.3157894736842105, 0.15789473684210525, 0.0, 0.0, 0.0, 0.115], grid_size=20
+2025-12-03 16:40:31,501 [DEBUG] A1: _rule_based_action: pos=(6, 3), breeze=0.0, stench=0.0, glitter=0.0, known=46, safe=37, risky=9
+2025-12-03 16:40:31,501 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,502 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,502 [DEBUG] A1: _rule_based_action: neighbor=(5, 3), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,502 [DEBUG] A1: _rule_based_action: neighbor=(7, 3), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,503 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:31,503 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:31,503 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:31,503 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,503 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 3), new_pos=(5, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,504 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,600 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 3), alive=True
+2025-12-03 16:40:31,600 [DEBUG] A1: set_memory: grid_size=20, known=47, safe=38, risky=9
+2025-12-03 16:40:31,601 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 3), obs=[0.2631578947368421, 0.15789473684210525, 0.0, 0.0, 0.0, 0.1175]
+2025-12-03 16:40:31,601 [DEBUG] A1: decide_move: pos=(5, 3), obs=[0.2631578947368421, 0.15789473684210525, 0.0, 0.0, 0.0, 0.1175], grid_size=20
+2025-12-03 16:40:31,601 [DEBUG] A1: _rule_based_action: pos=(5, 3), breeze=0.0, stench=0.0, glitter=0.0, known=47, safe=38, risky=9
+2025-12-03 16:40:31,601 [DEBUG] A1: _rule_based_action: neighbor=(5, 2), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,601 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,602 [DEBUG] A1: _rule_based_action: neighbor=(4, 3), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,602 [DEBUG] A1: _rule_based_action: neighbor=(6, 3), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,602 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:31,602 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:31,602 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:31,602 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,603 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 3), new_pos=(4, 3), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,603 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 3), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:31,701 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 3), alive=True
+2025-12-03 16:40:31,701 [DEBUG] A1: set_memory: grid_size=20, known=48, safe=38, risky=10
+2025-12-03 16:40:31,702 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 3), obs=[0.21052631578947367, 0.15789473684210525, 1.0, 0.0, 0.0, 0.12]
+2025-12-03 16:40:31,702 [DEBUG] A1: decide_move: pos=(4, 3), obs=[0.21052631578947367, 0.15789473684210525, 1.0, 0.0, 0.0, 0.12], grid_size=20
+2025-12-03 16:40:31,702 [DEBUG] A1: _rule_based_action: pos=(4, 3), breeze=1.0, stench=0.0, glitter=0.0, known=48, safe=38, risky=10
+2025-12-03 16:40:31,702 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_RIGHT
+2025-12-03 16:40:31,703 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:31,703 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:31,703 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 3), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:31,704 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 3), new_pos=(5, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,704 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,802 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 3), alive=True
+2025-12-03 16:40:31,802 [DEBUG] A1: set_memory: grid_size=20, known=48, safe=38, risky=10
+2025-12-03 16:40:31,802 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 3), obs=[0.2631578947368421, 0.15789473684210525, 0.0, 0.0, 0.0, 0.12]
+2025-12-03 16:40:31,803 [DEBUG] A1: decide_move: pos=(5, 3), obs=[0.2631578947368421, 0.15789473684210525, 0.0, 0.0, 0.0, 0.12], grid_size=20
+2025-12-03 16:40:31,803 [DEBUG] A1: _rule_based_action: pos=(5, 3), breeze=0.0, stench=0.0, glitter=0.0, known=48, safe=38, risky=10
+2025-12-03 16:40:31,803 [DEBUG] A1: _rule_based_action: neighbor=(5, 2), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,803 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,803 [DEBUG] A1: _rule_based_action: neighbor=(4, 3), act=Action.MOVE_LEFT, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:31,804 [DEBUG] A1: _rule_based_action: neighbor=(6, 3), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,804 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:31,804 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:31,804 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:31,804 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,804 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 3), new_pos=(5, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,805 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,903 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 4), alive=True
+2025-12-03 16:40:31,903 [DEBUG] A1: set_memory: grid_size=20, known=49, safe=39, risky=10
+2025-12-03 16:40:31,903 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 4), obs=[0.2631578947368421, 0.21052631578947367, 0.0, 0.0, 0.0, 0.1225]
+2025-12-03 16:40:31,903 [DEBUG] A1: decide_move: pos=(5, 4), obs=[0.2631578947368421, 0.21052631578947367, 0.0, 0.0, 0.0, 0.1225], grid_size=20
+2025-12-03 16:40:31,904 [DEBUG] A1: _rule_based_action: pos=(5, 4), breeze=0.0, stench=0.0, glitter=0.0, known=49, safe=39, risky=10
+2025-12-03 16:40:31,904 [DEBUG] A1: _rule_based_action: neighbor=(5, 3), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,905 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,905 [DEBUG] A1: _rule_based_action: neighbor=(4, 4), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:31,905 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:31,905 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:31,905 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:31,906 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:31,906 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:31,906 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 4), new_pos=(5, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:31,906 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,003 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 5), alive=True
+2025-12-03 16:40:32,003 [DEBUG] A1: set_memory: grid_size=20, known=50, safe=40, risky=10
+2025-12-03 16:40:32,004 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.125]
+2025-12-03 16:40:32,004 [DEBUG] A1: decide_move: pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.125], grid_size=20
+2025-12-03 16:40:32,004 [DEBUG] A1: _rule_based_action: pos=(5, 5), breeze=0.0, stench=0.0, glitter=0.0, known=50, safe=40, risky=10
+2025-12-03 16:40:32,004 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,004 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,005 [DEBUG] A1: _rule_based_action: neighbor=(4, 5), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:32,005 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,005 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_LEFT with score=25.0
+2025-12-03 16:40:32,005 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:32,005 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:32,005 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,006 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 5), new_pos=(4, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,006 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,103 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 5), alive=True
+2025-12-03 16:40:32,104 [DEBUG] A1: set_memory: grid_size=20, known=51, safe=41, risky=10
+2025-12-03 16:40:32,104 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 5), obs=[0.21052631578947367, 0.2631578947368421, 0.0, 0.0, 0.0, 0.1275]
+2025-12-03 16:40:32,104 [DEBUG] A1: decide_move: pos=(4, 5), obs=[0.21052631578947367, 0.2631578947368421, 0.0, 0.0, 0.0, 0.1275], grid_size=20
+2025-12-03 16:40:32,105 [DEBUG] A1: _rule_based_action: pos=(4, 5), breeze=0.0, stench=0.0, glitter=0.0, known=51, safe=41, risky=10
+2025-12-03 16:40:32,105 [DEBUG] A1: _rule_based_action: neighbor=(4, 4), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:32,105 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,106 [DEBUG] A1: _rule_based_action: neighbor=(3, 5), act=Action.MOVE_LEFT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:32,106 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,107 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_UP with score=25.0
+2025-12-03 16:40:32,107 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:32,107 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:32,108 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,108 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 5), new_pos=(4, 4), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,108 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 4), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:32,204 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 4), alive=True
+2025-12-03 16:40:32,204 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,204 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 4), obs=[0.21052631578947367, 0.21052631578947367, 1.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,205 [DEBUG] A1: decide_move: pos=(4, 4), obs=[0.21052631578947367, 0.21052631578947367, 1.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,205 [DEBUG] A1: _rule_based_action: pos=(4, 4), breeze=1.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,205 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_DOWN
+2025-12-03 16:40:32,205 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:32,205 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:32,206 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 4), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:32,206 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 4), new_pos=(4, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,206 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,307 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 5), alive=True
+2025-12-03 16:40:32,307 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,308 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 5), obs=[0.21052631578947367, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,308 [DEBUG] A1: decide_move: pos=(4, 5), obs=[0.21052631578947367, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,308 [DEBUG] A1: _rule_based_action: pos=(4, 5), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,309 [DEBUG] A1: _rule_based_action: neighbor=(4, 4), act=Action.MOVE_UP, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:32,309 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,309 [DEBUG] A1: _rule_based_action: neighbor=(3, 5), act=Action.MOVE_LEFT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:32,310 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,310 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:32,310 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:32,311 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:32,311 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,311 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 5), new_pos=(4, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,311 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,406 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 6), alive=True
+2025-12-03 16:40:32,406 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,406 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 6), obs=[0.21052631578947367, 0.3157894736842105, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,407 [DEBUG] A1: decide_move: pos=(4, 6), obs=[0.21052631578947367, 0.3157894736842105, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,407 [DEBUG] A1: _rule_based_action: pos=(4, 6), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,407 [DEBUG] A1: _rule_based_action: neighbor=(4, 5), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,408 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,408 [DEBUG] A1: _rule_based_action: neighbor=(3, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,408 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,408 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:32,409 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:32,409 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:32,409 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,409 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 6), new_pos=(4, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,409 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,506 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 7), alive=True
+2025-12-03 16:40:32,506 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,507 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 7), obs=[0.21052631578947367, 0.3684210526315789, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,507 [DEBUG] A1: decide_move: pos=(4, 7), obs=[0.21052631578947367, 0.3684210526315789, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,507 [DEBUG] A1: _rule_based_action: pos=(4, 7), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,507 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,508 [DEBUG] A1: _rule_based_action: neighbor=(4, 8), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,508 [DEBUG] A1: _rule_based_action: neighbor=(3, 7), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,508 [DEBUG] A1: _rule_based_action: neighbor=(5, 7), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,508 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:32,509 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:32,509 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:32,509 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,509 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 7), new_pos=(5, 7), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,510 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,607 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 7), alive=True
+2025-12-03 16:40:32,608 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,608 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 7), obs=[0.2631578947368421, 0.3684210526315789, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,608 [DEBUG] A1: decide_move: pos=(5, 7), obs=[0.2631578947368421, 0.3684210526315789, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,609 [DEBUG] A1: _rule_based_action: pos=(5, 7), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,609 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,609 [DEBUG] A1: _rule_based_action: neighbor=(5, 8), act=Action.MOVE_DOWN, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:32,610 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,610 [DEBUG] A1: _rule_based_action: neighbor=(6, 7), act=Action.MOVE_RIGHT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:32,610 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_UP with score=10.0
+2025-12-03 16:40:32,611 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:32,611 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:32,611 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 7), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,612 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 7), new_pos=(5, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,612 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,707 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 6), alive=True
+2025-12-03 16:40:32,708 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,708 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,708 [DEBUG] A1: decide_move: pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,709 [DEBUG] A1: _rule_based_action: pos=(5, 6), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,709 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,709 [DEBUG] A1: _rule_based_action: neighbor=(5, 7), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,710 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,710 [DEBUG] A1: _rule_based_action: neighbor=(6, 6), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,711 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:32,711 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:32,711 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:32,711 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,712 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 6), new_pos=(4, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,712 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,809 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 6), alive=True
+2025-12-03 16:40:32,809 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,809 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 6), obs=[0.21052631578947367, 0.3157894736842105, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,809 [DEBUG] A1: decide_move: pos=(4, 6), obs=[0.21052631578947367, 0.3157894736842105, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,810 [DEBUG] A1: _rule_based_action: pos=(4, 6), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,810 [DEBUG] A1: _rule_based_action: neighbor=(4, 5), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,810 [DEBUG] A1: _rule_based_action: neighbor=(4, 7), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,810 [DEBUG] A1: _rule_based_action: neighbor=(3, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,810 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,811 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:32,811 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:32,811 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:32,811 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,812 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 6), new_pos=(4, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,812 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,909 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 5), alive=True
+2025-12-03 16:40:32,909 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:32,910 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 5), obs=[0.21052631578947367, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:32,910 [DEBUG] A1: decide_move: pos=(4, 5), obs=[0.21052631578947367, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:32,910 [DEBUG] A1: _rule_based_action: pos=(4, 5), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:32,910 [DEBUG] A1: _rule_based_action: neighbor=(4, 4), act=Action.MOVE_UP, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:32,910 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,911 [DEBUG] A1: _rule_based_action: neighbor=(3, 5), act=Action.MOVE_LEFT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:32,911 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:32,911 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=10.0
+2025-12-03 16:40:32,911 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:32,911 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:32,912 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:32,912 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 5), new_pos=(5, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:32,912 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,009 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 5), alive=True
+2025-12-03 16:40:33,009 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:33,009 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:33,010 [DEBUG] A1: decide_move: pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:33,010 [DEBUG] A1: _rule_based_action: pos=(5, 5), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:33,010 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,010 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,010 [DEBUG] A1: _rule_based_action: neighbor=(4, 5), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,011 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,011 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:33,011 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:33,011 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:33,011 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,012 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 5), new_pos=(6, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,012 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,109 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 5), alive=True
+2025-12-03 16:40:33,109 [DEBUG] A1: set_memory: grid_size=20, known=52, safe=41, risky=11
+2025-12-03 16:40:33,110 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 5), obs=[0.3157894736842105, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13]
+2025-12-03 16:40:33,110 [DEBUG] A1: decide_move: pos=(6, 5), obs=[0.3157894736842105, 0.2631578947368421, 0.0, 0.0, 0.0, 0.13], grid_size=20
+2025-12-03 16:40:33,110 [DEBUG] A1: _rule_based_action: pos=(6, 5), breeze=0.0, stench=0.0, glitter=0.0, known=52, safe=41, risky=11
+2025-12-03 16:40:33,110 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,111 [DEBUG] A1: _rule_based_action: neighbor=(6, 6), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,111 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,111 [DEBUG] A1: _rule_based_action: neighbor=(7, 5), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,111 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:33,111 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:33,111 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:33,112 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,112 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 5), new_pos=(7, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,112 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,210 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 5), alive=True
+2025-12-03 16:40:33,210 [DEBUG] A1: set_memory: grid_size=20, known=53, safe=42, risky=11
+2025-12-03 16:40:33,211 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 5), obs=[0.3684210526315789, 0.2631578947368421, 0.0, 0.0, 0.0, 0.1325]
+2025-12-03 16:40:33,211 [DEBUG] A1: decide_move: pos=(7, 5), obs=[0.3684210526315789, 0.2631578947368421, 0.0, 0.0, 0.0, 0.1325], grid_size=20
+2025-12-03 16:40:33,211 [DEBUG] A1: _rule_based_action: pos=(7, 5), breeze=0.0, stench=0.0, glitter=0.0, known=53, safe=42, risky=11
+2025-12-03 16:40:33,211 [DEBUG] A1: _rule_based_action: neighbor=(7, 4), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,211 [DEBUG] A1: _rule_based_action: neighbor=(7, 6), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,212 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,212 [DEBUG] A1: _rule_based_action: neighbor=(8, 5), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,212 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:33,212 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:33,212 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:33,213 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,213 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 5), new_pos=(7, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,213 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,310 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 4), alive=True
+2025-12-03 16:40:33,310 [DEBUG] A1: set_memory: grid_size=20, known=54, safe=43, risky=11
+2025-12-03 16:40:33,310 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 4), obs=[0.3684210526315789, 0.21052631578947367, 0.0, 0.0, 0.0, 0.135]
+2025-12-03 16:40:33,311 [DEBUG] A1: decide_move: pos=(7, 4), obs=[0.3684210526315789, 0.21052631578947367, 0.0, 0.0, 0.0, 0.135], grid_size=20
+2025-12-03 16:40:33,311 [DEBUG] A1: _rule_based_action: pos=(7, 4), breeze=0.0, stench=0.0, glitter=0.0, known=54, safe=43, risky=11
+2025-12-03 16:40:33,311 [DEBUG] A1: _rule_based_action: neighbor=(7, 3), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,311 [DEBUG] A1: _rule_based_action: neighbor=(7, 5), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,311 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,312 [DEBUG] A1: _rule_based_action: neighbor=(8, 4), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,312 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:33,312 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:33,312 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:33,312 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,313 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 4), new_pos=(7, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,313 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,410 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 3), alive=True
+2025-12-03 16:40:33,410 [DEBUG] A1: set_memory: grid_size=20, known=55, safe=44, risky=11
+2025-12-03 16:40:33,410 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 3), obs=[0.3684210526315789, 0.15789473684210525, 0.0, 0.0, 0.0, 0.1375]
+2025-12-03 16:40:33,410 [DEBUG] A1: decide_move: pos=(7, 3), obs=[0.3684210526315789, 0.15789473684210525, 0.0, 0.0, 0.0, 0.1375], grid_size=20
+2025-12-03 16:40:33,411 [DEBUG] A1: _rule_based_action: pos=(7, 3), breeze=0.0, stench=0.0, glitter=0.0, known=55, safe=44, risky=11
+2025-12-03 16:40:33,411 [DEBUG] A1: _rule_based_action: neighbor=(7, 2), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,411 [DEBUG] A1: _rule_based_action: neighbor=(7, 4), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,412 [DEBUG] A1: _rule_based_action: neighbor=(6, 3), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,412 [DEBUG] A1: _rule_based_action: neighbor=(8, 3), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,412 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:33,412 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:33,413 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:33,413 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,413 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 3), new_pos=(7, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,413 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,510 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 2), alive=True
+2025-12-03 16:40:33,510 [DEBUG] A1: set_memory: grid_size=20, known=56, safe=45, risky=11
+2025-12-03 16:40:33,510 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 2), obs=[0.3684210526315789, 0.10526315789473684, 0.0, 0.0, 0.0, 0.14]
+2025-12-03 16:40:33,511 [DEBUG] A1: decide_move: pos=(7, 2), obs=[0.3684210526315789, 0.10526315789473684, 0.0, 0.0, 0.0, 0.14], grid_size=20
+2025-12-03 16:40:33,511 [DEBUG] A1: _rule_based_action: pos=(7, 2), breeze=0.0, stench=0.0, glitter=0.0, known=56, safe=45, risky=11
+2025-12-03 16:40:33,511 [DEBUG] A1: _rule_based_action: neighbor=(7, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,511 [DEBUG] A1: _rule_based_action: neighbor=(7, 3), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,512 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,512 [DEBUG] A1: _rule_based_action: neighbor=(8, 2), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,512 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:33,512 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:33,513 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:33,513 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,513 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 2), new_pos=(6, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,513 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,611 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 2), alive=True
+2025-12-03 16:40:33,611 [DEBUG] A1: set_memory: grid_size=20, known=57, safe=46, risky=11
+2025-12-03 16:40:33,611 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 2), obs=[0.3157894736842105, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1425]
+2025-12-03 16:40:33,611 [DEBUG] A1: decide_move: pos=(6, 2), obs=[0.3157894736842105, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1425], grid_size=20
+2025-12-03 16:40:33,612 [DEBUG] A1: _rule_based_action: pos=(6, 2), breeze=0.0, stench=0.0, glitter=0.0, known=57, safe=46, risky=11
+2025-12-03 16:40:33,612 [DEBUG] A1: _rule_based_action: neighbor=(6, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,612 [DEBUG] A1: _rule_based_action: neighbor=(6, 3), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,612 [DEBUG] A1: _rule_based_action: neighbor=(5, 2), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,613 [DEBUG] A1: _rule_based_action: neighbor=(7, 2), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,613 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:33,613 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:33,614 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:33,614 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,614 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 2), new_pos=(5, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,614 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,713 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 2), alive=True
+2025-12-03 16:40:33,713 [DEBUG] A1: set_memory: grid_size=20, known=58, safe=47, risky=11
+2025-12-03 16:40:33,714 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 2), obs=[0.2631578947368421, 0.10526315789473684, 0.0, 0.0, 0.0, 0.145]
+2025-12-03 16:40:33,714 [DEBUG] A1: decide_move: pos=(5, 2), obs=[0.2631578947368421, 0.10526315789473684, 0.0, 0.0, 0.0, 0.145], grid_size=20
+2025-12-03 16:40:33,714 [DEBUG] A1: _rule_based_action: pos=(5, 2), breeze=0.0, stench=0.0, glitter=0.0, known=58, safe=47, risky=11
+2025-12-03 16:40:33,714 [DEBUG] A1: _rule_based_action: neighbor=(5, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,714 [DEBUG] A1: _rule_based_action: neighbor=(5, 3), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,715 [DEBUG] A1: _rule_based_action: neighbor=(4, 2), act=Action.MOVE_LEFT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,715 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,715 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:33,715 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:33,715 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:33,715 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,716 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 2), new_pos=(4, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,716 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,814 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 2), alive=True
+2025-12-03 16:40:33,815 [DEBUG] A1: set_memory: grid_size=20, known=59, safe=48, risky=11
+2025-12-03 16:40:33,815 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 2), obs=[0.21052631578947367, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1475]
+2025-12-03 16:40:33,815 [DEBUG] A1: decide_move: pos=(4, 2), obs=[0.21052631578947367, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1475], grid_size=20
+2025-12-03 16:40:33,815 [DEBUG] A1: _rule_based_action: pos=(4, 2), breeze=0.0, stench=0.0, glitter=0.0, known=59, safe=48, risky=11
+2025-12-03 16:40:33,816 [DEBUG] A1: _rule_based_action: neighbor=(4, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:33,816 [DEBUG] A1: _rule_based_action: neighbor=(4, 3), act=Action.MOVE_DOWN, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:33,816 [DEBUG] A1: _rule_based_action: neighbor=(3, 2), act=Action.MOVE_LEFT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:33,816 [DEBUG] A1: _rule_based_action: neighbor=(5, 2), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:33,816 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_UP with score=25.0
+2025-12-03 16:40:33,817 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:33,817 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:33,817 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:33,817 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 2), new_pos=(4, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:33,818 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(4, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,063 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(4, 1), alive=True
+2025-12-03 16:40:39,064 [DEBUG] A1: set_memory: grid_size=20, known=60, safe=49, risky=11
+2025-12-03 16:40:39,064 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(4, 1), obs=[0.21052631578947367, 0.05263157894736842, 0.0, 0.0, 0.0, 0.15]
+2025-12-03 16:40:39,064 [DEBUG] A1: decide_move: pos=(4, 1), obs=[0.21052631578947367, 0.05263157894736842, 0.0, 0.0, 0.0, 0.15], grid_size=20
+2025-12-03 16:40:39,064 [DEBUG] A1: _rule_based_action: pos=(4, 1), breeze=0.0, stench=0.0, glitter=0.0, known=60, safe=49, risky=11
+2025-12-03 16:40:39,064 [DEBUG] A1: _rule_based_action: neighbor=(4, 0), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,065 [DEBUG] A1: _rule_based_action: neighbor=(4, 2), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,065 [DEBUG] A1: _rule_based_action: neighbor=(3, 1), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,065 [DEBUG] A1: _rule_based_action: neighbor=(5, 1), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,066 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:39,066 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,066 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,066 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(4, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,067 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(4, 1), new_pos=(5, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,067 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,071 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 1), alive=True
+2025-12-03 16:40:39,071 [DEBUG] A1: set_memory: grid_size=20, known=61, safe=50, risky=11
+2025-12-03 16:40:39,072 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 1), obs=[0.2631578947368421, 0.05263157894736842, 0.0, 0.0, 0.0, 0.1525]
+2025-12-03 16:40:39,072 [DEBUG] A1: decide_move: pos=(5, 1), obs=[0.2631578947368421, 0.05263157894736842, 0.0, 0.0, 0.0, 0.1525], grid_size=20
+2025-12-03 16:40:39,072 [DEBUG] A1: _rule_based_action: pos=(5, 1), breeze=0.0, stench=0.0, glitter=0.0, known=61, safe=50, risky=11
+2025-12-03 16:40:39,073 [DEBUG] A1: _rule_based_action: neighbor=(5, 0), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,073 [DEBUG] A1: _rule_based_action: neighbor=(5, 2), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,073 [DEBUG] A1: _rule_based_action: neighbor=(4, 1), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,074 [DEBUG] A1: _rule_based_action: neighbor=(6, 1), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,074 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:39,074 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,074 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,074 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,075 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 1), new_pos=(6, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,075 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,172 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 1), alive=True
+2025-12-03 16:40:39,173 [DEBUG] A1: set_memory: grid_size=20, known=62, safe=51, risky=11
+2025-12-03 16:40:39,173 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 1), obs=[0.3157894736842105, 0.05263157894736842, 0.0, 0.0, 0.0, 0.155]
+2025-12-03 16:40:39,174 [DEBUG] A1: decide_move: pos=(6, 1), obs=[0.3157894736842105, 0.05263157894736842, 0.0, 0.0, 0.0, 0.155], grid_size=20
+2025-12-03 16:40:39,174 [DEBUG] A1: _rule_based_action: pos=(6, 1), breeze=0.0, stench=0.0, glitter=0.0, known=62, safe=51, risky=11
+2025-12-03 16:40:39,174 [DEBUG] A1: _rule_based_action: neighbor=(6, 0), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,174 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,175 [DEBUG] A1: _rule_based_action: neighbor=(5, 1), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,175 [DEBUG] A1: _rule_based_action: neighbor=(7, 1), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,176 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:39,176 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:39,176 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:39,177 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,177 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 1), new_pos=(6, 0), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,177 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 0), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:39,271 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 0), alive=True
+2025-12-03 16:40:39,272 [DEBUG] A1: set_memory: grid_size=20, known=63, safe=51, risky=12
+2025-12-03 16:40:39,272 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 0), obs=[0.3157894736842105, 0.0, 1.0, 0.0, 0.0, 0.1575]
+2025-12-03 16:40:39,272 [DEBUG] A1: decide_move: pos=(6, 0), obs=[0.3157894736842105, 0.0, 1.0, 0.0, 0.0, 0.1575], grid_size=20
+2025-12-03 16:40:39,272 [DEBUG] A1: _rule_based_action: pos=(6, 0), breeze=1.0, stench=0.0, glitter=0.0, known=63, safe=51, risky=12
+2025-12-03 16:40:39,273 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_DOWN
+2025-12-03 16:40:39,273 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:39,273 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:39,273 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 0), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:39,273 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 0), new_pos=(6, 1), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,273 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,371 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 1), alive=True
+2025-12-03 16:40:39,372 [DEBUG] A1: set_memory: grid_size=20, known=63, safe=51, risky=12
+2025-12-03 16:40:39,372 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 1), obs=[0.3157894736842105, 0.05263157894736842, 0.0, 0.0, 0.0, 0.1575]
+2025-12-03 16:40:39,372 [DEBUG] A1: decide_move: pos=(6, 1), obs=[0.3157894736842105, 0.05263157894736842, 0.0, 0.0, 0.0, 0.1575], grid_size=20
+2025-12-03 16:40:39,373 [DEBUG] A1: _rule_based_action: pos=(6, 1), breeze=0.0, stench=0.0, glitter=0.0, known=63, safe=51, risky=12
+2025-12-03 16:40:39,373 [DEBUG] A1: _rule_based_action: neighbor=(6, 0), act=Action.MOVE_UP, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:39,373 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,374 [DEBUG] A1: _rule_based_action: neighbor=(5, 1), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,374 [DEBUG] A1: _rule_based_action: neighbor=(7, 1), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,374 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:39,374 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,374 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,374 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 1), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,375 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 1), new_pos=(7, 1), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,375 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 1), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:39,473 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 1), alive=True
+2025-12-03 16:40:39,473 [DEBUG] A1: set_memory: grid_size=20, known=64, safe=51, risky=13
+2025-12-03 16:40:39,474 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 1), obs=[0.3684210526315789, 0.05263157894736842, 1.0, 0.0, 0.0, 0.16]
+2025-12-03 16:40:39,474 [DEBUG] A1: decide_move: pos=(7, 1), obs=[0.3684210526315789, 0.05263157894736842, 1.0, 0.0, 0.0, 0.16], grid_size=20
+2025-12-03 16:40:39,474 [DEBUG] A1: _rule_based_action: pos=(7, 1), breeze=1.0, stench=0.0, glitter=0.0, known=64, safe=51, risky=13
+2025-12-03 16:40:39,474 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_DOWN
+2025-12-03 16:40:39,474 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:39,475 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:39,475 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 1), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:39,475 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 1), new_pos=(7, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,475 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,572 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 2), alive=True
+2025-12-03 16:40:39,573 [DEBUG] A1: set_memory: grid_size=20, known=64, safe=51, risky=13
+2025-12-03 16:40:39,573 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 2), obs=[0.3684210526315789, 0.10526315789473684, 0.0, 0.0, 0.0, 0.16]
+2025-12-03 16:40:39,573 [DEBUG] A1: decide_move: pos=(7, 2), obs=[0.3684210526315789, 0.10526315789473684, 0.0, 0.0, 0.0, 0.16], grid_size=20
+2025-12-03 16:40:39,573 [DEBUG] A1: _rule_based_action: pos=(7, 2), breeze=0.0, stench=0.0, glitter=0.0, known=64, safe=51, risky=13
+2025-12-03 16:40:39,573 [DEBUG] A1: _rule_based_action: neighbor=(7, 1), act=Action.MOVE_UP, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:39,574 [DEBUG] A1: _rule_based_action: neighbor=(7, 3), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,574 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,574 [DEBUG] A1: _rule_based_action: neighbor=(8, 2), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,575 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_RIGHT with score=25.0
+2025-12-03 16:40:39,575 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,575 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,575 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,576 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 2), new_pos=(8, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,576 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(8, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,672 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(8, 2), alive=True
+2025-12-03 16:40:39,672 [DEBUG] A1: set_memory: grid_size=20, known=65, safe=52, risky=13
+2025-12-03 16:40:39,673 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(8, 2), obs=[0.42105263157894735, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1625]
+2025-12-03 16:40:39,673 [DEBUG] A1: decide_move: pos=(8, 2), obs=[0.42105263157894735, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1625], grid_size=20
+2025-12-03 16:40:39,673 [DEBUG] A1: _rule_based_action: pos=(8, 2), breeze=0.0, stench=0.0, glitter=0.0, known=65, safe=52, risky=13
+2025-12-03 16:40:39,673 [DEBUG] A1: _rule_based_action: neighbor=(8, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,674 [DEBUG] A1: _rule_based_action: neighbor=(8, 3), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,674 [DEBUG] A1: _rule_based_action: neighbor=(7, 2), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,674 [DEBUG] A1: _rule_based_action: neighbor=(9, 2), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,674 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:39,675 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:39,675 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:39,675 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(8, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,675 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(8, 2), new_pos=(8, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,676 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(8, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,773 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(8, 3), alive=True
+2025-12-03 16:40:39,774 [DEBUG] A1: set_memory: grid_size=20, known=66, safe=53, risky=13
+2025-12-03 16:40:39,774 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(8, 3), obs=[0.42105263157894735, 0.15789473684210525, 0.0, 0.0, 0.0, 0.165]
+2025-12-03 16:40:39,774 [DEBUG] A1: decide_move: pos=(8, 3), obs=[0.42105263157894735, 0.15789473684210525, 0.0, 0.0, 0.0, 0.165], grid_size=20
+2025-12-03 16:40:39,775 [DEBUG] A1: _rule_based_action: pos=(8, 3), breeze=0.0, stench=0.0, glitter=0.0, known=66, safe=53, risky=13
+2025-12-03 16:40:39,775 [DEBUG] A1: _rule_based_action: neighbor=(8, 2), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,775 [DEBUG] A1: _rule_based_action: neighbor=(8, 4), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,775 [DEBUG] A1: _rule_based_action: neighbor=(7, 3), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,775 [DEBUG] A1: _rule_based_action: neighbor=(9, 3), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,776 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:39,776 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:39,776 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:39,777 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(8, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,777 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(8, 3), new_pos=(8, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,777 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(8, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,873 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(8, 4), alive=True
+2025-12-03 16:40:39,873 [DEBUG] A1: set_memory: grid_size=20, known=67, safe=54, risky=13
+2025-12-03 16:40:39,874 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(8, 4), obs=[0.42105263157894735, 0.21052631578947367, 0.0, 0.0, 0.0, 0.1675]
+2025-12-03 16:40:39,874 [DEBUG] A1: decide_move: pos=(8, 4), obs=[0.42105263157894735, 0.21052631578947367, 0.0, 0.0, 0.0, 0.1675], grid_size=20
+2025-12-03 16:40:39,874 [DEBUG] A1: _rule_based_action: pos=(8, 4), breeze=0.0, stench=0.0, glitter=0.0, known=67, safe=54, risky=13
+2025-12-03 16:40:39,874 [DEBUG] A1: _rule_based_action: neighbor=(8, 3), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,875 [DEBUG] A1: _rule_based_action: neighbor=(8, 5), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,875 [DEBUG] A1: _rule_based_action: neighbor=(7, 4), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:39,875 [DEBUG] A1: _rule_based_action: neighbor=(9, 4), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:39,875 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:39,875 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,876 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:39,876 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(8, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:39,876 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(8, 4), new_pos=(9, 4), new_percepts={'breeze': False, 'stench': True, 'glitter': False}
+2025-12-03 16:40:39,876 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(9, 4), breeze=False, stench=True, zone=RISKY
+2025-12-03 16:40:39,973 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(9, 4), alive=True
+2025-12-03 16:40:39,973 [DEBUG] A1: set_memory: grid_size=20, known=68, safe=54, risky=14
+2025-12-03 16:40:39,974 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(9, 4), obs=[0.47368421052631576, 0.21052631578947367, 0.0, 1.0, 0.0, 0.17]
+2025-12-03 16:40:39,974 [DEBUG] A1: decide_move: pos=(9, 4), obs=[0.47368421052631576, 0.21052631578947367, 0.0, 1.0, 0.0, 0.17], grid_size=20
+2025-12-03 16:40:39,974 [DEBUG] A1: _rule_based_action: pos=(9, 4), breeze=0.0, stench=1.0, glitter=0.0, known=68, safe=54, risky=14
+2025-12-03 16:40:39,974 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_LEFT
+2025-12-03 16:40:39,975 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:39,975 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:39,975 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(9, 4), breeze=False, stench=True, zone=RISKY
+2025-12-03 16:40:39,975 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(9, 4), new_pos=(8, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:39,976 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(8, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,074 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(8, 4), alive=True
+2025-12-03 16:40:40,075 [DEBUG] A1: set_memory: grid_size=20, known=68, safe=54, risky=14
+2025-12-03 16:40:40,075 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(8, 4), obs=[0.42105263157894735, 0.21052631578947367, 0.0, 0.0, 0.0, 0.17]
+2025-12-03 16:40:40,075 [DEBUG] A1: decide_move: pos=(8, 4), obs=[0.42105263157894735, 0.21052631578947367, 0.0, 0.0, 0.0, 0.17], grid_size=20
+2025-12-03 16:40:40,075 [DEBUG] A1: _rule_based_action: pos=(8, 4), breeze=0.0, stench=0.0, glitter=0.0, known=68, safe=54, risky=14
+2025-12-03 16:40:40,075 [DEBUG] A1: _rule_based_action: neighbor=(8, 3), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,076 [DEBUG] A1: _rule_based_action: neighbor=(8, 5), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:40,076 [DEBUG] A1: _rule_based_action: neighbor=(7, 4), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,076 [DEBUG] A1: _rule_based_action: neighbor=(9, 4), act=Action.MOVE_RIGHT, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:40,077 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_DOWN with score=25.0
+2025-12-03 16:40:40,077 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:40,077 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:40,077 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(8, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,078 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(8, 4), new_pos=(8, 5), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,078 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(8, 5), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:40,174 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(8, 5), alive=True
+2025-12-03 16:40:40,175 [DEBUG] A1: set_memory: grid_size=20, known=69, safe=54, risky=15
+2025-12-03 16:40:40,175 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(8, 5), obs=[0.42105263157894735, 0.2631578947368421, 1.0, 0.0, 0.0, 0.1725]
+2025-12-03 16:40:40,175 [DEBUG] A1: decide_move: pos=(8, 5), obs=[0.42105263157894735, 0.2631578947368421, 1.0, 0.0, 0.0, 0.1725], grid_size=20
+2025-12-03 16:40:40,175 [DEBUG] A1: _rule_based_action: pos=(8, 5), breeze=1.0, stench=0.0, glitter=0.0, known=69, safe=54, risky=15
+2025-12-03 16:40:40,176 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_LEFT
+2025-12-03 16:40:40,176 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:40,176 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:40,176 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(8, 5), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:40,177 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(8, 5), new_pos=(7, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,177 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,275 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 5), alive=True
+2025-12-03 16:40:40,275 [DEBUG] A1: set_memory: grid_size=20, known=69, safe=54, risky=15
+2025-12-03 16:40:40,275 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 5), obs=[0.3684210526315789, 0.2631578947368421, 0.0, 0.0, 0.0, 0.1725]
+2025-12-03 16:40:40,276 [DEBUG] A1: decide_move: pos=(7, 5), obs=[0.3684210526315789, 0.2631578947368421, 0.0, 0.0, 0.0, 0.1725], grid_size=20
+2025-12-03 16:40:40,276 [DEBUG] A1: _rule_based_action: pos=(7, 5), breeze=0.0, stench=0.0, glitter=0.0, known=69, safe=54, risky=15
+2025-12-03 16:40:40,276 [DEBUG] A1: _rule_based_action: neighbor=(7, 4), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,276 [DEBUG] A1: _rule_based_action: neighbor=(7, 6), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:40,276 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,277 [DEBUG] A1: _rule_based_action: neighbor=(8, 5), act=Action.MOVE_RIGHT, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:40,277 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_DOWN with score=25.0
+2025-12-03 16:40:40,277 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:40,277 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:40,277 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,278 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 5), new_pos=(7, 6), new_percepts={'breeze': True, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,278 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 6), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:40,376 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 6), alive=True
+2025-12-03 16:40:40,376 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:40,376 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 6), obs=[0.3684210526315789, 0.3157894736842105, 1.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:40,377 [DEBUG] A1: decide_move: pos=(7, 6), obs=[0.3684210526315789, 0.3157894736842105, 1.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:40,377 [DEBUG] A1: _rule_based_action: pos=(7, 6), breeze=1.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:40,377 [DEBUG] A1: _rule_based_action: DANGER-FIELD -> FLIGHT to safe via Action.MOVE_LEFT
+2025-12-03 16:40:40,378 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:40,378 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:40,378 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 6), breeze=True, stench=False, zone=RISKY
+2025-12-03 16:40:40,378 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 6), new_pos=(6, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,378 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,479 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 6), alive=True
+2025-12-03 16:40:40,479 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:40,480 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 6), obs=[0.3157894736842105, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:40,480 [DEBUG] A1: decide_move: pos=(6, 6), obs=[0.3157894736842105, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:40,480 [DEBUG] A1: _rule_based_action: pos=(6, 6), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:40,481 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,481 [DEBUG] A1: _rule_based_action: neighbor=(6, 7), act=Action.MOVE_DOWN, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:40,482 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,482 [DEBUG] A1: _rule_based_action: neighbor=(7, 6), act=Action.MOVE_RIGHT, score=-55.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:40,482 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_LEFT
+2025-12-03 16:40:40,483 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:40,483 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:40,483 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,484 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 6), new_pos=(5, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,484 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,577 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 6), alive=True
+2025-12-03 16:40:40,577 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:40,577 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:40,578 [DEBUG] A1: decide_move: pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:40,578 [DEBUG] A1: _rule_based_action: pos=(5, 6), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:40,578 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,578 [DEBUG] A1: _rule_based_action: neighbor=(5, 7), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,579 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,579 [DEBUG] A1: _rule_based_action: neighbor=(6, 6), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,579 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:40,579 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:40,579 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:40,580 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,580 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 6), new_pos=(5, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,580 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,677 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 5), alive=True
+2025-12-03 16:40:40,678 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:40,678 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:40,678 [DEBUG] A1: decide_move: pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:40,678 [DEBUG] A1: _rule_based_action: pos=(5, 5), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:40,679 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,679 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,679 [DEBUG] A1: _rule_based_action: neighbor=(4, 5), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,679 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,679 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:40,679 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:40,680 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:40,680 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,680 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 5), new_pos=(6, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,680 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,779 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 5), alive=True
+2025-12-03 16:40:40,779 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:40,779 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 5), obs=[0.3157894736842105, 0.2631578947368421, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:40,780 [DEBUG] A1: decide_move: pos=(6, 5), obs=[0.3157894736842105, 0.2631578947368421, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:40,780 [DEBUG] A1: _rule_based_action: pos=(6, 5), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:40,780 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,781 [DEBUG] A1: _rule_based_action: neighbor=(6, 6), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,781 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,781 [DEBUG] A1: _rule_based_action: neighbor=(7, 5), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,781 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:40,782 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:40,782 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:40,782 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,783 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 5), new_pos=(6, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,783 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,878 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 6), alive=True
+2025-12-03 16:40:40,878 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:40,879 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 6), obs=[0.3157894736842105, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:40,879 [DEBUG] A1: decide_move: pos=(6, 6), obs=[0.3157894736842105, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:40,879 [DEBUG] A1: _rule_based_action: pos=(6, 6), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:40,879 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_UP, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,880 [DEBUG] A1: _rule_based_action: neighbor=(6, 7), act=Action.MOVE_DOWN, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:40,880 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,880 [DEBUG] A1: _rule_based_action: neighbor=(7, 6), act=Action.MOVE_RIGHT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:40,881 [DEBUG] A1: _rule_based_action: best_action=Action.MOVE_LEFT with score=10.0
+2025-12-03 16:40:40,881 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_LEFT
+2025-12-03 16:40:40,881 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_LEFT
+2025-12-03 16:40:40,881 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,881 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 6), new_pos=(5, 6), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,881 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,980 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 6), alive=True
+2025-12-03 16:40:40,980 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:40,981 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:40,981 [DEBUG] A1: decide_move: pos=(5, 6), obs=[0.2631578947368421, 0.3157894736842105, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:40,982 [DEBUG] A1: _rule_based_action: pos=(5, 6), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:40,982 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,982 [DEBUG] A1: _rule_based_action: neighbor=(5, 7), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,983 [DEBUG] A1: _rule_based_action: neighbor=(4, 6), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,983 [DEBUG] A1: _rule_based_action: neighbor=(6, 6), act=Action.MOVE_RIGHT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:40,984 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_LEFT: 3>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:40,984 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:40,984 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:40,984 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 6), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:40,984 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 6), new_pos=(5, 5), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:40,985 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,081 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 5), alive=True
+2025-12-03 16:40:41,081 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:41,081 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:41,082 [DEBUG] A1: decide_move: pos=(5, 5), obs=[0.2631578947368421, 0.2631578947368421, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:41,082 [DEBUG] A1: _rule_based_action: pos=(5, 5), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:41,082 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,083 [DEBUG] A1: _rule_based_action: neighbor=(5, 6), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,083 [DEBUG] A1: _rule_based_action: neighbor=(4, 5), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,083 [DEBUG] A1: _rule_based_action: neighbor=(6, 5), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,084 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:41,084 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:41,084 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:41,085 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 5), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,085 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 5), new_pos=(5, 4), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,085 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,179 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 4), alive=True
+2025-12-03 16:40:41,179 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:41,179 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 4), obs=[0.2631578947368421, 0.21052631578947367, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:41,179 [DEBUG] A1: decide_move: pos=(5, 4), obs=[0.2631578947368421, 0.21052631578947367, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:41,180 [DEBUG] A1: _rule_based_action: pos=(5, 4), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:41,180 [DEBUG] A1: _rule_based_action: neighbor=(5, 3), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,180 [DEBUG] A1: _rule_based_action: neighbor=(5, 5), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,180 [DEBUG] A1: _rule_based_action: neighbor=(4, 4), act=Action.MOVE_LEFT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:41,180 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,181 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:41,181 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:41,181 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:41,181 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 4), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,181 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 4), new_pos=(5, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,182 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(5, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,281 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(5, 3), alive=True
+2025-12-03 16:40:41,282 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:41,282 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(5, 3), obs=[0.2631578947368421, 0.15789473684210525, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:41,282 [DEBUG] A1: decide_move: pos=(5, 3), obs=[0.2631578947368421, 0.15789473684210525, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:41,282 [DEBUG] A1: _rule_based_action: pos=(5, 3), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:41,283 [DEBUG] A1: _rule_based_action: neighbor=(5, 2), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,283 [DEBUG] A1: _rule_based_action: neighbor=(5, 4), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,283 [DEBUG] A1: _rule_based_action: neighbor=(4, 3), act=Action.MOVE_LEFT, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:41,284 [DEBUG] A1: _rule_based_action: neighbor=(6, 3), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,284 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:41,284 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,285 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,285 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(5, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,286 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(5, 3), new_pos=(6, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,286 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(6, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,381 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(6, 3), alive=True
+2025-12-03 16:40:41,382 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:41,382 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(6, 3), obs=[0.3157894736842105, 0.15789473684210525, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:41,383 [DEBUG] A1: decide_move: pos=(6, 3), obs=[0.3157894736842105, 0.15789473684210525, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:41,383 [DEBUG] A1: _rule_based_action: pos=(6, 3), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:41,383 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,384 [DEBUG] A1: _rule_based_action: neighbor=(6, 4), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,384 [DEBUG] A1: _rule_based_action: neighbor=(5, 3), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,385 [DEBUG] A1: _rule_based_action: neighbor=(7, 3), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,385 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:41,385 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,386 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,386 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(6, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,386 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(6, 3), new_pos=(7, 3), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,387 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,482 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 3), alive=True
+2025-12-03 16:40:41,482 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:41,482 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 3), obs=[0.3684210526315789, 0.15789473684210525, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:41,483 [DEBUG] A1: decide_move: pos=(7, 3), obs=[0.3684210526315789, 0.15789473684210525, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:41,483 [DEBUG] A1: _rule_based_action: pos=(7, 3), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:41,483 [DEBUG] A1: _rule_based_action: neighbor=(7, 2), act=Action.MOVE_UP, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,484 [DEBUG] A1: _rule_based_action: neighbor=(7, 4), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,484 [DEBUG] A1: _rule_based_action: neighbor=(6, 3), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,484 [DEBUG] A1: _rule_based_action: neighbor=(8, 3), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,484 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_UP
+2025-12-03 16:40:41,485 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_UP
+2025-12-03 16:40:41,485 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_UP
+2025-12-03 16:40:41,485 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 3), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,486 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 3), new_pos=(7, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,486 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(7, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,580 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(7, 2), alive=True
+2025-12-03 16:40:41,581 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:41,581 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(7, 2), obs=[0.3684210526315789, 0.10526315789473684, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:41,581 [DEBUG] A1: decide_move: pos=(7, 2), obs=[0.3684210526315789, 0.10526315789473684, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:41,581 [DEBUG] A1: _rule_based_action: pos=(7, 2), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:41,582 [DEBUG] A1: _rule_based_action: neighbor=(7, 1), act=Action.MOVE_UP, score=-50.0, is_safe=False, is_risky=True, is_known=True
+2025-12-03 16:40:41,582 [DEBUG] A1: _rule_based_action: neighbor=(7, 3), act=Action.MOVE_DOWN, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,582 [DEBUG] A1: _rule_based_action: neighbor=(6, 2), act=Action.MOVE_LEFT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,583 [DEBUG] A1: _rule_based_action: neighbor=(8, 2), act=Action.MOVE_RIGHT, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,583 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_LEFT: 3>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:41,583 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,584 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,584 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(7, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,584 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(7, 2), new_pos=(8, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,584 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(8, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,682 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(8, 2), alive=True
+2025-12-03 16:40:41,683 [DEBUG] A1: set_memory: grid_size=20, known=70, safe=54, risky=16
+2025-12-03 16:40:41,683 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(8, 2), obs=[0.42105263157894735, 0.10526315789473684, 0.0, 0.0, 0.0, 0.175]
+2025-12-03 16:40:41,683 [DEBUG] A1: decide_move: pos=(8, 2), obs=[0.42105263157894735, 0.10526315789473684, 0.0, 0.0, 0.0, 0.175], grid_size=20
+2025-12-03 16:40:41,684 [DEBUG] A1: _rule_based_action: pos=(8, 2), breeze=0.0, stench=0.0, glitter=0.0, known=70, safe=54, risky=16
+2025-12-03 16:40:41,684 [DEBUG] A1: _rule_based_action: neighbor=(8, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,685 [DEBUG] A1: _rule_based_action: neighbor=(8, 3), act=Action.MOVE_DOWN, score=10.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,685 [DEBUG] A1: _rule_based_action: neighbor=(7, 2), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,685 [DEBUG] A1: _rule_based_action: neighbor=(9, 2), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,686 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:41,686 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,686 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,686 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(8, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,687 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(8, 2), new_pos=(9, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,687 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(9, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,781 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(9, 2), alive=True
+2025-12-03 16:40:41,782 [DEBUG] A1: set_memory: grid_size=20, known=71, safe=55, risky=16
+2025-12-03 16:40:41,782 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(9, 2), obs=[0.47368421052631576, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1775]
+2025-12-03 16:40:41,782 [DEBUG] A1: decide_move: pos=(9, 2), obs=[0.47368421052631576, 0.10526315789473684, 0.0, 0.0, 0.0, 0.1775], grid_size=20
+2025-12-03 16:40:41,782 [DEBUG] A1: _rule_based_action: pos=(9, 2), breeze=0.0, stench=0.0, glitter=0.0, known=71, safe=55, risky=16
+2025-12-03 16:40:41,783 [DEBUG] A1: _rule_based_action: neighbor=(9, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,783 [DEBUG] A1: _rule_based_action: neighbor=(9, 3), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,783 [DEBUG] A1: _rule_based_action: neighbor=(8, 2), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,783 [DEBUG] A1: _rule_based_action: neighbor=(10, 2), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,784 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_RIGHT
+2025-12-03 16:40:41,784 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,784 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_RIGHT
+2025-12-03 16:40:41,784 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(9, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,785 [DEBUG] Scheduler: step: agent=A1, result=CONTINUE, old_pos=(9, 2), new_pos=(10, 2), new_percepts={'breeze': False, 'stench': False, 'glitter': False}
+2025-12-03 16:40:41,785 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(10, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,882 [DEBUG] Scheduler: step: TURN=0, agent=A1, pos=(10, 2), alive=True
+2025-12-03 16:40:41,883 [DEBUG] A1: set_memory: grid_size=20, known=72, safe=56, risky=16
+2025-12-03 16:40:41,883 [DEBUG] Scheduler: _build_qmix_observation: agent=A1, pos=(10, 2), obs=[0.5263157894736842, 0.10526315789473684, 0.0, 0.0, 0.0, 0.18]
+2025-12-03 16:40:41,883 [DEBUG] A1: decide_move: pos=(10, 2), obs=[0.5263157894736842, 0.10526315789473684, 0.0, 0.0, 0.0, 0.18], grid_size=20
+2025-12-03 16:40:41,883 [DEBUG] A1: _rule_based_action: pos=(10, 2), breeze=0.0, stench=0.0, glitter=0.0, known=72, safe=56, risky=16
+2025-12-03 16:40:41,884 [DEBUG] A1: _rule_based_action: neighbor=(10, 1), act=Action.MOVE_UP, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,884 [DEBUG] A1: _rule_based_action: neighbor=(10, 3), act=Action.MOVE_DOWN, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,884 [DEBUG] A1: _rule_based_action: neighbor=(9, 2), act=Action.MOVE_LEFT, score=5.0, is_safe=True, is_risky=False, is_known=True
+2025-12-03 16:40:41,884 [DEBUG] A1: _rule_based_action: neighbor=(11, 2), act=Action.MOVE_RIGHT, score=25.0, is_safe=False, is_risky=False, is_known=False
+2025-12-03 16:40:41,885 [DEBUG] A1: _rule_based_action: tie between [<Action.MOVE_UP: 1>, <Action.MOVE_DOWN: 2>, <Action.MOVE_RIGHT: 4>] -> random chosen Action.MOVE_DOWN
+2025-12-03 16:40:41,885 [DEBUG] A1: decide_move -> RULE action=Action.MOVE_DOWN
+2025-12-03 16:40:41,885 [DEBUG] Scheduler: step: agent=A1, decision_input=observation, action=Action.MOVE_DOWN
+2025-12-03 16:40:41,885 [DEBUG] Scheduler: _update_memory_before_move: agent=A1, pos=(10, 2), breeze=False, stench=False, zone=SAFE
+2025-12-03 16:40:41,885 [DEBUG] Scheduler: step: agent=A1, result=WIN, old_pos=(10, 2), new_pos=(10, 3), new_percepts={'breeze': False, 'stench': True, 'glitter': True}
+2025-12-03 16:40:41,885 [DEBUG] Scheduler: _update_memory_after_move: agent=A1, pos=(10, 3), breeze=False, stench=True, zone=RISKY

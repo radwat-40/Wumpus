@@ -1,5 +1,7 @@
 import pygame
 import sys
+import logging
+from pathlib import Path
 
 from environment.world import World
 from environment import drawing
@@ -9,6 +11,18 @@ from environment.scheduler import Scheduler
 from agents.agent1 import MarcAgent
 from agents.agent2 import YahiaAgent
 from agents.agent3 import HenrikAgent
+
+
+LOG_PATH = Path("wumpus.log")
+
+logging.basicConfig(
+    level=logging.DEBUG,  # bei Bedarf auf INFO stellen
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_PATH, mode="w", encoding="utf-8"),
+        logging.StreamHandler(sys.stdout),
+    ],
+)
 
 
 world = World()

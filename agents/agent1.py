@@ -3,10 +3,13 @@ import random
 import numpy as np
 import torch
 import torch.nn as nn
+import logging
 
 from agents.base_agent import Agent
 from environment.actions import Action
 
+
+logger = logging.getLogger("A1")
 
 # ---------------------------------------------------------
 #  DQN-Netz
@@ -62,12 +65,13 @@ class MarcAgent(Agent):
                 self.q_net.load_state_dict(state_dict)
                 self.q_net.eval()
                 self.model_loaded = True
-                print(f"[A1] Modell geladen: {model_path}")
+                logger.info(f"Modell geladen: {model_path}")
             except Exception as e:
-                print(f"[A1] Fehler beim Laden: {e}")
-                print("[A1] --> Fallback: Random")
+                logger.error(f"Fehler beim Laden von {model_path}: {e}")
+                logger.warning("Fallback auf Random-Aktionen.")
         else:
-            print(f"[A1] WARNUNG: Modell '{model_path}' nicht gefunden. Fallback auf Random.")
+            logger.warning(f"Modell '{model_path}' nicht gefunden. Fallback auf Random.")
+
 
 
     # -----------------------------------------------------
@@ -79,6 +83,10 @@ class MarcAgent(Agent):
         self.risky = set(risky)
         self.grid_size = grid_size
 
+        logger.debug(
+            f"set_memory: grid_size={grid_size}, "
+            f"known={len(self.known)}, safe={len(self.safe)}, risky={len(self.risky)}"
+        )
 
     # -----------------------------------------------------
     #  Observation → Tensor
@@ -95,21 +103,35 @@ class MarcAgent(Agent):
         if self.grid_size is None:
             self.grid_size = grid_size
 
+        logger.debug(
+            f"decide_move: pos={self.pos()}, obs={observation}, grid_size={grid_size}"
+        )
+
         # 1. Versuche Regel-basiert
         rule_action = self._rule_based_action(observation)
         if rule_action is not None:
+            logger.debug(f"decide_move -> RULE action={rule_action}")
             return rule_action
 
         # 2. DQN oder Random (Fallback)
         if not self.model_loaded:
-            return self._idx_to_action(random.randrange(self.n_actions))
+            a_idx = random.randrange(self.n_actions)
+            action = self._idx_to_action(a_idx)
+            logger.debug(f"decide_move -> RANDOM (kein Modell) idx={a_idx}, action={action}")
+            return action
 
         with torch.no_grad():
             obs_t = self._obs_to_tensor(observation)
             q_vals = self.q_net(obs_t)
             action_idx = int(q_vals.argmax(dim=-1).item())
+            action = self._idx_to_action(action_idx)
 
-        return self._idx_to_action(action_idx)
+        logger.debug(
+            f"decide_move -> RL action_idx={action_idx}, action={action}, "
+            f"q_vals={q_vals.cpu().numpy().round(3).tolist()}"
+        )
+        return action
+
 
 
     # -----------------------------------------------------
@@ -125,6 +147,7 @@ class MarcAgent(Agent):
         ]
         idx = int(idx)
         if idx < 0 or idx >= len(mapping):
+            logger.warning(f"_idx_to_action: ungültiger idx={idx}, fallback random move")
             return random.choice(mapping[:4])
         return mapping[idx]
 
@@ -133,19 +156,22 @@ class MarcAgent(Agent):
     #  Regelbasierte Policy (Safe-Explorer)
     # -----------------------------------------------------
     def _rule_based_action(self, observation):
-        if self.grid_size is None:
-            return None
-
-        if len(observation) < 5:
+        if self.grid_size is None or len(observation) < 5:
             return None
 
         x_norm, y_norm, breeze, stench, glitter = observation[:5]
+        x, y = self.pos()
+
+        logger.debug(
+            f"_rule_based_action: pos={self.pos()}, "
+            f"breeze={breeze}, stench={stench}, glitter={glitter}, "
+            f"known={len(self.known)}, safe={len(self.safe)}, risky={len(self.risky)}"
+        )
 
         # Wenn Gold glitzert → GRAB
         if glitter >= 0.5:
+            logger.debug("_rule_based_action: glitter detected -> GRAB")
             return Action.GRAB
-
-        x, y = self.pos()
 
         neighbors = {
             Action.MOVE_UP:    (x, y - 1),
@@ -161,12 +187,15 @@ class MarcAgent(Agent):
             if 0 <= nx < self.grid_size and 0 <= ny < self.grid_size
         }
 
-        # **FLUCHT-REGEL**: Wenn aktuell auf gefährlichem Feld (Breeze/Stench) → zurück zu SAFE
+        # FLUCHT-REGEL: Feld ist gefährlich -> versuche zu SAFE zu flüchten
         if (breeze >= 0.5 or stench >= 0.5) and len(self.safe) > 0:
             safe_moves = [act for act, pos in valid.items() if pos in self.safe]
             if safe_moves:
                 chosen = random.choice(safe_moves)
                 self.last_pos = self.pos()
+                logger.debug(
+                    f"_rule_based_action: DANGER-FIELD -> FLIGHT to safe via {chosen}"
+                )
                 return chosen
 
         best_score = -1e9
@@ -177,19 +206,25 @@ class MarcAgent(Agent):
 
             # risky vermeiden (wenn wir davon wissen)
             if pos in self.risky:
-                score -= 50.0  # Sehr hohe Strafe für bekannt gefährlich!
+                score -= 50.0
 
-            # safe bevorzugen (Rückzug)
+            # safe bevorzugen
             if pos in self.safe:
                 score += 10.0
 
-            # unknown STARK erkunden (nur wenn NICHT auf Breeze/Stench!)
+            # unknown stark erkunden
             if pos not in self.known:
                 score += 25.0
 
             # kein Hin-und-Her
             if self.last_pos is not None and pos == self.last_pos:
                 score -= 5.0
+
+            logger.debug(
+                f"_rule_based_action: neighbor={pos}, act={act}, score={score}, "
+                f"is_safe={pos in self.safe}, is_risky={pos in self.risky}, "
+                f"is_known={pos in self.known}"
+            )
 
             if score > best_score:
                 best_score = score
@@ -199,15 +234,23 @@ class MarcAgent(Agent):
 
         # Wenn ALLE schlecht sind → DQN entscheiden lassen
         if best_score <= -40:
+            logger.debug("_rule_based_action: all scores very bad -> fallback RL")
             return None
 
-        # Wenn mehrere gleich gut → wähle zufällig
+        # Wenn mehrere gleich gut → zufällig
         if len(best_actions) > 1:
             chosen = random.choice(best_actions)
             self.last_pos = self.pos()
+            logger.debug(
+                f"_rule_based_action: tie between {best_actions} -> random chosen {chosen}"
+            )
             return chosen
 
         # Eine beste Action
         chosen = best_actions[0]
         self.last_pos = self.pos()
+        logger.debug(
+            f"_rule_based_action: best_action={chosen} with score={best_score}"
+        )
         return chosen
+
