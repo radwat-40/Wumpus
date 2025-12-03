@@ -30,7 +30,7 @@ def create_agents():
     Stellt sicher, dass A1 der QMIX-MarcAgent ist.
     A2/A3 bleiben Random-Agents (unverändert).
     """
-    agent1 = MarcAgent(0, 0, "A1", grid_size=world.grid_size)
+    agent1 = MarcAgent(0, 0, "A1")
     agent2 = YahiaAgent(1, 0, "A2")
     agent3 = HenrikAgent(2, 0, "A3")
 

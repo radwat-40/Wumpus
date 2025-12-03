@@ -14,7 +14,7 @@ from agents.base_agent import Agent
 
 # ===========================
 #   Single-Agent Wumpus Env
-#   (gleiche Welt-Logik wie im Spiel)
+#   (gleiche World-Logik wie im Spiel)
 # ===========================
 
 
@@ -30,7 +30,6 @@ class WumpusSingleAgentEnv:
       1: MOVE_DOWN
       2: MOVE_LEFT
       3: MOVE_RIGHT
-      4: GRAB
     """
 
     def __init__(
@@ -86,7 +85,7 @@ class WumpusSingleAgentEnv:
     def _build_obs(self):
         """
         Gleiche Observation wie im Scheduler für A1:
-        [x_norm, y_norm, breeze, stench, glitter]
+        [x_norm, y_norm, breeze, stench, glitter, known_fraction]
         """
         x, y = self.agent.pos()
         N = max(self.grid_size - 1, 1)
@@ -98,7 +97,14 @@ class WumpusSingleAgentEnv:
         stench = 1.0 if p["stench"] else 0.0
         glitter = 1.0 if p["glitter"] else 0.0
 
-        return np.array([x_norm, y_norm, breeze, stench, glitter], dtype=np.float32)
+        # Anteil bereits bekannter Felder (0..1)
+        total_tiles = float(self.grid_size * self.grid_size)
+        known_fraction = len(self.known) / total_tiles if total_tiles > 0 else 0.0
+
+        return np.array(
+            [x_norm, y_norm, breeze, stench, glitter, known_fraction],
+            dtype=np.float32,
+        )
 
     def _update_memory(self, pos, percepts):
         self.known.add(pos)
@@ -109,17 +115,16 @@ class WumpusSingleAgentEnv:
 
     def step(self, action_idx: int):
         """
-        Ausführung einer Aktion, Reward-Shaping ähnlich Scheduler.
+        Ausführung einer Aktion, Reward-Shaping konsistent und ohne Explosions-Farming.
         """
         self.steps += 1
 
-        # Map Index -> Action
+        # Map Index -> Action (nur Bewegungen)
         action_map = [
             Action.MOVE_UP,
             Action.MOVE_DOWN,
             Action.MOVE_LEFT,
             Action.MOVE_RIGHT,
-            Action.GRAB,
         ]
         action_idx = int(action_idx)
         if action_idx < 0 or action_idx >= len(action_map):
@@ -172,6 +177,15 @@ class WumpusSingleAgentEnv:
         old_risky,
         result,
     ):
+        """
+        Stabiler, nicht ausnutzbarer Reward:
+          +1000  WIN
+          -1000  DIED
+          +1     neues Feld
+          +0.5   safe -> safe
+          -1     risky (breeze/stench)
+          -0.1   pro Schritt
+        """
         r = 0.0
 
         # Terminale Ereignisse
@@ -182,26 +196,20 @@ class WumpusSingleAgentEnv:
 
         # Neues Feld betreten
         if new_pos not in old_known:
-            r += 5.0
+            r += 1.0
 
         # Safe-to-safe Bewegung
         safe_before = not (old_p["breeze"] or old_p["stench"])
         safe_after = not (new_p["breeze"] or new_p["stench"])
         if safe_before and safe_after:
-            r += 5.0
+            r += 0.5
 
-        # Risiko-Strafe
+        # Risiko-Strafe (risky oder neue Breeze/Stench)
         if new_pos in old_risky or (new_p["breeze"] or new_p["stench"]):
             r -= 1.0
 
         # Zeitschritt-Strafe, damit er nicht idlet
-        r -= 0.02
-
-        # Sicherheit: Reward clampen
-        if r > 200.0:
-            r = 200.0
-        if r < -200.0:
-            r = -200.0
+        r -= 0.1
 
         return float(r)
 
@@ -253,7 +261,7 @@ class ReplayBuffer:
 # ===========================
 
 
-def evaluate_policy(policy_net, env_params, n_eval_episodes=50, device=None):
+def evaluate_policy(policy_net, env_params, n_eval_episodes=20, device=None):
     """
     Bewertet das aktuelle Policy-Netz auf der Zielwelt (20x20).
     Epsilon = 0 (pure Greedy-Policy).
@@ -292,12 +300,12 @@ def train_dqn(
     gamma=0.99,
     lr=1e-3,
     batch_size=64,
-    replay_capacity=100_000,
+    replay_capacity=50_000,
     min_replay_size=1_000,
-    target_update_freq=1_000,
+    target_update_freq=500,
     eps_start=1.0,
     eps_end=0.05,
-    eps_decay_steps=100_000,
+    eps_decay_steps=50_000,
 ):
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -306,8 +314,8 @@ def train_dqn(
     env_params = dict(grid_size=20, num_pits=20, num_wumpus=3, num_gold=1, max_steps=max_steps)
     env = WumpusSingleAgentEnv(**env_params)
 
-    obs_dim = 5
-    n_actions = 5  # 4 Moves + GRAB
+    obs_dim = 6
+    n_actions = 4  # 4 Moves, kein GRAB
 
     policy_net = DQN(obs_dim, n_actions).to(device)
     target_net = DQN(obs_dim, n_actions).to(device)
@@ -360,11 +368,24 @@ def train_dqn(
             if len(replay_buffer) >= min_replay_size:
                 batch = replay_buffer.sample(batch_size)
 
-                states = torch.tensor(batch.state, dtype=torch.float32, device=device)
+                states = torch.tensor(
+                    np.array(batch.state, dtype=np.float32),
+                    dtype=torch.float32,
+                    device=device,
+                )
+
                 actions = torch.tensor(batch.action, dtype=torch.int64, device=device).unsqueeze(-1)
+
                 rewards = torch.tensor(batch.reward, dtype=torch.float32, device=device).unsqueeze(-1)
-                next_states = torch.tensor(batch.next_state, dtype=torch.float32, device=device)
+
+                next_states = torch.tensor(
+                    np.array(batch.next_state, dtype=np.float32),
+                    dtype=torch.float32,
+                    device=device,
+                )
+
                 dones = torch.tensor(batch.done, dtype=torch.float32, device=device).unsqueeze(-1)
+
 
                 # Q(s,a)
                 q_values = policy_net(states).gather(1, actions)
@@ -389,14 +410,14 @@ def train_dqn(
                 break
 
         # Logging
-        print(
-            f"Ep {ep}/{num_episodes} | Return: {episode_return:.2f} | "
-            f"Eps: {epsilon_by_step(global_step):.3f}"
-        )
-
-        # Alle 500 Episoden: Evaluation auf Zielwelt
-        if ep % 500 == 0:
-            eval_winrate = evaluate_policy(policy_net, env_params, n_eval_episodes=50, device=device)
+        if ep % 50 == 0:    
+            print(
+                f"Ep {ep}/{num_episodes} | Return: {episode_return:.2f} | "
+                f"Eps: {epsilon_by_step(global_step):.3f}"
+            )
+        # Alle 200 Episoden: Evaluation auf Zielwelt
+        if ep % 200 == 0:
+            eval_winrate = evaluate_policy(policy_net, env_params, n_eval_episodes=20, device=device)
             print(f"[EVAL] Ep {ep}: 20x20 Winrate = {eval_winrate:.2f}%")
 
             if eval_winrate > best_eval_winrate:
