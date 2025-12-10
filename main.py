@@ -12,7 +12,9 @@ from agents.agent1 import MarcAgent
 from agents.agent2 import YahiaAgent
 from agents.agent3 import HenrikAgent
 
+from logger.logger import MessageBus
 
+# Logger
 LOG_PATH = Path("wumpus.log")
 
 logging.basicConfig(
@@ -20,9 +22,10 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     handlers=[
         logging.FileHandler(LOG_PATH, mode="w", encoding="utf-8"),
-        logging.StreamHandler(sys.stdout),
+        
     ],
 )
+
 
 
 world = World()
@@ -38,6 +41,8 @@ pygame.display.set_caption("Wumpus World 20x20")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 24)
 
+#Global bus erstellen
+bus = MessageBus(persist_file="wumpus_messages.log")
 
 def create_agents():
     """
@@ -48,11 +53,15 @@ def create_agents():
     agent2 = YahiaAgent(1, 0, "A2")
     agent3 = HenrikAgent(2, 0, "A3")
 
+    for a in (agent1, agent2, agent3):
+        bus.register(a.role)
+        a.bus = bus
+
     return [agent1, agent2, agent3]
 
 
 agents = create_agents()
-scheduler = Scheduler(agents, world)
+scheduler = Scheduler(agents, world, bus=bus)
 
 visited = set()
 game_over = False
@@ -63,7 +72,7 @@ def reset_game():
     global agents, scheduler, visited, game_over, win
 
     agents = create_agents()   
-    scheduler = Scheduler(agents, world)
+    scheduler = Scheduler(agents, world, bus=bus)
 
     visited.clear()
     world.reset()

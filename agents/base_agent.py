@@ -13,3 +13,8 @@ class Agent:
     def pos(self):
         return (self.x, self.y)
     
+    def receive_messages(self, messages):
+        if not hasattr(self, "received_messages"):
+            self.received_messages = []
+        self.received_messages.extend(messages)
+    

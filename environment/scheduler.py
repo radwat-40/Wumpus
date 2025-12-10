@@ -11,10 +11,11 @@ class Scheduler:
     (known, safe, risky), Reward-Shaping und Knowledge-Integration.
     """
 
-    def __init__(self, agents, world):
+    def __init__(self, agents, world, bus=None):
         self.agents = agents
         self.world = world
         self.turn = 0
+        self.bus = bus
 
         # Knowledge-Sets
         self.known = set()   # Felder, die besucht wurden
@@ -66,6 +67,22 @@ class Scheduler:
             f"_update_memory_after_move: agent={agent.role}, pos={(x, y)}, "
             f"breeze={breeze}, stench={stench}, zone={zone}"
         )
+
+        #Nachricht senden wenn breeze 
+        if breeze and self.bus:
+            self.bus.broadcast(
+                sender=agent.role,
+                topic="Breeze_Detected",
+                payload={"pos": (x,y), "breeze": breeze}
+            )
+
+        #Nachricht senden wenn stench
+        if stench and self.bus:
+            self.bus.broadcast(
+                sender=agent.role,
+                topic="Stench_Detected",
+                payload={"pos": (x,y), "stench": stench}
+            )
 
 
     # -----------------------------------------------------
@@ -145,6 +162,15 @@ class Scheduler:
                 return "ALL_DEAD"
 
         agent = self.agents[self.turn]
+
+        #Agent Nachricht bekommen
+        if self.bus:
+            msgs = self.bus.get_messages_for(agent.role)
+            if msgs:
+                if hasattr(agent, "receive_messages"):
+                    agent.receive_messages(msgs)
+                else:
+                    agent.inbox = msgs
 
         logger.debug(
             f"step: TURN={self.turn}, agent={agent.role}, pos={agent.pos()}, "

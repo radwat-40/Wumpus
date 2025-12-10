@@ -38,3 +38,15 @@ class YahiaAgent(Agent):
             return Action.MOVE_LEFT
         elif move == "right":
             return Action.MOVE_RIGHT
+        
+
+        if percep['brizze']:
+            if hasattr(self, "bus") and self.bus:
+                self.bus.broadcast(sender=self.role, topic="FOUND_GOLD", payload={"pos": self.pos()})
+
+        def receive_messages(self, messages):
+            for m in messages:
+                print(f"[{self.role}] received {m.topic} from {m.sender} payload={m.payload}")
+            self.received_messages = messages
+    
+    
