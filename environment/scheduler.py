@@ -100,7 +100,7 @@ class Scheduler:
 
             if new_pos not in self.known:
                 agent.reward += 5
-
+            #!! es gibt kein glitter in percepts
             if new_percepts.get("glitter", 0) == 1:
                 agent.reward += 100
 
@@ -164,6 +164,15 @@ class Scheduler:
         agent = self.agents[self.turn]
 
         #Agent Nachricht bekommen
+        
+        if getattr(self, "bus", None):
+            msgs = self.bus.get_messages_for(agent.role)
+            if msgs:
+                if hasattr(agent, "receive_messages"):
+                    agent.receive_messages(msgs)
+                else:
+                    agent.agent.received_messages = getattr(agent, "received_messages", []) + msgs
+
         if self.bus:
             msgs = self.bus.get_messages_for(agent.role)
             if msgs:
@@ -219,6 +228,17 @@ class Scheduler:
         new_pos = agent.pos()
         new_percepts = self.world.get_percepts(agent)
 
+        if agent.role == "A2" and hasattr(agent, "update_component_qs"):
+            rewards = {
+                "gold": 100 if new_percepts.get("glitter", 0) == 1 else 0,
+                "pit": -100 if result == "DIED" and new_pos in self.world.pits else 0,
+                "wumpus": -100 if result == "DIED" and new_pos in self.world.wumpus else 0,
+            }
+
+            old_state = old_pos
+            new_state = new_pos
+            agent.update_component_qs(old_state, action, new_state, rewards)
+
         logger.debug(
             f"step: agent={agent.role}, result={result}, old_pos={old_pos}, "
             f"new_pos={new_pos}, new_percepts={new_percepts}"
@@ -229,6 +249,38 @@ class Scheduler:
 
         # Memory AFTER Move
         self._update_memory_after_move(agent, new_percepts)
+
+        # falle gestorben
+        if result == "DIED":
+            dead_pos = new_pos
+            is_pit = dead_pos in self.world.pits
+            is_wumpus = dead_pos in self.world.wumpus
+
+            
+            logger.info(f"Scheduler: agent died at {dead_pos} cause_pit={is_pit} cause_wumpus={is_wumpus}")
+
+            for other in self.agents:
+                
+                if getattr(other, "role", None) == "A2":
+                   
+                    if is_pit and hasattr(other, "confirmed_pits"):
+                        other.confirmed_pits.add(dead_pos)
+                        logger.info(f"[A2] marked confirmed PIT at {dead_pos}")
+                    elif is_wumpus and hasattr(other, "confirmed_wumpus"):
+                        other.confirmed_wumpus.add(dead_pos)
+                        logger.info(f"[A2] marked confirmed WUMPUS at {dead_pos}")
+                    else:
+                        
+                        if hasattr(other, "confirmed_pits"):
+                            other.confirmed_pits.add(dead_pos)
+                            logger.info(f"[A2] marked conservative PIT at {dead_pos}")
+            
+            if getattr(self, "bus", None):
+                cause = "pit" if is_pit else ("wumpus" if is_wumpus else "unknown")
+                try:
+                    self.bus.broadcast(sender="Scheduler", topic="AGENT_DIED", payload={"pos": dead_pos, "cause": cause})
+                except Exception:
+                    pass
 
         self.turn = (self.turn + 1) % len(self.agents)
         return result
