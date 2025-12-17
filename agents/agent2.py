@@ -18,7 +18,7 @@ class YahiaAgent(Agent):
         # exploration / bookkeeping
         self.visited = set()
         self.visit_counts = defaultdict(int)
-        self.recent_positions = deque(maxlen=6)  # last K positions to discourage cycles
+        self.recent_positions = deque(maxlen=12)  # last K positions to discourage cycles
         self.last_action: Optional[Action] = None
         self.last_pos: Optional[Tuple[int, int]] = None
 
@@ -57,7 +57,7 @@ class YahiaAgent(Agent):
 
         # Percept-based soft penalties (breeze/stench)
         self.breeze_penalty = 1.0
-        self.stench_penalty = 2.0
+        self.stench_penalty = 1.0
 
         # Inference for pits/wumpus (pragmatic count-based)
         self.pit_suspect_counts = defaultdict(int)
@@ -95,16 +95,6 @@ class YahiaAgent(Agent):
             self.stench_map[y][x] = 1
             logger.debug(f"[A2] stench_map set 1 at {(x, y)}")
 
-    def print_maps_console(self):
-        if self.breeze_map is None or self.stench_map is None:
-            print("[A2] maps not initialized")
-            return
-        print("Breeze map:")
-        for row in self.breeze_map:
-            print(' '.join(str(v) for v in row))
-        print("Stench map:")
-        for row in self.stench_map:
-            print(' '.join(str(v) for v in row))
 
     # -------------------------
     # Message handling
@@ -112,7 +102,6 @@ class YahiaAgent(Agent):
     def receive_messages(self, messages):
         if not messages:
             return
-        update = False
         for m in messages:
             topic = (getattr(m, "topic", "") or "").lower()
             payload = getattr(m, "payload", {}) or {}
@@ -131,11 +120,9 @@ class YahiaAgent(Agent):
             if topic.startswith("breeze"):
                 self.set_breeze_at(pos)
                 self._mark_suspects_from_breeze(pos)
-                update = True
             elif topic.startswith("stench"):
                 self.set_stench_at(pos)
                 self._mark_suspects_from_stench(pos)
-                update = True
             # scheduler broadcast when an agent died in a cell
             elif topic == "AGENT_DIED" or topic == "agENT_DIED".lower():
                 # support either case and payload shape
@@ -159,8 +146,6 @@ class YahiaAgent(Agent):
                 # generic: ignore or log
                 logger.debug(f"[A2] receive_messages: unhandled topic={topic}")
 
-        if update:
-            self.print_maps_console()
 
     # -------------------------
     # Helpers for inference
