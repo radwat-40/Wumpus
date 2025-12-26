@@ -12,7 +12,7 @@ from agents.agent2 import YahiaAgent
 from agents.agent3 import HenrikAgent
 
 from logger.logger import MessageBus
-
+    
 # --- Logging ---
 LOG_PATH = Path("wumpus.log")
 
