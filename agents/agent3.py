@@ -56,7 +56,7 @@ class HenrikAgent(Agent):
                 if cell in self.visited:
                     continue  # Schon entdeckt
                 
-                # Prüfe, ob neben einem sicheren Feld
+                # Prüfe ob neben einem sicheren Feld
                 adjacent_safe = False
                 for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                     adj_x, adj_y = nx + dx, ny + dy
@@ -67,12 +67,12 @@ class HenrikAgent(Agent):
                             break
                 
                 if adjacent_safe:
-                    # Berechne Distanz zur aktuellen Position
+                    # Berechne distanzur aktuellen Position
                     dist = abs(nx - current_x) + abs(ny - current_y)
                     candidates.append((dist, cell))
         
         if candidates:
-            # Wähle das nächste (kleinste Distanz)
+            # Wähle das nächste kleinste Distanz
             candidates.sort()
             return candidates[0][1]  # Die Position
         return None
@@ -82,7 +82,7 @@ class HenrikAgent(Agent):
         self.visited.add((x, y))
         self.visit_count[(x, y)] = self.visit_count.get((x, y), 0) + 1
 
-        # Finde nächstes unentdecktes Feld für Score-Boost
+        # Finde nächste unentdeckte Feld 
         next_target = self.find_next_unexplored_adjacent_to_safe(grid_size)
 
         if isinstance(percep, dict):
@@ -114,7 +114,7 @@ class HenrikAgent(Agent):
 
             valid_moves = self.get_valid_moves(x, y, grid_size)
             if not valid_moves:
-                # absolute Notlösung (sollte quasi nie passieren)
+                # wenn sonst nichts geht
                 return Action.MOVE_RIGHT
             return random.choice(valid_moves)[0]
 
@@ -132,25 +132,25 @@ class HenrikAgent(Agent):
             if (nx, ny) not in self.confirmed_pits and (nx, ny) not in self.confirmed_wumpus
         ]
         if not safe_moves:
-            # Fallback: Wenn keine sicheren Moves, wähle zufällig (aber vermeide bestätigte)
+            #  Wenn keine sicheren Moves dann zufällig
             return random.choice(valid_moves)[0]
 
         scored_moves = []
         for action, (nx, ny) in safe_moves:
-            score = 100  # Basis-Score
+            score = 100  # Basis score
             if (nx, ny) in self.visited_dangerous:
                 score = 10
             elif (nx, ny) not in self.visited:
                 score = 150
             elif (nx, ny) in self.visited_safe:
                 score = 120
-            # Strafe für Verdächtige
+            # minus score für Verdächtige
             if (nx, ny) in self.suspects_pits or (nx, ny) in self.suspects_wumpus:
                 score -= 50  # Mache sie weniger attraktiv
-            # Strafe für häufiges Besuchen
+            # - scorefür häufiges Besuchen
             visit_penalty = self.visit_count.get((nx, ny), 0) * 10
             score -= visit_penalty
-            # Boost für nächstes unentdecktes Ziel
+            # + score nächstes unentdecktes Ziel
             if next_target and (nx, ny) == next_target:
                 score += 50
             scored_moves.append((score, action))
@@ -158,17 +158,15 @@ class HenrikAgent(Agent):
         max_score = max(score for score, _ in scored_moves)
         best_actions = [a for score, a in scored_moves if score == max_score]
         
-        # Prüfe, ob die besten Moves zu unentdeckten Feldern führen
+       
         best_targets = [(action, (nx, ny)) for action, (nx, ny) in safe_moves if action in best_actions]
         if all((nx, ny) in self.visited for _, (nx, ny) in best_targets):
-            # Alle besten sind besucht – suche nächstes unentdecktes neben sicherem Feld
             next_target = self.find_next_unexplored_adjacent_to_safe(grid_size)
             if next_target:
-                # Finde den Move zum nächsten Ziel
                 target_x, target_y = next_target
                 dx = target_x - x
                 dy = target_y - y
-                if abs(dx) + abs(dy) == 1:  # Direkt daneben
+                if abs(dx) + abs(dy) == 1: 
                     if dx == 1:
                         return Action.MOVE_RIGHT
                     elif dx == -1:
@@ -177,7 +175,6 @@ class HenrikAgent(Agent):
                         return Action.MOVE_DOWN
                     elif dy == -1:
                         return Action.MOVE_UP
-                # Wenn nicht direkt, wähle zufällig aus besten (Fallback)
         
         return random.choice(best_actions)
 
@@ -193,6 +190,8 @@ class HenrikAgent(Agent):
             if 0 <= nx < grid_size and 0 <= ny < grid_size:
                 moves.append((action, (nx, ny)))
         return moves
+
+
 
     def receive_messages(self, messages):
         if not messages:
@@ -211,16 +210,17 @@ class HenrikAgent(Agent):
 
             logger.info(f"[A3] receive_messages: from={sender} topic={topic} pos={pos}")
 
-            # breeze/stench reports from other agents
+            
             if topic.startswith("breeze"):
                 self.set_breeze_at(pos)
                 self._mark_suspects_from_breeze(pos)
             elif topic.startswith("stench"):
                 self.set_stench_at(pos)
                 self._mark_suspects_from_stench(pos)
-            # scheduler broadcast when an agent died in a cell
+
+
             elif topic == "AGENT_DIED" or topic == "agENT_DIED".lower():
-                # support either case and payload shape
+              
                 dead_pos = payload.get("pos") or payload.get("position")
                 if dead_pos is not None:
                     try:
@@ -234,9 +234,8 @@ class HenrikAgent(Agent):
                     elif "wumpus" in cause:
                         self.confirmed_wumpus.add(dead_pos)
                     else:
-                        # conservative: mark as pit if unknown
+                        
                         self.confirmed_pits.add(dead_pos)
                     logger.info(f"[A3] receive_messages: confirmed danger at {dead_pos} cause={cause}")
             else:
-                # generic: ignore or log
                 logger.debug(f"[A3] receive_messages: unhandled topic={topic}")
