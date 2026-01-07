@@ -237,7 +237,9 @@ class YahiaAgent(Agent):
         for i, a in enumerate(valid_actions):
             total = 0.0
             for comp in self.components:
-                total += self.weights.get(comp, 1.0) * comp_norm[comp][i]
+                weights = getattr(self, "weights", {"gold": 1.0, "pit": 1.0, "wumpus": 1.0})
+                total += weights.get(comp, 1.0) * comp_norm[comp][i]
+
             q_total[a] = total
         return q_total
 
