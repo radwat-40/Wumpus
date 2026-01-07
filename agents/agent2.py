@@ -65,7 +65,7 @@ class YahiaAgent(Agent):
         self.confirmed_pits = set()
         self.confirmed_wumpus = set()
         self.safe_cells = set()
-        self.confirm_threshold = 2  # threshold to confirm a suspect
+        self.confirm_threshold = 1  # threshold to confirm a suspect
 
     # -------------------------
     # Map initialization
@@ -84,6 +84,7 @@ class YahiaAgent(Agent):
             return
         x, y = pos
         if 0 <= x < self.grid_size and 0 <= y < self.grid_size:
+            # indexing is row=y, col=x
             self.breeze_map[y][x] = 1
             logger.debug(f"[A2] breeze_map set 1 at {(x, y)}")
 
@@ -102,6 +103,7 @@ class YahiaAgent(Agent):
     def receive_messages(self, messages):
         if not messages:
             return
+        update = False
         for m in messages:
             topic = (getattr(m, "topic", "") or "").lower()
             payload = getattr(m, "payload", {}) or {}
@@ -116,36 +118,36 @@ class YahiaAgent(Agent):
 
             logger.info(f"[A2] receive_messages: from={sender} topic={topic} pos={pos}")
 
-            # breeze/stench reports from other agents
             if topic.startswith("breeze"):
                 self.set_breeze_at(pos)
-                self._mark_suspects_from_breeze(pos)
+                update = True
             elif topic.startswith("stench"):
                 self.set_stench_at(pos)
-                self._mark_suspects_from_stench(pos)
-            # scheduler broadcast when an agent died in a cell
-            elif topic == "AGENT_DIED" or topic == "agENT_DIED".lower():
-                # support either case and payload shape
+                update = True
+            elif topic == "agent_died":
                 dead_pos = payload.get("pos") or payload.get("position")
                 if dead_pos is not None:
                     try:
                         dead_pos = tuple(dead_pos)
                     except Exception:
                         dead_pos = None
-                cause = payload.get("cause", "").lower() if payload else ""
+                cause = (payload.get("cause", "") or "").lower()
                 if dead_pos is not None:
                     if "pit" in cause:
                         self.confirmed_pits.add(dead_pos)
                     elif "wumpus" in cause:
                         self.confirmed_wumpus.add(dead_pos)
                     else:
-                        # conservative: mark as pit if unknown
                         self.confirmed_pits.add(dead_pos)
                     logger.info(f"[A2] receive_messages: confirmed danger at {dead_pos} cause={cause}")
             else:
-                # generic: ignore or log
                 logger.debug(f"[A2] receive_messages: unhandled topic={topic}")
 
+        # after processing all messages
+        if update:
+            # recompute suspects from the full maps (deduplicates implicit duplicate broadcasts)
+            self.recompute_suspects_from_maps()
+            self.print_maps_console()
 
     # -------------------------
     # Helpers for inference
@@ -195,6 +197,9 @@ class YahiaAgent(Agent):
             self.wumpus_suspect_counts.pop(n, None)
             self.confirmed_pits.discard(n)
             self.confirmed_wumpus.discard(n)
+        if pos in self.wumpus_suspect_counts:
+            self.wumpus_suspect_counts.pop(pos, None)
+
 
     def is_confirmed_danger(self, pos: Tuple[int, int]) -> bool:
         return pos in self.confirmed_pits or pos in self.confirmed_wumpus
@@ -257,7 +262,7 @@ class YahiaAgent(Agent):
         return actions[-1]
 
     def _risk_penalty_for(self, pos: Tuple[int, int]) -> float:
-        if pos is None or self.breeze_map is None or self.stench_map is None or self.grid_size is None:
+        if pos is None or self.breeze_map is None or self.stench_map is None or self.grid_size is None or pos in self.visited:
             return 0.0
         x, y = pos
         if not (0 <= x < self.grid_size and 0 <= y < self.grid_size):
@@ -269,17 +274,26 @@ class YahiaAgent(Agent):
         except Exception:
             return 0.0
 
+    def detect_deadlock(self):
+        if len(self.recent_positions) < 6:
+            return False
+        return len(set(self.recent_positions)) <= 2
+
     def select_action(self, state: Tuple[int, int], valid_actions: List[Action]) -> Action:
         x, y = state
-
-        # exploration: epsilon-greedy prefers least-visited neighbouring cells
-        if random.random() < self.epsilon:
-            dxdy = {
+        dxdy = {
                 Action.MOVE_UP: (0, -1),
                 Action.MOVE_DOWN: (0, 1),
                 Action.MOVE_LEFT: (-1, 0),
                 Action.MOVE_RIGHT: (1, 0)
             }
+        
+        if self.detect_deadlock():
+            self.epsilon = 1.0
+            self.temperature = 2.0
+
+        # exploration: epsilon-greedy prefers least-visited neighbouring cells
+        if random.random() < self.epsilon:
             min_vis = None
             candidates = []
             for a in valid_actions:
@@ -384,8 +398,7 @@ class YahiaAgent(Agent):
                     "alpha": self.alpha,
                     "gamma": self.gamma,
                     "epsilon": self.epsilon,
-                    "confirmed_pits": list(self.confirmed_pits),
-                    "confirmed_wumpus": list(self.confirmed_wumpus)
+                    # do NOT persist confirmed_pits/confirmed_wumpus (recompute from maps each run)
                 }, f)
             logger.info(f"[A2] Q-tables saved to {path}")
         except Exception:
@@ -403,16 +416,6 @@ class YahiaAgent(Agent):
             self.alpha = data.get("alpha", self.alpha)
             self.gamma = data.get("gamma", self.gamma)
             self.epsilon = data.get("epsilon", self.epsilon)
-            for p in data.get("confirmed_pits", []):
-                try:
-                    self.confirmed_pits.add(tuple(p))
-                except Exception:
-                    pass
-            for w in data.get("confirmed_wumpus", []):
-                try:
-                    self.confirmed_wumpus.add(tuple(w))
-                except Exception:
-                    pass
             logger.info(f"[A2] Q-tables loaded from {path}")
             return True
         except Exception:
@@ -477,4 +480,62 @@ class YahiaAgent(Agent):
 
         self.decay_epsilon()
         return selected_action
+
+    def recompute_suspects_from_maps(self):
+        """Recompute pit/wumpus suspect counts and confirmed sets from breeze/stench maps."""
+        if self.grid_size is None or self.breeze_map is None or self.stench_map is None:
+            return
+
+        from collections import defaultdict
+        pit_scores = defaultdict(int)
+        wumpus_scores = defaultdict(int)
+
+        # accumulate evidence from all breeze / stench cells
+        stench_cells = []
+        for y in range(self.grid_size):
+            for x in range(self.grid_size):
+                if self.breeze_map[y][x]:
+                    for n in self._neighbors((x, y)):
+                        if n in self.safe_cells:
+                            continue
+                        pit_scores[n] += 1
+                if self.stench_map[y][x]:
+                    stench_cells.append((x, y))
+                    for n in self._neighbors((x, y)):
+                        if n in self.safe_cells:
+                            continue
+                        wumpus_scores[n] += 1
+
+        # replace suspect counts (fresh computation avoids duplicate counting issues)
+        self.pit_suspect_counts = pit_scores
+        self.wumpus_suspect_counts = wumpus_scores
+
+        # confirm pits by threshold
+        self.confirmed_pits = {pos for pos, c in pit_scores.items() if c >= self.confirm_threshold}
+
+        # ---- WUMPUS logic ----
+        # If multiple stench cells and world likely has single wumpus, intersection is strong evidence.
+        # CONFIRM WUMPUS — multi Wumpus safe
+        self.confirmed_wumpus = {
+            pos for pos, c in wumpus_scores.items()
+            if c >= self.confirm_threshold
+        }
+
+        logger.debug(
+            f"[A2] recomputed suspects: pit_scores={dict(list(pit_scores.items())[:8])} "
+            f"wumpus_scores={dict(list(wumpus_scores.items())[:8])} stench_cells={stench_cells}"
+        )
+        logger.info(f"[A2] confirmed_pits={self.confirmed_pits} confirmed_wumpus={self.confirmed_wumpus}")
+
+    def print_maps_console(self):
+        """Print simple breeze/stench maps for debugging (row=y, col=x)."""
+        if self.breeze_map is None or self.stench_map is None:
+            print("[A2] maps not initialized")
+            return
+        print("[A2] Breeze map:")
+        for row in self.breeze_map:
+            print(''.join(str(v) for v in row))
+        print("[A2] Stench map:")
+        for row in self.stench_map:
+            print(''.join(str(v) for v in row))
 
