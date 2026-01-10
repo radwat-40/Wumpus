@@ -58,6 +58,11 @@ class MarcAgent(Agent):
         self.grid_size = None
         self.last_pos = None
 
+        #  Kommunikation: Verdachtskarten aus Team-Wahrnehmungen 
+        self.pit_suspects = {}     # Dict[(x,y)] = count
+        self.wumpus_suspects = {}  # Dict[(x,y)] = count
+
+
         # DQN laden (falls vorhanden)
         if os.path.exists(model_path):
             try:
@@ -80,6 +85,14 @@ class MarcAgent(Agent):
     def set_memory(self, known, safe, risky, grid_size):
         self.known = set(known)
         self.safe = set(safe)
+        # Wenn ein Feld safe ist, kann es weder Pit noch Wumpus sein -> Verdacht löschen
+        for p in list(self.pit_suspects.keys()):
+            if p in self.safe:
+                del self.pit_suspects[p]
+        for p in list(self.wumpus_suspects.keys()):
+            if p in self.safe:
+                del self.wumpus_suspects[p]
+
         self.risky = set(risky)
         self.grid_size = grid_size
 
@@ -87,6 +100,41 @@ class MarcAgent(Agent):
             f"set_memory: grid_size={grid_size}, "
             f"known={len(self.known)}, safe={len(self.safe)}, risky={len(self.risky)}"
         )
+
+    def _neighbors4(self, x, y):
+        # grid_size kommt über set_memory rein
+        g = getattr(self, "grid_size", None)
+        cand = [(x, y-1), (x, y+1), (x-1, y), (x+1, y)]
+        if not g:
+            return cand
+        return [(nx, ny) for (nx, ny) in cand if 0 <= nx < g and 0 <= ny < g]
+
+
+    def receive_messages(self, msgs):
+    
+        for m in msgs:
+            # kompatibel mit Message-Objekt oder dict
+            topic = getattr(m, "topic", None) or (m.get("topic") if isinstance(m, dict) else None)
+            payload = getattr(m, "payload", None) or (m.get("payload") if isinstance(m, dict) else None) or {}
+            pos = payload.get("pos", None)
+
+            if not topic or not pos:
+                continue
+
+            x, y = pos
+            t = topic.lower()
+
+            if "breeze_detected" in t:
+                for nb in self._neighbors4(x, y):
+                    if nb in self.safe:
+                        continue
+                    self.pit_suspects[nb] = self.pit_suspects.get(nb, 0) + 1
+
+            elif "stench_detected" in t:
+                for nb in self._neighbors4(x, y):
+                    if nb in self.safe:
+                        continue
+                    self.wumpus_suspects[nb] = self.wumpus_suspects.get(nb, 0) + 1
 
     # -----------------------------------------------------
     #  Observation → Tensor
@@ -220,10 +268,19 @@ class MarcAgent(Agent):
             if self.last_pos is not None and pos == self.last_pos:
                 score -= 5.0
 
+            # Kommunikation: Verdachtsfelder meiden (soft, nicht absolut)
+            pit_c = self.pit_suspects.get(pos, 0)
+            wum_c = self.wumpus_suspects.get(pos, 0)
+
+            score -= 15.0 * pit_c
+            score -= 25.0 * wum_c
+
+
             logger.debug(
                 f"_rule_based_action: neighbor={pos}, act={act}, score={score}, "
                 f"is_safe={pos in self.safe}, is_risky={pos in self.risky}, "
                 f"is_known={pos in self.known}"
+                f"pit_sus={pit_c}, wum_sus={wum_c}"
             )
 
             if score > best_score:
