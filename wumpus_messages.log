@@ -2207,3 +2207,10 @@
 {"sender": "A2", "recipients": null, "topic": "Breeze_Detected", "payload": {"pos": [2, 13], "breeze": true}, "timestamp": 1767794857.5984693}
 {"sender": "A3", "recipients": null, "topic": "Breeze_Detected", "payload": {"pos": [10, 7], "breeze": true}, "timestamp": 1767794859.2124574}
 {"sender": "A3", "recipients": null, "topic": "Breeze_Detected", "payload": {"pos": [11, 6], "breeze": true}, "timestamp": 1767794860.4162273}
+{"sender": "A1", "recipients": null, "topic": "Stench_Detected", "payload": {"pos": [1, 5], "stench": true}, "timestamp": 1768049285.9681277}
+{"sender": "A3", "recipients": null, "topic": "Stench_Detected", "payload": {"pos": [0, 6], "stench": true}, "timestamp": 1768049286.1708422}
+{"sender": "A3", "recipients": null, "topic": "Stench_Detected", "payload": {"pos": [1, 5], "stench": true}, "timestamp": 1768049286.7719688}
+{"sender": "A2", "recipients": null, "topic": "Breeze_Detected", "payload": {"pos": [5, 0], "breeze": true}, "timestamp": 1768049289.6849723}
+{"sender": "A3", "recipients": null, "topic": "Breeze_Detected", "payload": {"pos": [0, 2], "breeze": true}, "timestamp": 1768049448.2578378}
+{"sender": "A2", "recipients": null, "topic": "Breeze_Detected", "payload": {"pos": [0, 2], "breeze": true}, "timestamp": 1768049448.4626646}
+{"sender": "A1", "recipients": null, "topic": "Breeze_Detected", "payload": {"pos": [1, 3], "breeze": true}, "timestamp": 1768049448.6594763}
