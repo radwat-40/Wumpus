@@ -12,10 +12,7 @@ from environment.actions import Action
 from agents.base_agent import Agent
 
 
-# ===========================
-#   Single-Agent Wumpus Env
-#   (gleiche World-Logik wie im Spiel)
-# ===========================
+
 
 
 class WumpusSingleAgentEnv:
@@ -214,9 +211,6 @@ class WumpusSingleAgentEnv:
         return float(r)
 
 
-# ===========================
-#        DQN Netzwerk
-# ===========================
 
 
 class DQN(nn.Module):
@@ -256,9 +250,6 @@ class ReplayBuffer:
         return len(self.buffer)
 
 
-# ===========================
-#        DQN Training
-# ===========================
 
 
 def evaluate_policy(policy_net, env_params, n_eval_episodes=20, device=None):
