@@ -163,23 +163,12 @@ class Scheduler:
 
         agent = self.agents[self.turn]
 
-        #Agent Nachricht bekommen
-        
-        if getattr(self, "bus", None):
-            msgs = self.bus.get_messages_for(agent.role)
-            if msgs:
-                if hasattr(agent, "receive_messages"):
-                    agent.receive_messages(msgs)
-                else:
-                    agent.agent.received_messages = getattr(agent, "received_messages", []) + msgs
-
+        # Agent Nachrichten erhalten (nur einmalig!)
         if self.bus:
             msgs = self.bus.get_messages_for(agent.role)
-            if msgs:
-                if hasattr(agent, "receive_messages"):
-                    agent.receive_messages(msgs)
-                else:
-                    agent.inbox = msgs
+            if msgs and hasattr(agent, "receive_messages"):
+                agent.receive_messages(msgs)
+                logger.debug(f"step: agent={agent.role}, received {len(msgs)} message(s)")
 
         logger.debug(
             f"step: TURN={self.turn}, agent={agent.role}, pos={agent.pos()}, "
