@@ -34,6 +34,7 @@ def create_agents(world_grid_size):
 
     for a in (agent1, agent2, agent3):
         bus.register(a.role)
+        a.bus = bus  # ← Agenten müssen den Bus kennen!
 
     if hasattr(agent2, "init_maps"):
         agent2.init_maps(world_grid_size)
