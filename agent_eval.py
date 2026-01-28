@@ -16,10 +16,10 @@ from agents.agent2 import YahiaAgent
 from agents.agent3 import HenrikAgent
 from logger.logger import MessageBus
 
-# Logging auf ERROR reduzieren (schneller)
+
 logging.basicConfig(level=logging.ERROR)
 
-# Q-Tables Pfad
+
 QS_PATH = Path("data/agent2_qtables.pkl")
 QS_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -30,11 +30,11 @@ def create_agents(world_grid_size):
     agent2 = YahiaAgent(1, 0, "A2")
     agent3 = HenrikAgent(2, 0, "A3")
 
-    bus = MessageBus(persist_file=None)  # Keine Datei-Persistierung
+    bus = MessageBus(persist_file=None)
 
     for a in (agent1, agent2, agent3):
         bus.register(a.role)
-        a.bus = bus  # ← Agenten müssen den Bus kennen!
+        a.bus = bus
 
     if hasattr(agent2, "init_maps"):
         agent2.init_maps(world_grid_size)
@@ -70,8 +70,7 @@ def run_episode(world, agents, scheduler, max_steps=1000):
             return None, step_count
         elif result == "CONTINUE":
             continue
-    
-    # Max-Schritte erreicht - kein Gewinner
+
     return None, step_count
 
 
@@ -83,7 +82,7 @@ def evaluate_agents(num_episodes=500):
         "A1": {"wins": 0, "total": 0, "avg_steps": 0},
         "A2": {"wins": 0, "total": 0, "avg_steps": 0},
         "A3": {"wins": 0, "total": 0, "avg_steps": 0},
-        "none": {"wins": 0, "total": 0},  # Niemand gewonnen
+        "none": {"wins": 0, "total": 0},
     }
     
     all_steps = defaultdict(list)
@@ -95,12 +94,10 @@ def evaluate_agents(num_episodes=500):
     start_time = time.time()
     
     for episode in range(1, num_episodes + 1):
-        # Neue Welt für jede Episode
         world = World()
         agents, bus = create_agents(world.grid_size)
         scheduler = Scheduler(agents, world, bus=bus)
         
-        # Episode durchlaufen
         winner, steps = run_episode(world, agents, scheduler)
         
         if winner:
@@ -109,18 +106,15 @@ def evaluate_agents(num_episodes=500):
         else:
             stats["none"]["wins"] += 1
         
-        # Pro Agent: Total-Steps zählen
         for role in ["A1", "A2", "A3"]:
             stats[role]["total"] += 1
         
-        # Progress-Output
         if episode % 50 == 0:
             elapsed = time.time() - start_time
             rate = episode / elapsed
             eta = (num_episodes - episode) / rate if rate > 0 else 0
             print(f"Episode {episode:3d}/{num_episodes} | {rate:5.1f} ep/s | ETA: {eta:6.1f}s")
         
-        # Q-Tables alle 100 Episodes speichern
         if episode % 100 == 0 and hasattr(agents[1], "save_q_tables"):
             try:
                 agents[1].save_q_tables(str(QS_PATH))
@@ -129,12 +123,10 @@ def evaluate_agents(num_episodes=500):
     
     total_time = time.time() - start_time
     
-    # Durchschnittliche Schritte berechnen
     for role in ["A1", "A2", "A3"]:
         if all_steps[role]:
             stats[role]["avg_steps"] = sum(all_steps[role]) / len(all_steps[role])
     
-    # Ergebnisse anzeigen
     print(f"\n{'='*60}")
     print(f"EVALUATION RESULTS ({total_time:.1f}s)")
     print(f"{'='*60}\n")
@@ -152,7 +144,6 @@ def evaluate_agents(num_episodes=500):
     draw_text = stats["none"]["wins"]
     print(f"No Winner:  {draw_text:3d}/{num_episodes} ({draw_text/num_episodes*100:5.1f}%)")
     
-    # Ranking
     print(f"\n{'='*60}")
     print("RANKING:")
     print(f"{'='*60}\n")
@@ -169,7 +160,6 @@ def evaluate_agents(num_episodes=500):
     
     print(f"\n{'='*60}\n")
     
-    # Q-Tables speichern
     if hasattr(agents[1], "save_q_tables"):
         try:
             agents[1].save_q_tables(str(QS_PATH))
@@ -181,5 +171,5 @@ def evaluate_agents(num_episodes=500):
 
 
 if __name__ == "__main__":
-    random.seed(42)  # Reproduzierbar
+    random.seed(42)
     stats = evaluate_agents(num_episodes=500)

@@ -11,7 +11,6 @@ import math
 from pathlib import Path
 from collections import defaultdict
 
-# Defensive imports with clear error messages
 try:
     import numpy as np
 except ImportError:
@@ -48,9 +47,9 @@ def set_seed(seed):
 
 
 def create_agents():
-    """Create the three agents A1, A2, A3."""
+    
     agents = []
-    # Agent positions: A1 at (0,0), A2 at (1,0), A3 at (2,0) as per world.py
+    
     agents.append(MarcAgent(0, 0, "A1"))
     agents.append(YahiaAgent(1, 0, "A2"))
     agents.append(HenrikAgent(2, 0, "A3"))
@@ -58,25 +57,19 @@ def create_agents():
 
 
 def run_episode(seed, max_steps, use_bus=True):
-    """
-    Run a single episode.
     
-    Returns:
-        outcome: "WIN", "ALL_DEAD", or "TIMEOUT"
-        steps: number of steps taken
-    """
     set_seed(seed)
     
     # Initialize world with standard parameters
     world = World(grid_size=20, num_pits=20, num_wumpus=3, num_gold=1)
     
-    # Create agents
+    
     agents = create_agents()
     
-    # Create MessageBus if needed
+   
     bus = MessageBus() if use_bus else None
     
-    # Register agents on bus if using communication
+    
     if bus:
         for agent in agents:
             bus.register(agent.role)
@@ -130,7 +123,7 @@ def calculate_stats(results):
     win_steps = [steps for outcome, steps in results if outcome == "WIN"]
     avg_win_steps = sum(win_steps) / len(win_steps) if win_steps else float('nan')
     
-    # 95% confidence interval for win rate
+    
     ci_low, ci_high = wilson_score_interval(wins, total)
     ci_low *= 100.0
     ci_high *= 100.0

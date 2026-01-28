@@ -67,18 +67,14 @@ class YahiaAgent(Agent):
         self.safe_cells = set()
         self.confirm_threshold = 1  # threshold to confirm a suspect
 
-    # -------------------------
     # Map initialization
-    # -------------------------
     def init_maps(self, grid_size: int):
         self.grid_size = grid_size
         self.breeze_map = [[0 for _ in range(grid_size)] for _ in range(grid_size)]
         self.stench_map = [[0 for _ in range(grid_size)] for _ in range(grid_size)]
         logger.info(f"[A2] initialized maps size = {grid_size}x{grid_size}")
 
-    # -------------------------
     # Map setters (row=y,col=x)
-    # -------------------------
     def set_breeze_at(self, pos: Tuple[int, int]):
         if pos is None or self.breeze_map is None or self.grid_size is None:
             return
@@ -97,9 +93,7 @@ class YahiaAgent(Agent):
             logger.debug(f"[A2] stench_map set 1 at {(x, y)}")
 
 
-    # -------------------------
     # Message handling
-    # -------------------------
     def receive_messages(self, messages):
         if not messages:
             return
@@ -149,9 +143,9 @@ class YahiaAgent(Agent):
             self.recompute_suspects_from_maps()
             self.print_maps_console()
 
-    # -------------------------
+   
     # Helpers for inference
-    # -------------------------
+    
     def _neighbors(self, pos: Tuple[int, int]) -> List[Tuple[int, int]]:
         if pos is None or self.grid_size is None:
             return []
@@ -204,9 +198,9 @@ class YahiaAgent(Agent):
     def is_confirmed_danger(self, pos: Tuple[int, int]) -> bool:
         return pos in self.confirmed_pits or pos in self.confirmed_wumpus
 
-    # -------------------------
+    
     # Q helpers
-    # -------------------------
+    
     def state_repr(self) -> Tuple[int, int]:
         return self.pos()
 
@@ -243,9 +237,9 @@ class YahiaAgent(Agent):
             q_total[a] = total
         return q_total
 
-    # -------------------------
+    
     # Action selection: softmax + penalties
-    # -------------------------
+    
     def _softmax_sample(self, scores: List[float], actions: List[Action], temp: float) -> Action:
         if not scores:
             return random.choice(actions)
@@ -363,9 +357,9 @@ class YahiaAgent(Agent):
     def decay_epsilon(self):
         self.epsilon = max(self.min_epsilon, self.epsilon * self.epsilon_decay)
 
-    # -------------------------
+    
     # Q update
-    # -------------------------
+    
     def update_component_qs(
         self,
         state: Tuple[int, int],
@@ -385,9 +379,9 @@ class YahiaAgent(Agent):
             new_val = old + self.alpha * (target - old)
             self.q_set(comp, state, action, new_val)
 
-    # -------------------------
+    
     # Persistence
-    # -------------------------
+   
     def save_q_tables(self, path: str):
         try:
             dirp = os.path.dirname(path)
@@ -424,9 +418,9 @@ class YahiaAgent(Agent):
             logger.exception("[A2] Failed to load Q-tables")
             return False
 
-    # -------------------------
+    
     # Decision / move
-    # -------------------------
+   
     def decide_move(self, percep, grid_size):
         x, y = self.pos()
         self.visited.add((x, y))

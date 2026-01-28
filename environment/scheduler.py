@@ -18,14 +18,13 @@ class Scheduler:
         self.bus = bus
 
         # Knowledge-Sets
-        self.known = set()   # Felder, die besucht wurden
-        self.safe = set()    # Felder ohne Breeze/Stench
-        self.risky = set()   # Felder mit Breeze/Stench
-        # world.grid_size existiert bereits laut deinem Code
+        self.known = set()   
+        self.safe = set()    
+        self.risky = set()   
 
-    # -----------------------------------------------------
+    
     # Memory vor Bewegung aktualisieren
-    # -----------------------------------------------------
+    
     def _update_memory_before_move(self, agent, percepts):
         x, y = agent.pos()
         self.known.add((x, y))
@@ -46,9 +45,7 @@ class Scheduler:
         )
 
 
-    # -----------------------------------------------------
     # Memory nach Bewegung aktualisieren
-    # -----------------------------------------------------
     def _update_memory_after_move(self, agent, percepts):
         x, y = agent.pos()
         self.known.add((x, y))
@@ -85,9 +82,7 @@ class Scheduler:
             )
 
 
-    # -----------------------------------------------------
     # Reward-Shaping
-    # -----------------------------------------------------
     def _apply_reward_shaping(self, agent, old_pos, new_pos, percepts, new_percepts):
         if hasattr(agent, "reward"):
             before = agent.reward
@@ -100,7 +95,7 @@ class Scheduler:
 
             if new_pos not in self.known:
                 agent.reward += 5
-            #!! es gibt kein glitter in percepts
+            
             if new_percepts.get("glitter", 0) == 1:
                 agent.reward += 100
 
@@ -109,9 +104,7 @@ class Scheduler:
                 f"new_pos={new_pos}, reward_before={before}, reward_after={agent.reward}"
             )
 
-    # -----------------------------------------------------
-    # OBSERVATION für A1 (QMIX-Style)
-    # -----------------------------------------------------
+    
     def _build_qmix_observation(self, agent, percepts):
         x, y = agent.pos()
         grid = self.world.grid_size
@@ -138,17 +131,13 @@ class Scheduler:
         )
 
         return obs
-    # -----------------------------------------------------
-    # OBSERVATION für A2 + A3 (regelbasiert: einfach percepts)
-    # -----------------------------------------------------
+   
     def _build_patch_observation(self, agent):
-        # A2/A3 sind regelbasiert, brauchen nur percepts
+       
         percepts = self.world.get_percepts(agent)
         return percepts
 
-    # -----------------------------------------------------
-    # Scheduler führt ein Step aus
-    # -----------------------------------------------------
+   
     def step(self):
         if not any(getattr(a, "agent_alive", True) for a in self.agents):
             logger.info("step: ALL_DEAD detected")
@@ -163,7 +152,7 @@ class Scheduler:
 
         agent = self.agents[self.turn]
 
-        # Agent Nachrichten erhalten (nur einmalig!)
+       
         if self.bus:
             msgs = self.bus.get_messages_for(agent.role)
             if msgs and hasattr(agent, "receive_messages"):
@@ -175,7 +164,7 @@ class Scheduler:
             f"alive={getattr(agent, 'agent_alive', True)}"
         )
 
-        # Knowledge an A1 übergeben
+      
         if agent.role == "A1" and hasattr(agent, "set_memory"):
             agent.set_memory(
                 known=self.known,
@@ -212,7 +201,7 @@ class Scheduler:
         old_pos = agent.pos()
         self._update_memory_before_move(agent, percepts)
 
-        # APPLY MOVE
+      
         result = self.world.execute(agent, action)
         new_pos = agent.pos()
         new_percepts = self.world.get_percepts(agent)
